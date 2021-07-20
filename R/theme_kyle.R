@@ -5,6 +5,15 @@
 #' @param slides if TRUE, use background #ECECEC. if FALSE, transparent background. Default is False.
 #' @param has_subtitle Adjusts margins if there is a subtitle. Default is False.
 #' @param base_size The base_size of the font. Title, axis text, etc. all adjust to base_size. Default is 14.
+#'
+#' @examples
+#'
+#' library(ggplot)
+#' ggplot(mtcars) +
+#'    geom_point(aes(x = mpg, y = hp)) +
+#'    theme_kyle(base_size = 18)
+#'
+#' @export
 theme_kyle <- function(title_pos = "center", axis_title_pos = "left", slides = FALSE, has_subtitle = FALSE, base_size = 14, ...) {
 
 	title_hjust <- switch(title_pos, "center" = 0.5, "left" = 0)

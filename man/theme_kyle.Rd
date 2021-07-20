@@ -27,3 +27,11 @@ theme_kyle(
 \description{
 Custom ggplot theme
 }
+\examples{
+
+library(ggplot)
+ggplot(mtcars) +
+   geom_point(aes(x = mpg, y = hp)) +
+   theme_kyle(base_size = 18)
+
+}

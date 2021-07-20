@@ -11,6 +11,8 @@
 #'     gt_theme_kyle %>%
 #'     tab_header(title = make_gt_title("mtcars Dataset")) %>%
 #'     tab_source_note(source_note = "Data from mtcars in R")
+#'
+#' @export
 gt_theme_kyle <- function(data,...) {
 	data %>%
 		gt::opt_all_caps()  %>%
@@ -50,6 +52,9 @@ gt_theme_kyle <- function(data,...) {
 }
 
 
+#' Helper function to make gt title with gt_theme_kyle
+#'
+#' @export
 make_gt_title <- function(title) {
 	html <- htmltools::span(style = "display: block; margin-bottom: 8px;", title)
 	gt::html(as.character(html))
