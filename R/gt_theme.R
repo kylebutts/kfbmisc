@@ -24,7 +24,7 @@ gt_theme_kyle <- function(data,...) {
 		) %>%
 		gt::tab_style(
 			style = gt::cell_borders(
-				sides = "bottom", color = "black", weight = gt::px(2)
+				sides = "bottom", color = "transparent", weight = gt::px(2)
 			),
 			locations = gt::cells_body(
 				columns = gt::everything(),
