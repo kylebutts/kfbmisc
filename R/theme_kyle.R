@@ -16,6 +16,13 @@
 #' @export
 theme_kyle <- function(title_pos = "center", axis_title_pos = "left", slides = FALSE, has_subtitle = FALSE, base_size = 14, ...) {
 
+	# Check if fonts were loaded. If not, load them
+	if( !("fira_sans" %in% sysfonts::font_families()) ) {
+		sysfonts::font_add_google("Fira Sans", "fira_sans")
+		sysfonts::font_add_google("Merriweather", "merriweather")
+		showtext::showtext_auto()
+	}
+
 	title_hjust <- switch(title_pos, "center" = 0.5, "left" = 0)
 	axis_title_hjust_y <- switch(axis_title_pos, "center" = 0.5, "left" = 1.0)
 	axis_title_hjust_x <- switch(axis_title_pos, "center" = 0.5, "left" = 0.0)
