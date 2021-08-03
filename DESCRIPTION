@@ -2,7 +2,12 @@ Package: kfbmisc
 Type: Package
 Title: Collection of Functions that I find useful
 Version: 0.1.0
-Author: Who wrote it
+Authors@R: 
+    c(person(given = "Kyle",
+             family = "Butts",
+             role = c("aut","cre"),
+             email = "kyle.butts@colorado.edu",
+             comment = c(ORCID = "0000-0002-9048-8059")))
 Maintainer: Kyle Butts <buttskyle96@gmail.com>
 Encoding: UTF-8
 LazyData: true
@@ -13,3 +18,4 @@ Imports:
     magrittr,
     showtext,
     sysfonts
+Roxygen: list(markdown = TRUE)
