@@ -18,23 +18,11 @@ gt_theme_kyle <- function(data,...) {
 		gt::opt_all_caps()  %>%
 		gt::opt_table_font(
 			font = list(
-				gt::google_font("Chivo"),
+				gt::google_font("Fira Code"),
 				gt::default_fonts()
 			)
 		) %>%
-		gt::tab_style(
-			style = gt::cell_borders(
-				sides = "bottom", color = "transparent", weight = gt::px(2)
-			),
-			locations = gt::cells_body(
-				columns = gt::everything(),
-				# This is a relatively sneaky way of changing the bottom border
-				# Regardless of data size
-				rows = nrow(data$`_data`)
-			)
-		)  %>%
 		gt::tab_options(
-			column_labels.background.color = "white",
 			table.border.top.width = gt::px(3),
 			table.border.top.color = "transparent",
 			table.border.bottom.color = "transparent",
