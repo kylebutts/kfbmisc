@@ -18,7 +18,7 @@ gt_theme_kyle <- function(data,...) {
 		gt::opt_all_caps()  %>%
 		gt::opt_table_font(
 			font = list(
-				gt::google_font("Chivo"),
+				gt::google_font("Atkinson Hyperelegible"),
 				gt::default_fonts()
 			)
 		) %>%
