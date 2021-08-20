@@ -4,6 +4,7 @@
 #' @param pdf_file Specify custom pdf output location. Otherwise the same
 #'   location of file will be used
 #'
+#' @export
 print_rmd <- function(file, pdf_file = NULL) {
 	if(is.null(pdf_file)) {
 		pdf_file = file
