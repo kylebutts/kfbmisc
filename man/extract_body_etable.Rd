@@ -28,7 +28,7 @@ tab <- fixest::etable(est, tex = TRUE, fitstat = c("n", "ar2"))
 #> \\midrule \\emph\{Fit statistics\}&  \\\\
 #> Observations & 32\\\\
 #> Adjusted R$^2$ & 0.58919\\\\
-#> \\midrule\\midrule\\multicolumn\{2\}\{l\}\{\\emph\{Normal standard-errors in parentheses\}\}\\\\
+#> \\midrule\\midrule\\multicolumn\{2\}\{l\}\{\\emph\{IID standard-errors in parentheses\}\}\\\\
 #> \\multicolumn\{2\}\{l\}\{\\emph\{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1\}\}\\\\
 #> \\end\{tabular\}
 }\if{html}{\out{<div class="r">}}\preformatted{# export to file with file option of cat
