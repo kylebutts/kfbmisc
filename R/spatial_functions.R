@@ -48,6 +48,7 @@ st_extract_within <- function(x, y, var) {
 #'
 #' ```{r, comment = "#>"}
 #' library(sf)
+#' set.seed(1)
 #' nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #' x <- st_as_sf(data.frame(id = 1:10, geometry = st_sample(nc, 10)))
 #' nc$contains_x = st_indicator_for_within(x, nc)

@@ -11,15 +11,21 @@ fill_column(gtobj, columns, FUN, ...)
 
 \item{columns}{The names of the columns that are to be targeted.}
 
-\item{FUN}{Function that takes options \code{...} and returns a vector of color values.
+\item{FUN}{Function that returns a vector of color values.
 Note that the first two arguments should be \code{data} which will be \code{gtobj[["_data"]]}
-and \code{columns} which will be passed from the argument}
+and \code{columns} which passes \code{columns}. Additional optinos can be passed from \code{...}}
 }
 \description{
 Conditionally fill column with custom function
 }
+\details{
+If you have columns you want to reference in FUN that you don't want
+in the final table, use \code{gt::cols_hide()}
+}
 \section{Examples}{
-\if{html}{\out{<div class="r">}}\preformatted{color_if <- function(data, columns, var, value) \{
+
+
+Simple example that colors if a variable in the data equals some value\if{html}{\out{<div class="r">}}\preformatted{color_if <- function(data, columns, var, value) \{
   color <- rep("transparent", nrow(data))
   color[data[[var]] == value] <- "red"
   color

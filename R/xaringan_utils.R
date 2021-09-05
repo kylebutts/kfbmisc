@@ -8,8 +8,8 @@
 print_rmd <- function(file, pdf_file = NULL) {
 	if(is.null(pdf_file)) {
 		pdf_file = file
-		pdf_file = str_replace(pdf_file, ".Rmd", ".pdf")
-		pdf_file = str_replace(pdf_file, ".html", ".pdf")
+		pdf_file = stringr::str_replace(pdf_file, ".Rmd", ".pdf")
+		pdf_file = stringr::str_replace(pdf_file, ".html", ".pdf")
 	}
 
 	# temp allows for easier error output

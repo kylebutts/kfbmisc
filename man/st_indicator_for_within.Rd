@@ -16,6 +16,7 @@ Returns an indicator vector for whether y contains a point of x using st_within
 }
 \section{Examples}{
 \if{html}{\out{<div class="r">}}\preformatted{library(sf)
+set.seed(1)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 }\if{html}{\out{</div>}}\preformatted{#> Reading layer `nc' from data source `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/sf/shape/nc.shp' using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
@@ -33,8 +34,8 @@ nc
 #> Geodetic CRS:  NAD27
 #> First 10 features:
 #>     AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74 NWBIR74 BIR79 SID79 NWBIR79                       geometry contains_x
-#> 1  0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1      10  1364     0      19 MULTIPOLYGON (((-81.47276 3...          1
-#> 2  0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0      10   542     3      12 MULTIPOLYGON (((-81.23989 3...          0
+#> 1  0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1      10  1364     0      19 MULTIPOLYGON (((-81.47276 3...          0
+#> 2  0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0      10   542     3      12 MULTIPOLYGON (((-81.23989 3...          1
 #> 3  0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5     208  3616     6     260 MULTIPOLYGON (((-80.45634 3...          0
 #> 4  0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1     123   830     2     145 MULTIPOLYGON (((-76.00897 3...          0
 #> 5  0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9    1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...          0
