@@ -10,48 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// haversine
-double haversine(double lat1, double lon1, double lat2, double lon2);
-RcppExport SEXP _kfbmisc_haversine(SEXP lat1SEXP, SEXP lon1SEXP, SEXP lat2SEXP, SEXP lon2SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type lat1(lat1SEXP);
-    Rcpp::traits::input_parameter< double >::type lon1(lon1SEXP);
-    Rcpp::traits::input_parameter< double >::type lat2(lat2SEXP);
-    Rcpp::traits::input_parameter< double >::type lon2(lon2SEXP);
-    rcpp_result_gen = Rcpp::wrap(haversine(lat1, lon1, lat2, lon2));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_haversine_mat
-NumericMatrix rcpp_haversine_mat(NumericVector lon1, NumericVector lat1, NumericVector lon2, NumericVector lat2);
-RcppExport SEXP _kfbmisc_rcpp_haversine_mat(SEXP lon1SEXP, SEXP lat1SEXP, SEXP lon2SEXP, SEXP lat2SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type lon1(lon1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lat1(lat1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lon2(lon2SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lat2(lat2SEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_haversine_mat(lon1, lat1, lon2, lat2));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_haversine_mat_symmetric
-NumericMatrix rcpp_haversine_mat_symmetric(NumericVector lon1, NumericVector lat1, NumericVector lon2, NumericVector lat2);
-RcppExport SEXP _kfbmisc_rcpp_haversine_mat_symmetric(SEXP lon1SEXP, SEXP lat1SEXP, SEXP lon2SEXP, SEXP lat2SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type lon1(lon1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lat1(lat1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lon2(lon2SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lat2(lat2SEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_haversine_mat_symmetric(lon1, lat1, lon2, lat2));
-    return rcpp_result_gen;
-END_RCPP
-}
 // dist_haversine
 double dist_haversine(double lon_x, double lat_x, double lon_y, double lat_y);
 RcppExport SEXP _kfbmisc_dist_haversine(SEXP lon_xSEXP, SEXP lat_xSEXP, SEXP lon_ySEXP, SEXP lat_ySEXP) {
@@ -104,6 +62,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_parallel_distm_C_min_nonself
+IntegerVector rcpp_parallel_distm_C_min_nonself(NumericMatrix x, NumericMatrix y);
+RcppExport SEXP _kfbmisc_rcpp_parallel_distm_C_min_nonself(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_parallel_distm_C_min_nonself(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_parallel_nearest_facility
 NumericMatrix rcpp_parallel_nearest_facility(NumericMatrix x, NumericMatrix y);
 RcppExport SEXP _kfbmisc_rcpp_parallel_nearest_facility(SEXP xSEXP, SEXP ySEXP) {
@@ -116,16 +86,27 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_parallel_nearest_facility_nonself
+NumericMatrix rcpp_parallel_nearest_facility_nonself(NumericMatrix x, NumericMatrix y);
+RcppExport SEXP _kfbmisc_rcpp_parallel_nearest_facility_nonself(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_parallel_nearest_facility_nonself(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_kfbmisc_haversine", (DL_FUNC) &_kfbmisc_haversine, 4},
-    {"_kfbmisc_rcpp_haversine_mat", (DL_FUNC) &_kfbmisc_rcpp_haversine_mat, 4},
-    {"_kfbmisc_rcpp_haversine_mat_symmetric", (DL_FUNC) &_kfbmisc_rcpp_haversine_mat_symmetric, 4},
     {"_kfbmisc_dist_haversine", (DL_FUNC) &_kfbmisc_dist_haversine, 4},
     {"_kfbmisc_dist_spherical_cosine", (DL_FUNC) &_kfbmisc_dist_spherical_cosine, 4},
     {"_kfbmisc_rcpp_parallel_distm_C", (DL_FUNC) &_kfbmisc_rcpp_parallel_distm_C, 2},
     {"_kfbmisc_rcpp_parallel_distm_C_min", (DL_FUNC) &_kfbmisc_rcpp_parallel_distm_C_min, 2},
+    {"_kfbmisc_rcpp_parallel_distm_C_min_nonself", (DL_FUNC) &_kfbmisc_rcpp_parallel_distm_C_min_nonself, 2},
     {"_kfbmisc_rcpp_parallel_nearest_facility", (DL_FUNC) &_kfbmisc_rcpp_parallel_nearest_facility, 2},
+    {"_kfbmisc_rcpp_parallel_nearest_facility_nonself", (DL_FUNC) &_kfbmisc_rcpp_parallel_nearest_facility_nonself, 2},
     {NULL, NULL, 0}
 };
 

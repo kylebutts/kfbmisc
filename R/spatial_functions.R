@@ -109,7 +109,7 @@ st_multiply_sgbp <- function(sgbp, mat) {
 #' @param y. Optional. Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
 #'   If not included, x is used.
-#' @param unit. Either "mi" or "km". Sets the output distance.
+#' @param unit.  Either "mi", "km", or "m". Sets the output distance.
 #'
 #' @return Matrix of distances of dimension n_x by n_y.
 #'
@@ -151,7 +151,7 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 
 	# Symmetric
 	if(identical(x, y)) {
-		dist <- rcpp_haversine_mat_symmetric(x[,"lon"], x[,"lat"], x[,"lon"], x[,"lat"])
+		dist <- rcpp_parallel_distm_C(x, x)
 
 	# Non-symmetric
 	} else {
@@ -173,11 +173,14 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 		dist <- rcpp_parallel_distm_C(x, y)
 	}
 
-	if(unit != "km") {
-		cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
-	} else {
+	if(unit == "km") {
 		cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
 		dist <- dist / 0.621371
+	} else if(unit == "m") {
+		cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
+		dist <- dist / 0.621371 * 1000
+	} else {
+		cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
 	}
 
 	return(dist)
@@ -189,6 +192,7 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 #'   matrix of coordinates, use column order from `st_coordinates()`.
 #' @param y. Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
+#'   If missing, computes distance to nearest non-self element of `x`.
 #'
 #' @return Vector. Indices corresponding to row of y that is closest to each element of x.
 #'
@@ -201,7 +205,7 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 #' ```
 #'
 #' @export
-st_nearest_rcpp <- function(x, y) {
+st_nearest_rcpp <- function(x, y = NULL) {
 
 	if(inherits(x, "sf")) {
 		x <- st_geometry(x)
@@ -220,22 +224,33 @@ st_nearest_rcpp <- function(x, y) {
 
 
 	# Symmetric
-	if(inherits(y, "sf")) {
-		y <- st_geometry(y)
-	}
-	if(inherits(y, "sfc")) {
-		if(!inherits(y, "sfc_POINT")) {
-			y <- st_point_on_surface(y)
+	if(is.null(y)) {
+		idx <- rcpp_parallel_distm_C_min_nonself(x, x)
+
+	# Non-symmetric
+	} else {
+		if(inherits(y, "sf")) {
+			y <- st_geometry(y)
+		}
+		if(inherits(y, "sfc")) {
+			if(!inherits(y, "sfc_POINT")) {
+				y <- st_point_on_surface(y)
+			}
+
+			y <- st_coordinates(y)
+			colnames(y) <- c("lon", "lat")
+		}
+		if(inherits(y, "data.frame")) {
+			y <- as.matrix(y)
 		}
 
-		y <- st_coordinates(y)
-		colnames(y) <- c("lon", "lat")
+		# One last check for symmetry
+		if(identical(x, y)) {
+			idx <- rcpp_parallel_distm_C_min_nonself(x, x)
+		} else {
+			idx <- rcpp_parallel_distm_C_min(x, y)
+		}
 	}
-	if(inherits(y, "data.frame")) {
-		y <- as.matrix(y)
-	}
-
-	idx <- rcpp_parallel_distm_C_min(x, y)
 
 	return(idx)
 }
@@ -246,7 +261,8 @@ st_nearest_rcpp <- function(x, y) {
 #'   matrix of coordinates, use column order from `st_coordinates()`.
 #' @param y. Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
-#' @param unit. Either "mi" or "km". Sets the output distance.
+#'   If missing, computes distance to nearest non-self element of `x`.
+#' @param unit. Either "mi", "km", or "m". Sets the output distance.
 #'
 #' @return Matrix of two columns. First column is index corresponding to the
 #'   closest row of y. The second column is the distance to that element.
@@ -260,7 +276,7 @@ st_nearest_rcpp <- function(x, y) {
 #' ```
 #'
 #' @export
-st_nearest_distance_rcpp <- function(x, y, unit = "mi") {
+st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
 
 	if(inherits(x, "sf")) {
 		x <- st_geometry(x)
@@ -279,28 +295,42 @@ st_nearest_distance_rcpp <- function(x, y, unit = "mi") {
 
 
 	# Symmetric
-	if(inherits(y, "sf")) {
-		y <- st_geometry(y)
-	}
-	if(inherits(y, "sfc")) {
-		if(!inherits(y, "sfc_POINT")) {
-			y <- st_point_on_surface(y)
+	if(is.null(y)) {
+		mat <- rcpp_parallel_nearest_facility_nonself(x, x)
+
+		# Non-symmetric
+	} else {
+		if(inherits(y, "sf")) {
+			y <- st_geometry(y)
+		}
+		if(inherits(y, "sfc")) {
+			if(!inherits(y, "sfc_POINT")) {
+				y <- st_point_on_surface(y)
+			}
+
+			y <- st_coordinates(y)
+			colnames(y) <- c("lon", "lat")
+		}
+		if(inherits(y, "data.frame")) {
+			y <- as.matrix(y)
 		}
 
-		y <- st_coordinates(y)
-		colnames(y) <- c("lon", "lat")
-	}
-	if(inherits(y, "data.frame")) {
-		y <- as.matrix(y)
+		# One last check for symmetry
+		if(identical(x, y)) {
+			mat <- rcpp_parallel_nearest_facility_nonself(x, x)
+		} else {
+			mat <- rcpp_parallel_nearest_facility(x, y)
+		}
 	}
 
-	mat <- rcpp_parallel_nearest_facility(x, y)
-
-	if(unit != "km") {
-		cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
-		mat[,2] <- mat[,2] / 0.621371
-	} else {
+	if(unit == "km") {
 		cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
+		mat[, 2] <- mat[, 2] / 0.621371
+	} else if(unit == "m") {
+		cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
+		mat[, 2] <- mat[, 2] / 0.621371 * 1000
+	} else {
+		cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
 	}
 
 	return(mat)

@@ -4,14 +4,15 @@
 \alias{st_nearest_rcpp}
 \title{RcppParallel version of \code{st_nearest_feature}}
 \usage{
-st_nearest_rcpp(x, y)
+st_nearest_rcpp(x, y = NULL)
 }
 \arguments{
 \item{x.}{Object of class sf/sfc or a matrix of coordinates. If a
 matrix of coordinates, use column order from \code{st_coordinates()}.}
 
 \item{y.}{Object of class sf/sfc or a matrix of coordinates. If a
-matrix of coordinates, use column order from \code{st_coordinates()}.}
+matrix of coordinates, use column order from \code{st_coordinates()}.
+If missing, computes distance to nearest non-self element of \code{x}.}
 }
 \value{
 Vector. Indices corresponding to row of y that is closest to each element of x.

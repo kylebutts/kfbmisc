@@ -139,7 +139,6 @@ struct myDistanceVector : public Worker {
 	}
 };
 
-
 //'  Find closest unit from group y
 //'
 //'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
@@ -159,6 +158,66 @@ IntegerVector rcpp_parallel_distm_C_min(NumericMatrix x, NumericMatrix y) {
 	return rvec;
 }
 
+
+struct myDistanceVectorNonself : public Worker {
+	RMatrix<double> x;
+	RMatrix<double> y;
+	RVector<int> rvec;
+
+	myDistanceVectorNonself(NumericMatrix x, NumericMatrix y, IntegerVector rvec)
+		: x(x), y(y), rvec(rvec) {}
+
+	void operator()(std::size_t begin, std::size_t end) {
+		double dist = 0;
+		double min = 0;
+		int pos = 0;
+
+		for (std::size_t i = begin; i < end; i++) {
+			for (std::size_t j = 0; j < y.nrow(); j++) {
+
+				dist = dist_haversine(x(i, 0), x(i, 1), y(j, 0), y(j, 1));
+
+				// if on first position in row, set minimum to the first value
+				// set pos to 0 + 1 (adjust by 1 for returning back to R)
+				// Nonself => don't set j = 0 for i = 0
+				if ( (j == 0 & i > 0) | (i == 0 & j == 1)) {
+					min = dist;
+					pos = j + 1;
+
+				// else if encounter a smaller distance, set min and pos to
+				// current distance and position (+1 again to account for array
+				// indexing)
+				// Nonself => dist > 0
+				} else if (dist < min & dist > 0) {
+					min = dist;
+					pos = j + 1;
+				}
+
+			}
+
+			rvec[i] = pos;
+		}
+	}
+};
+
+//'  Find nearest neighbor of x (non-self)
+//'
+//'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param y. Same as x.
+//'
+//'  @return Vector. Contains index of closest unit in y
+//'
+//'  @export
+// [[Rcpp::export]]
+IntegerVector rcpp_parallel_distm_C_min_nonself(NumericMatrix x, NumericMatrix y) {
+	IntegerVector rvec(x.nrow());
+
+	myDistanceVectorNonself my_distance_vector(x, y, rvec);
+
+	parallelFor(0, x.nrow(), my_distance_vector, 1);
+
+	return rvec;
+}
 
 
 struct facilityMatrix : public Worker {
@@ -198,12 +257,12 @@ struct facilityMatrix : public Worker {
 			}
 
 			rmat(i,0) = pos;
-			rmat(i,1) = min;
+			rmat(i,1) = min / 1609.34;
 		}
 	}
 };
 
-//'  Find closest unit from group y and measured distance
+//'  Find closest unit from group y and measure distance
 //'
 //'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
 //'  @param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
@@ -217,6 +276,71 @@ NumericMatrix rcpp_parallel_nearest_facility(NumericMatrix x, NumericMatrix y) {
 	NumericMatrix rmat(x.nrow(), 2);
 
 	facilityMatrix my_distance_matrix(x, y, rmat);
+
+	parallelFor(0, rmat.nrow(), my_distance_matrix, 1);
+
+	return rmat;
+}
+
+
+struct facilityMatrixNonself : public Worker {
+	RMatrix<double> x;
+	RMatrix<double> y;
+	RMatrix<double> rmat;
+
+	//int miles;
+
+	facilityMatrixNonself(NumericMatrix x, NumericMatrix y, NumericMatrix rmat)
+		: x(x), y(y), rmat(rmat) {}
+
+	void operator()(std::size_t begin, std::size_t end) {
+		double dist = 0;
+		double min = 0;
+		int pos = 0;
+
+		for (std::size_t i = begin; i < end; i++) {
+			for (std::size_t j = 0; j < y.nrow(); j++) {
+
+				//dist = dist_haversine(x(i, 0), x(i, 1), y(j, 0), y(j, 1));
+				dist = dist_haversine(x(i, 0), x(i, 1), y(j, 0), y(j, 1));
+
+				// if on first position in row, set minimum to the first value
+				// set pos to 0 + 1 (adjust by 1 for returning back to R)
+				// Nonself => don't set j = 0 for i = 0
+				if ( (j == 0 & i > 0) | (i == 0 & j == 1)) {
+					min = dist;
+					pos = j + 1;
+
+				// else if encounter a smaller distance, set min and pos to
+				// current distance and position (+1 again to account for array
+				// indexing)
+				// Nonself => dist > 0
+				} else if (dist < min & dist > 0) {
+					min = dist;
+					pos = j + 1;
+				}
+			}
+
+			rmat(i,0) = pos;
+			rmat(i,1) = min / 1609.34;
+		}
+	}
+};
+
+//'  Find nearest neighbor of x and measure distance (non-self)
+//'
+//'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param y. Same as x.
+//'
+//'  @return Matrix. 2 columns. First column is index of closest unit in y.
+//'  Second column is distance
+//'
+//'  @export
+// [[Rcpp::export]]
+NumericMatrix rcpp_parallel_nearest_facility_nonself(NumericMatrix x, NumericMatrix y) {
+	NumericMatrix rmat(x.nrow(), 2);
+
+	facilityMatrixNonself my_distance_matrix(x, y, rmat);
 
 	parallelFor(0, rmat.nrow(), my_distance_matrix, 1);
 

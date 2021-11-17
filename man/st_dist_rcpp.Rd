@@ -14,7 +14,7 @@ matrix of coordinates, use column order from \code{st_coordinates()}.}
 matrix of coordinates, use column order from \code{st_coordinates()}.
 If not included, x is used.}
 
-\item{unit.}{Either "mi" or "km". Sets the output distance.}
+\item{unit.}{Either "mi", "km", or "m". Sets the output distance.}
 }
 \value{
 Matrix of distances of dimension n_x by n_y.
@@ -35,9 +35,9 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 }\if{html}{\out{</div>}}\preformatted{#> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct results for longitude/latitude data
 }\preformatted{#> → Distance in miles. To use kilometers use option `unit == 'km'`
 }\preformatted{#>          [,1]     [,2]     [,3]
-#> [1,]  0.00000 32.95619 71.88198
-#> [2,] 32.95619  0.00000 40.46726
-#> [3,] 71.88198 40.46726  0.00000
+#> [1,]  0.00000 20.50102 44.71554
+#> [2,] 20.50102  0.00000 25.17342
+#> [3,] 44.71554 25.17342  0.00000
 }\if{html}{\out{<div class="r">}}\preformatted{nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
 # massive speedup
 microbenchmark::microbenchmark(
@@ -49,8 +49,8 @@ microbenchmark::microbenchmark(
 }\preformatted{#> → Distance in miles. To use kilometers use option `unit == 'km'`
 }\preformatted{#> Unit: milliseconds
 #>      expr        min         lq       mean     median         uq        max neval
-#>        sf 7270.57769 7270.57769 7270.57769 7270.57769 7270.57769 7270.57769     1
-#>  parallel   43.11906   43.11906   43.11906   43.11906   43.11906   43.11906     1
+#>        sf 6484.72160 6484.72160 6484.72160 6484.72160 6484.72160 6484.72160     1
+#>  parallel   19.37125   19.37125   19.37125   19.37125   19.37125   19.37125     1
 }
 }
 
