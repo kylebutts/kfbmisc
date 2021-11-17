@@ -19,14 +19,7 @@ Extract table body from \code{\link[gt::gt]{gt::gt}}
 
 # export to file with file option of cat
 cat(extract_body_gt(tab))
-}\if{html}{\out{</div>}}\preformatted{#> mpg & cyl & disp & hp & drat & wt & qsec & vs & am & gear & carb \\\\ 
-#> \\midrule
-#> 21.0 & 6 & 160 & 110 & 3.90 & 2.620 & 16.46 & 0 & 1 & 4 & 4 \\\\ 
-#> 21.0 & 6 & 160 & 110 & 3.90 & 2.875 & 17.02 & 0 & 1 & 4 & 4 \\\\ 
-#> 22.8 & 4 & 108 & 93 & 3.85 & 2.320 & 18.61 & 1 & 1 & 4 & 1 \\\\ 
-#> 21.4 & 6 & 258 & 110 & 3.08 & 3.215 & 19.44 & 1 & 0 & 3 & 1 \\\\ 
-#> 18.7 & 8 & 360 & 175 & 3.15 & 3.440 & 17.02 & 0 & 0 & 3 & 2 \\\\ 
-#> 18.1 & 6 & 225 & 105 & 2.76 & 3.460 & 20.22 & 1 & 0 & 3 & 1 \\\\
+}\if{html}{\out{</div>}}\preformatted{#> NA
 }
 }
 
@@ -40,10 +33,7 @@ tab <- tbl_summary(
   modify_footnote(update = everything() ~ NA)
 
 cat(extract_body_gt(tab))
-}\if{html}{\out{</div>}}\preformatted{#> \\textbf\{Characteristic\} & \\textbf\{4\}, N = 11 & \\textbf\{6\}, N = 7 & \\textbf\{8\}, N = 14 \\\\ 
-#> \\midrule
-#> hp & 83 (21) & 122 (24) & 209 (51) \\\\ 
-#> mpg & 26.7 (4.5) & 19.7 (1.5) & 15.1 (2.6) \\\\
+}\if{html}{\out{</div>}}\preformatted{#> NA
 }
 }
 }

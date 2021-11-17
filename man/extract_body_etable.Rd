@@ -18,33 +18,33 @@ Extract table body from \code{\link[fixest:etable]{fixest::etable}}
 tab <- fixest::etable(est, tex = TRUE, fitstat = c("n", "ar2"))
 }\if{html}{\out{</div>}}\preformatted{#> \\begin\{tabular\}\{lc\}
 #> \\tabularnewline\\midrule\\midrule
-#> Dependent Variable:&hp\\\\
-#> Model:&(1)\\\\
-#> \\midrule \\emph\{Variables\}&  \\\\
+#> Dependent Variable: & hp\\\\
+#> Model: & (1)\\\\
+#> \\midrule \\emph\{Variables\} &  \\\\
 #> (Intercept) & 324.1$^\{***\}$\\\\
-#>   &(27.43)\\\\
+#>   & (27.43)\\\\
 #> mpg & -8.830$^\{***\}$\\\\
-#>   &(1.310)\\\\
-#> \\midrule \\emph\{Fit statistics\}&  \\\\
+#>   & (1.310)\\\\
+#> \\midrule \\emph\{Fit statistics\} &  \\\\
 #> Observations & 32\\\\
 #> Adjusted R$^2$ & 0.58919\\\\
-#> \\midrule\\midrule\\multicolumn\{2\}\{l\}\{\\emph\{Normal standard-errors in parentheses\}\}\\\\
+#> \\midrule\\midrule\\multicolumn\{2\}\{l\}\{\\emph\{IID standard-errors in parentheses\}\}\\\\
 #> \\multicolumn\{2\}\{l\}\{\\emph\{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1\}\}\\\\
 #> \\end\{tabular\}
 }\if{html}{\out{<div class="r">}}\preformatted{# export to file with file option of cat
 cat(extract_body_etable(tab))
-}\if{html}{\out{</div>}}\preformatted{#> Dependent Variable:&hp\\\\
+}\if{html}{\out{</div>}}\preformatted{#> Dependent Variable: & hp\\\\
 #> 
-#> Model:&(1)\\\\
+#> Model: & (1)\\\\
 #> 
-#> \\midrule \\emph\{Variables\}&  \\\\
+#> \\midrule \\emph\{Variables\} &  \\\\
 #> 
 #> (Intercept) & 324.1$^\{***\}$\\\\
-#>   &(27.43)\\\\
+#>   & (27.43)\\\\
 #> mpg & -8.830$^\{***\}$\\\\
-#>   &(1.310)\\\\
+#>   & (1.310)\\\\
 #> 
-#> \\midrule \\emph\{Fit statistics\}&  \\\\
+#> \\midrule \\emph\{Fit statistics\} &  \\\\
 #> 
 #> Observations & 32\\\\
 #> Adjusted R$^2$ & 0.58919\\\\
@@ -52,34 +52,34 @@ cat(extract_body_etable(tab))
 tab_fe <- fixest::etable(est_fe, tex = TRUE, fitstat = c("n", "ar2"))
 }\if{html}{\out{</div>}}\preformatted{#> \\begin\{tabular\}\{lc\}
 #> \\tabularnewline\\midrule\\midrule
-#> Dependent Variable:&hp\\\\
-#> Model:&(1)\\\\
-#> \\midrule \\emph\{Variables\}&  \\\\
+#> Dependent Variable: & hp\\\\
+#> Model: & (1)\\\\
+#> \\midrule \\emph\{Variables\} &  \\\\
 #> mpg & -3.327$^\{*\}$\\\\
-#>   &(1.114)\\\\
-#> \\midrule \\emph\{Fixed-effects\}&  \\\\
+#>   & (1.114)\\\\
+#> \\midrule \\emph\{Fixed-effects\} &  \\\\
 #> cyl & Yes\\\\
-#> \\midrule \\emph\{Fit statistics\}&  \\\\
+#> \\midrule \\emph\{Fit statistics\} &  \\\\
 #> Observations & 32\\\\
 #> Adjusted R$^2$ & 0.70855\\\\
 #> \\midrule\\midrule\\multicolumn\{2\}\{l\}\{\\emph\{Clustered (cyl) standard-errors in parentheses\}\}\\\\
 #> \\multicolumn\{2\}\{l\}\{\\emph\{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1\}\}\\\\
 #> \\end\{tabular\}
 }\if{html}{\out{<div class="r">}}\preformatted{cat(extract_body_etable(tab_fe))
-}\if{html}{\out{</div>}}\preformatted{#> Dependent Variable:&hp\\\\
+}\if{html}{\out{</div>}}\preformatted{#> Dependent Variable: & hp\\\\
 #> 
-#> Model:&(1)\\\\
+#> Model: & (1)\\\\
 #> 
-#> \\midrule \\emph\{Variables\}&  \\\\
+#> \\midrule \\emph\{Variables\} &  \\\\
 #> 
 #> mpg & -3.327$^\{*\}$\\\\
-#>   &(1.114)\\\\
+#>   & (1.114)\\\\
 #> 
-#> \\midrule \\emph\{Fixed-effects\}&  \\\\
+#> \\midrule \\emph\{Fixed-effects\} &  \\\\
 #> 
 #> cyl & Yes\\\\
 #> 
-#> \\midrule \\emph\{Fit statistics\}&  \\\\
+#> \\midrule \\emph\{Fit statistics\} &  \\\\
 #> 
 #> Observations & 32\\\\
 #> Adjusted R$^2$ & 0.70855\\\\

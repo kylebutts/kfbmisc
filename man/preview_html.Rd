@@ -44,7 +44,6 @@ more_or_less <- div(
     )
 )
 
-
 preview_html(more_or_less)
 }\if{html}{\out{</div>}}
 }

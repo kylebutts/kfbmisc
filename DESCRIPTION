@@ -16,6 +16,12 @@ Imports:
     dplyr,
     ggplot2,
     magrittr,
+    Rcpp,
+    RcppParallel,
     showtext,
     sysfonts
 Roxygen: list(markdown = TRUE)
+LinkingTo: 
+    Rcpp,
+    RcppParallel
+SystemRequirements: GNU make

@@ -42,8 +42,7 @@
 #'     )
 #' )
 #'
-#'
-#' preview_html(more_or_less)
+#' # preview_html(more_or_less)
 #' ```
 #'
 #'

@@ -19,7 +19,7 @@ theme_kyle <- function(title_pos = "center", axis_title_pos = "left", slides = F
 	# Check if fonts were loaded. If not, load them
 	if( !("fira_sans" %in% sysfonts::font_families()) ) {
 		sysfonts::font_add_google("Fira Sans", "fira_sans")
-		sysfonts::font_add_google("Merriweather", "merriweather")
+		sysfonts::font_add_google("Lato", "lato")
 		showtext::showtext_auto()
 	}
 
@@ -28,7 +28,7 @@ theme_kyle <- function(title_pos = "center", axis_title_pos = "left", slides = F
 	axis_title_hjust_x <- switch(axis_title_pos, "center" = 0.5, "left" = 0.0)
 	plot_bg = dplyr::if_else(slides, "#ECECEC", "transparent")
 	plot_grid = dplyr::if_else(slides, "grey85", "grey92")
-	title_margin = dplyr::if_else(has_subtitle, "4", "16")
+	title_margin = dplyr::if_else(has_subtitle, "4", "8")
 
 	# Fix problems with axis ticks getting huge with large fonts
 	if(base_size >= 20) {
@@ -45,7 +45,7 @@ theme_kyle <- function(title_pos = "center", axis_title_pos = "left", slides = F
 		## Title and Subtitle --------------------------------------------------
 		plot.title = ggplot2::element_text(
 			# Font
-			family = "merriweather", face = "bold", size = 1.285 * base_size,
+			family = "fira_sans", face = "bold", size = 1.285 * base_size,
 			colour = "#454545",
 			# Center title
 			hjust = title_hjust,
@@ -54,7 +54,7 @@ theme_kyle <- function(title_pos = "center", axis_title_pos = "left", slides = F
 		),
 		plot.subtitle = ggplot2::element_text(
 			# Font
-			family = "merriweather", face = "italic", size = .86 * base_size,
+			family = "fira_sans", face = "italic", size = .86 * base_size,
 			colour = "#454545",
 			# Center subtitle
 			hjust = title_hjust,
