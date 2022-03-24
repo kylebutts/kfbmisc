@@ -1,6 +1,7 @@
 #' From an indicator for treatment, retrieve start year.
 #'
 #' @description This function returns the earliest year where an indicator == 1.
+#'   If indicator never equals zero, return Inf.
 #'   This is most useful with `group_by(unit) |> mutate(g = ...)` or
 #'   `DT(j = g := ..., by = unit)` to convert between D and g variable in panel data.
 #'
@@ -11,5 +12,7 @@
 #'
 #' @export
 get_min_year = function(y, t) {
-	return(y[order(y)][min(which(t[order(y)] == 1))])
+	min = y[order(y)][min(which(t[order(y)] == 1))]
+	if(is.na(min)) min = Inf
+	return(min)
 }
