@@ -335,3 +335,19 @@ st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
 
 	return(mat)
 }
+
+#' @title Convert geometry column to `longitude`/`latitude` columns
+#' @param df data.frame with a `geometry` column
+#' @param geom_column String containing the name of the geometry column. 
+#'   Default is geometry
+#' 
+st_geometry_to_lat_long <- function(df, geom_column = "geometry") {
+  coords = df[[geom_column]] |> 
+    st_transform(st_crs(4326)) |>
+    st_coordinates()
+  df[[geom_column]] = NULL
+  df$longitude = coords[, 1]
+  df$latitude = coords[, 2]
+
+  return(df)
+}
