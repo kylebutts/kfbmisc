@@ -31,7 +31,7 @@ Custom ggplot theme
 
 library(ggplot)
 ggplot(mtcars) +
-   geom_point(aes(x = mpg, y = hp)) +
-   theme_kyle(base_size = 18)
+  geom_point(aes(x = mpg, y = hp)) +
+  theme_kyle(base_size = 18)
 
 }

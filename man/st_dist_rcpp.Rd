@@ -23,34 +23,47 @@ Matrix of distances of dimension n_x by n_y.
 RcppParallel version of \code{st_distance}
 }
 \section{Examples}{
-\if{html}{\out{<div class="r">}}\preformatted{library(sf)
+
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
-}\if{html}{\out{</div>}}\preformatted{#> Reading layer `nc' from data source `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/sf/shape/nc.shp' using driver `ESRI Shapefile'
+#> Reading layer `nc' from data source 
+#>   `/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/sf/shape/nc.shp' 
+#>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
-}\if{html}{\out{<div class="r">}}\preformatted{st_dist_rcpp(nc[1:3,])
-}\if{html}{\out{</div>}}\preformatted{#> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct results for longitude/latitude data
-}\preformatted{#> → Distance in miles. To use kilometers use option `unit == 'km'`
-}\preformatted{#>          [,1]     [,2]     [,3]
-#> [1,]  0.00000 20.50102 44.71554
-#> [2,] 20.50102  0.00000 25.17342
-#> [3,] 44.71554 25.17342  0.00000
-}\if{html}{\out{<div class="r">}}\preformatted{nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
+st_dist_rcpp(nc[1:3,])
+#> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
+#> results for longitude/latitude data
+#> > Distance in miles. To use kilometers use option `unit == 'km'`
+#>              [,1]         [,2]         [,3]
+#> [1,] 2.383768e-13 2.050102e+01 4.471554e+01
+#> [2,] 2.050102e+01 9.055578e-14 2.517342e+01
+#> [3,] 4.471554e+01 2.517342e+01 1.907309e-13
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
 # massive speedup
 microbenchmark::microbenchmark(
  sf = sf::st_distance(nc_long),
   parallel = st_dist_rcpp(nc_long),
   times = 1
 )
-}\if{html}{\out{</div>}}\preformatted{#> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct results for longitude/latitude data
-}\preformatted{#> → Distance in miles. To use kilometers use option `unit == 'km'`
-}\preformatted{#> Unit: milliseconds
-#>      expr        min         lq       mean     median         uq        max neval
-#>        sf 6484.72160 6484.72160 6484.72160 6484.72160 6484.72160 6484.72160     1
-#>  parallel   19.37125   19.37125   19.37125   19.37125   19.37125   19.37125     1
-}
+#> Warning in microbenchmark::microbenchmark(sf = sf::st_distance(nc_long), : less
+#> accurate nanosecond times to avoid potential integer overflows
+#> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
+#> results for longitude/latitude data
+#> > Distance in miles. To use kilometers use option `unit == 'km'`
+#> Unit: milliseconds
+#>      expr          min           lq         mean       median           uq
+#>        sf 77455.156970 77455.156970 77455.156970 77455.156970 77455.156970
+#>  parallel     9.174037     9.174037     9.174037     9.174037     9.174037
+#>           max neval
+#>  77455.156970     1
+#>      9.174037     1
+}\if{html}{\out{</div>}}
 }
 

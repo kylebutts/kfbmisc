@@ -343,8 +343,8 @@ st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
 #' 
 st_geometry_to_lat_long <- function(df, geom_column = "geometry") {
   coords = df[[geom_column]] |> 
-    st_transform(st_crs(4326)) |>
-    st_coordinates()
+    sf::st_transform(sf::st_crs(4326)) |>
+    sf::st_coordinates()
   df[[geom_column]] = NULL
   df$longitude = coords[, 1]
   df$latitude = coords[, 2]

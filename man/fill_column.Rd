@@ -25,7 +25,9 @@ in the final table, use \code{gt::cols_hide()}
 \section{Examples}{
 
 
-Simple example that colors if a variable in the data equals some value\if{html}{\out{<div class="r">}}\preformatted{color_if <- function(data, columns, var, value) \{
+Simple example that colors if a variable in the data equals some value
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{color_if <- function(data, columns, var, value) \{
   color <- rep("transparent", nrow(data))
   color[data[[var]] == value] <- "red"
   color

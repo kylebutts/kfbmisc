@@ -16,6 +16,7 @@ Returns earliest y for which t == 1
 }
 \description{
 This function returns the earliest year where an indicator == 1.
+If indicator never equals zero, return Inf.
 This is most useful with \code{group_by(unit) |> mutate(g = ...)} or
 \code{DT(j = g := ..., by = unit)} to convert between D and g variable in panel data.
 }

@@ -19,33 +19,38 @@ and extract value of variable \code{var}. This is good, for example, if you have
 points and you want to extract information about the county/census tract/etc.
 }
 \section{Examples}{
-\if{html}{\out{<div class="r">}}\preformatted{library(sf)
+
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
+#> Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
-}\if{html}{\out{</div>}}\preformatted{#> Reading layer `nc' from data source `/Library/Frameworks/R.framework/Versions/4.1/Resources/library/sf/shape/nc.shp' using driver `ESRI Shapefile'
+#> Reading layer `nc' from data source 
+#>   `/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/sf/shape/nc.shp' 
+#>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
-}\if{html}{\out{<div class="r">}}\preformatted{x <- st_as_sf(data.frame(id = 1:10, geometry = st_sample(nc, 10)))
+x <- st_as_sf(data.frame(id = 1:10, geometry = st_sample(nc, 10)))
 x$CNTY_ID = st_extract_within(x, nc, "CNTY_ID")
 x
-}\if{html}{\out{</div>}}\preformatted{#> Simple feature collection with 10 features and 2 fields
+#> Simple feature collection with 10 features and 2 fields
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: -82.88205 ymin: 34.12193 xmax: -77.8617 ymax: 36.3765
+#> Bounding box:  xmin: -84.03171 ymin: 34.14322 xmax: -77.2983 ymax: 36.3698
 #> Geodetic CRS:  NAD27
 #>    id                   geometry CNTY_ID
-#> 1   1  POINT (-77.8617 36.15865)    1846
-#> 2   2 POINT (-78.68961 34.92138)    2090
-#> 3   3 POINT (-78.20089 34.98432)    2083
-#> 4   4  POINT (-79.10822 34.9056)    2097
-#> 5   5  POINT (-80.2241 36.19449)    1900
-#> 6   6  POINT (-79.11274 35.2582)    2030
-#> 7   7 POINT (-82.88205 35.92165)    1946
-#> 8   8 POINT (-78.70325 34.12193)    2232
-#> 9   9  POINT (-80.05204 36.3765)    1837
-#> 10 10 POINT (-78.32137 35.37391)    1989
-}
+#> 1   1 POINT (-77.60546 35.75621)    1928
+#> 2   2 POINT (-79.49741 36.17498)    1904
+#> 3   3 POINT (-77.83133 34.81359)    2100
+#> 4   4 POINT (-77.88473 34.14322)    2238
+#> 5   5 POINT (-79.56617 34.84183)    2123
+#> 6   6 POINT (-84.03171 35.23982)    2088
+#> 7   7  POINT (-79.33525 36.3698)    1838
+#> 8   8  POINT (-77.2983 35.34538)    2119
+#> 9   9 POINT (-78.18431 35.86861)    1913
+#> 10 10 POINT (-80.41501 35.51678)    1980
+}\if{html}{\out{</div>}}
 }
 

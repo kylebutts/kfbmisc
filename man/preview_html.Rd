@@ -16,8 +16,15 @@ is helpful when creating things with custom css using htmltools
 (or modifying gt tables)
 }
 \section{Examples}{
-\if{html}{\out{<div class="r">}}\preformatted{library(fontawesome)
+
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(fontawesome)
 library(htmltools)
+#> 
+#> Attaching package: 'htmltools'
+#> The following objects are masked from 'package:kfbmisc':
+#> 
+#>     h1, h2
 more_or_less_css <- css(
     font.size = "13px",
     width = "80px",
