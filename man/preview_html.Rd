@@ -20,11 +20,6 @@ is helpful when creating things with custom css using htmltools
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(fontawesome)
 library(htmltools)
-#> 
-#> Attaching package: 'htmltools'
-#> The following objects are masked from 'package:kfbmisc':
-#> 
-#>     h1, h2
 more_or_less_css <- css(
     font.size = "13px",
     width = "80px",

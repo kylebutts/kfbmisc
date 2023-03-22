@@ -2,36 +2,33 @@
 % Please edit documentation in R/theme_kyle.R
 \name{theme_kyle}
 \alias{theme_kyle}
-\title{Custom ggplot theme}
+\title{Custom ggplot2 theme}
 \usage{
-theme_kyle(
-  title_pos = "center",
-  axis_title_pos = "left",
-  slides = FALSE,
-  has_subtitle = FALSE,
-  base_size = 14,
-  ...
-)
+theme_kyle(base_size = 14, ...)
 }
 \arguments{
-\item{title_pos}{either "center" or "left" to align title and subtitle center of left respectively. Default is "center".}
-
-\item{axis_title_pos}{either "center" or "left" to align title and subtitle center or left/top respectively. Default is "left".}
-
-\item{slides}{if TRUE, use background #ECECEC. if FALSE, transparent background. Default is False.}
-
-\item{has_subtitle}{Adjusts margins if there is a subtitle. Default is False.}
-
 \item{base_size}{The base_size of the font. Title, axis text, etc. all adjust to base_size. Default is 14.}
+
+\item{title_pos}{either "center" or "left" to align title and subtitle center of left respectively}
+
+\item{slides}{if TRUE, use background #ECECEC or not}
 }
 \description{
-Custom ggplot theme
+Custom ggplot2 theme
 }
 \examples{
 
-library(ggplot)
-ggplot(mtcars) +
-  geom_point(aes(x = mpg, y = hp)) +
+ggplot2::ggplot(mtcars) +
+  ggplot2::geom_point(aes(x = mpg, y = hp)) +
+  theme_kyle(base_size = 18)
+
+ggplot2::ggplot(mtcars) + 
+  ggplot2::geom_point(aes(x = mpg, y = hp)) + 
+  ggplot2::facet_wrap(~ cyl) +
+  ggplot2::labs(
+    title = "mtcars Dataset", 
+    x = "Miles per Gallon", y = "Horsepower"
+  ) +
   theme_kyle(base_size = 18)
 
 }
