@@ -33,7 +33,7 @@ Simple example that colors if a variable in the data equals some value
   color
 \}
 
-gt(mtcars) \%>\%
+gt(mtcars) |>
   fill_column(column = "mpg", FUN = color_if, var = "cyl", val = 6)
 }\if{html}{\out{</div>}}
 }

@@ -55,7 +55,7 @@ extract_body_etable <- function(tab) {
 #'   mtcars[,c("cyl", "hp", "mpg")],
 #'   statistic = list(all_continuous() ~ "{mean} ({sd})"),
 #'   by = "cyl"
-#' ) %>%
+#' ) |>
 #'   # remove footnotes
 #'   modify_footnote(update = everything() ~ NA)
 #'

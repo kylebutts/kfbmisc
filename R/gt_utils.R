@@ -20,7 +20,7 @@
 #'   color
 #' }
 #'
-#' gt(mtcars) %>%
+#' gt(mtcars) |>
 #'   fill_column(column = "mpg", FUN = color_if, var = "cyl", val = 6)
 #' ```
 #'
@@ -32,7 +32,7 @@ fill_column <- function(gtobj, columns, FUN, ...){
 
 	# Loops through each row of `column` and color cells based on color vector
 	for(i in seq_along(data)){
-		gtobj <- gtobj %>%
+		gtobj <- gtobj |>
 			gt::tab_style(
 				style = gt::cell_fill(color = color[i]),
 				locations = gt::cells_body(columns = columns, rows = i)

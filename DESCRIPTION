@@ -1,7 +1,7 @@
 Package: kfbmisc
 Type: Package
 Title: Collection of Functions that I find useful
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Kyle",
              family = "Butts",
@@ -13,13 +13,9 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
 Imports: 
-    dplyr,
     ggplot2,
-    magrittr,
     Rcpp,
-    RcppParallel,
-    showtext,
-    sysfonts
+    RcppParallel
 Roxygen: list(markdown = TRUE)
 LinkingTo: 
     Rcpp,

@@ -6,22 +6,22 @@
 #'
 #' library(gt)
 #'
-#' mtcars[1:5, ] %>%
-#'     gt() %>%
-#'     gt_theme_kyle %>%
-#'     tab_header(title = make_gt_title("mtcars Dataset")) %>%
+#' mtcars[1:5, ] |>
+#'     gt() |>
+#'     gt_theme_kyle() |>
+#'     tab_header(title = make_gt_title("mtcars Dataset")) |>
 #'     tab_source_note(source_note = "Data from mtcars in R")
 #'
 #' @export
 gt_theme_kyle <- function(data,...) {
-	data %>%
-		gt::opt_all_caps()  %>%
+	data |>
+		gt::opt_all_caps()  |>
 		gt::opt_table_font(
 			font = list(
 				gt::google_font("Fira Code"),
 				gt::default_fonts()
 			)
-		) %>%
+		) |>
 		gt::tab_options(
 			table.border.top.width = gt::px(3),
 			table.border.top.color = "transparent",
