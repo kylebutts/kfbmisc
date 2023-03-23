@@ -36,3 +36,4 @@ LinkingTo:
     RcppParallel
 SystemRequirements: GNUmake
 License: MIT + file LICENSE
+URL: https://kylebutts.github.io/kfbmisc/
