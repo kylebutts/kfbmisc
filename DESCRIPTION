@@ -1,7 +1,7 @@
 Package: kfbmisc
 Type: Package
 Title: Collection of Functions that I Find Useful
-Description: A suite of functions: my ggplot2 and gt themes; helper functions for ggplot2; tools for working with html; spatial functions; function for saving Rmd files; and working with latex tables.
+Description: A suite of functions: my ggplot2 and gt themes; helper functions for ggplot2; tools for working with html; spatial functions; panel data functions; and function for saving Rmd files.
 Version: 0.2.0
 Authors@R: 
     c(person(given = "Kyle",
@@ -21,6 +21,7 @@ Imports:
     gtsummary,
     htmltools,
     pagedown,
+    pkgdown,
     png,
     Rcpp,
     RcppParallel,
