@@ -28,13 +28,16 @@ introblock <- function(filename, author = "Kyle Butts, CU Boulder Economics", tx
 	)
 
 	str <- paste0(file, "\n", author, "\n", line, "\n", txt, collapse = "")
-	cli::cli({
+	
+  if (interactive()) {
+    cli::cli({
+      cli::cli_alert("Copied the following to the clipboard:")
+      cli::cli_code(str)
+    })
 
-		cli::cli_alert("Copied the following to the clipboard:")
-		cli::cli_code(str)
-	})
+    clipr::write_clip(str)
+  }
 
-	clipr::write_clip(str)
 }
 
 #' Section headers
@@ -56,12 +59,14 @@ header1 <- function(txt) {
 		collapse = ""
 	)
 
-	cli::cli({
-		cli::cli_alert("Copied the following to the clipboard:")
-		cli::cli_code(str)
-	})
+  if (interactive()) {
+    cli::cli({
+      cli::cli_alert("Copied the following to the clipboard:")
+      cli::cli_code(str)
+    })
 
-	clipr::write_clip(str)
+    clipr::write_clip(str)
+  }
 }
 
 # Not for export (to avoid name conflicts)
@@ -84,12 +89,14 @@ header2 <- function(txt) {
 		collapse = ""
 	)
 
-	cli::cli({
-		cli::cli_alert("Copied the following to the clipboard:")
-		cli::cli_code(str)
-	})
+  if (interactive()) {
+    cli::cli({
+      cli::cli_alert("Copied the following to the clipboard:")
+      cli::cli_code(str)
+    })
 
-	clipr::write_clip(str)
+    clipr::write_clip(str)
+  }
 }
 
 h2 <- header2

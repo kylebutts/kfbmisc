@@ -6,7 +6,7 @@
 #' @param lon_x Longitude for starting point
 #' @param lat_x Latitude for starting point
 #' @param lon_y Longitude for ending point
-#' @param lat_x Latitude for ending point
+#' @param lat_y Latitude for ending point
 #'
 #' @return Double of distance between points in m
 #'
@@ -19,7 +19,7 @@ dist_haversine <- function(lon_x, lat_x, lon_y, lat_y) {
 #' @param lon_x Longitude for starting point
 #' @param lat_x Latitude for starting point
 #' @param lon_y Longitude for ending point
-#' @param lat_x Latitude for ending point
+#' @param lat_y Latitude for ending point
 #'
 #' @return Double of distance between points in m
 #'
@@ -29,8 +29,8 @@ dist_spherical_cosine <- function(lon_x, lat_x, lon_y, lat_y) {
 
 #' Parallel calculates distance between two matrices of lat/long.
 #'
-#' @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#' @param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#' @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
 #'
 #' @return returns matrix of distances in miles
 #'
@@ -40,8 +40,8 @@ rcpp_parallel_distm_C <- function(x, y) {
 
 #'  Find closest unit from group y
 #'
-#'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#'  @param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#'  @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
 #'
 #'  @return Vector. Contains index of closest unit in y
 #'
@@ -52,8 +52,8 @@ rcpp_parallel_distm_C_min <- function(x, y) {
 
 #'  Find nearest neighbor of x (non-self)
 #'
-#'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#'  @param y. Same as x.
+#'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#'  @param y Same as x.
 #'
 #'  @return Vector. Contains index of closest unit in y
 #'
@@ -64,8 +64,8 @@ rcpp_parallel_distm_C_min_nonself <- function(x, y) {
 
 #'  Find closest unit from group y and measure distance
 #'
-#'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#'  @param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#'  @param x Matrix
+#'  @param y Matrix
 #'
 #'  @return Matrix. 2 columns. First column is index of closest unit in y.
 #'  Second column is distance
@@ -77,8 +77,8 @@ rcpp_parallel_nearest_facility <- function(x, y) {
 
 #'  Find nearest neighbor of x and measure distance (non-self)
 #'
-#'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#'  @param y. Same as x.
+#'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#'  @param y Same as x.
 #'
 #'  @return Matrix. 2 columns. First column is index of closest unit in y.
 #'  Second column is distance

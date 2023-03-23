@@ -1,6 +1,6 @@
-#' Extract table body from \code{\link[fixest:etable]{fixest::etable}}
+#' Extract table body from `fixest::etable`
 #'
-#' @param tab The result of \code{\link[fixest:etable]{fixest::etable}} with
+#' @param tab The result of `fixest::etable` with
 #'   `tex = TRUE`
 #'
 #' @section Examples:
@@ -30,9 +30,9 @@ extract_body_etable <- function(tab) {
 
 
 
-#' Extract table body from \code{\link[gt::gt]{gt::gt}}
+#' Extract table body from `gt::gt`
 #'
-#' @param tab The result of \code{\link[gt::gt]{gt::gt}} or after manually
+#' @param tab The result of `gt::gt` or after manually
 #'   calling `as.character(gt::as_latex(tab))`
 #'
 #' @section Examples:

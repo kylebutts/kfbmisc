@@ -1,15 +1,16 @@
 #' Custom ggplot2 theme
 #'
 #' @param base_size The base_size of the font. Title, axis text, etc. all adjust to base_size. Default is 14.
+#' @param ... Additoinal options passed to `ggplot2::theme`
 #'
 #' @examples
 #'
 #' ggplot2::ggplot(mtcars) +
-#'   ggplot2::geom_point(aes(x = mpg, y = hp)) +
+#'   ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) +
 #'   theme_kyle(base_size = 18)
 #' 
 #' ggplot2::ggplot(mtcars) + 
-#'   ggplot2::geom_point(aes(x = mpg, y = hp)) + 
+#'   ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) + 
 #'   ggplot2::facet_wrap(~ cyl) +
 #'   ggplot2::labs(
 #'     title = "mtcars Dataset", 
@@ -18,9 +19,6 @@
 #'   theme_kyle(base_size = 18)
 #'
 #' @export
-
-#' @param title_pos either "center" or "left" to align title and subtitle center of left respectively
-#' @param slides if TRUE, use background #ECECEC or not
 theme_kyle <- function(base_size = 14, ...) {
 	
 	ggplot2::theme_bw(
@@ -84,13 +82,13 @@ theme_kyle <- function(base_size = 14, ...) {
 				size = ggplot2::rel(1), colour = "#212121"
 			),
 			# Axis Lines
-			axis.line = element_line(
+			axis.line = ggplot2::element_line(
 				colour = "grey40"
 			),
-      axis.ticks = element_line(
+      axis.ticks = ggplot2::element_line(
 				colour = "grey40"
 			),
-			panel.grid = element_line(
+			panel.grid = ggplot2::element_line(
 				colour = "grey92"
 			),
 			
@@ -118,7 +116,7 @@ theme_kyle <- function(base_size = 14, ...) {
         fill = "white", 
         colour = "grey40", linewidth = 2,
 			),
-      panel.margin = unit(2, "lines"),
+      panel.margin = grid::unit(2, "lines"),
 			
 			## Panel ---------------------------------------------------------------
 			panel.background = ggplot2::element_rect(
@@ -152,11 +150,11 @@ theme_kyle <- function(base_size = 14, ...) {
 theme_map <- function() {
     ## Additional options passed by user ---------------------------------------
     ggplot2::theme(
-    		axis.text = element_blank(),
-    		axis.ticks = element_blank(),
-    		panel.background = element_rect(fill = "white"),
-    		panel.grid.major = element_blank(),
-    		axis.line = element_blank(),
-    		axis.title = element_blank()
+    		axis.text = ggplot2::element_blank(),
+    		axis.ticks = ggplot2::element_blank(),
+    		panel.background = ggplot2::element_rect(fill = "white"),
+    		panel.grid.major = ggplot2::element_blank(),
+    		axis.line = ggplot2::element_blank(),
+    		axis.title = ggplot2::element_blank()
     )
 }

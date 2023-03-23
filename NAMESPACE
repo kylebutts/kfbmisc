@@ -3,7 +3,6 @@
 export(copy_vec)
 export(extract_body_etable)
 export(extract_body_gt)
-export(fact_to_sparse)
 export(fill_column)
 export(get_min_year)
 export(ggpreview)

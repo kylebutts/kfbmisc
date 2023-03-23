@@ -7,14 +7,14 @@
 st_dist_rcpp(x, y = x, unit = "mi")
 }
 \arguments{
-\item{x.}{Object of class sf/sfc or a matrix of coordinates. If a
+\item{x}{Object of class sf/sfc or a matrix of coordinates. If a
 matrix of coordinates, use column order from \code{st_coordinates()}.}
 
-\item{y.}{Optional. Object of class sf/sfc or a matrix of coordinates. If a
+\item{y}{Optional. Object of class sf/sfc or a matrix of coordinates. If a
 matrix of coordinates, use column order from \code{st_coordinates()}.
 If not included, x is used.}
 
-\item{unit.}{Either "mi", "km", or "m". Sets the output distance.}
+\item{unit}{Either "mi", "km", or "m". Sets the output distance.}
 }
 \value{
 Matrix of distances of dimension n_x by n_y.
@@ -39,10 +39,10 @@ st_dist_rcpp(nc[1:3,])
 #> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
 #> results for longitude/latitude data
 #> > Distance in miles. To use kilometers use option `unit == 'km'`
-#>              [,1]         [,2]         [,3]
-#> [1,] 2.383768e-13 2.050102e+01 4.471554e+01
-#> [2,] 2.050102e+01 9.055578e-14 2.517342e+01
-#> [3,] 4.471554e+01 2.517342e+01 1.907309e-13
+#>          [,1]     [,2]     [,3]
+#> [1,]  0.00000 20.50102 44.71554
+#> [2,] 20.50102  0.00000 25.17342
+#> [3,] 44.71554 25.17342  0.00000
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
@@ -56,12 +56,12 @@ microbenchmark::microbenchmark(
 #> results for longitude/latitude data
 #> > Distance in miles. To use kilometers use option `unit == 'km'`
 #> Unit: milliseconds
-#>      expr         min          lq        mean      median          uq
-#>        sf 3974.962833 3974.962833 3974.962833 3974.962833 3974.962833
-#>  parallel    7.085374    7.085374    7.085374    7.085374    7.085374
-#>          max neval
-#>  3974.962833     1
-#>     7.085374     1
+#>      expr        min         lq       mean     median         uq        max
+#>        sf 4099.25671 4099.25671 4099.25671 4099.25671 4099.25671 4099.25671
+#>  parallel    6.48005    6.48005    6.48005    6.48005    6.48005    6.48005
+#>  neval
+#>      1
+#>      1
 }\if{html}{\out{</div>}}
 }
 

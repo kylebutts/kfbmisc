@@ -16,25 +16,38 @@ Character string of htmltools:: version of html
 Note that this copies text to your clipboard
 }
 \examples{
-raw1 <- div(
+raw1 <- htmltools::div(
   class = "max-w-6xl",
-  div(
+  htmltools::div(
     class = "prose", style = "width:100\%;",
-    h1("Header"),
+    htmltools::h1("Header"),
     "prose"
   ),
-  div(
+  htmltools::div(
     class = "prose",
-    h2("Smaller Header"),
-    p("Testing ", span(class = "italic", "this function")),
-    img(src = "cat.png", 'custom-attr' = 1)
+    htmltools::h2("Smaller Header"),
+    htmltools::p(
+      "Testing ", 
+      htmltools::span(class = "italic", "this function")),
+    htmltools::img(src = "cat.png", 'custom-attr' = 1)
   )
 ) |>
   as.character()
 
 html2R(raw1)
 
-raw2 <- r"(<div class="container-fluid max-w-6xl"><div class="prose" style="width:100\%;"><h1>Header</h1>prose</div><div class="prose"><h2>Smaller Header</h2><p>Testing<span class="italic">this function</span></p><img src="cat.png" custom-attr="1"/></div></div>)"
+raw2 <- r"(
+<div class="container-fluid max-w-6xl">
+  <div class="prose" style="width:100\%;">
+    <h1>Header</h1>
+    prose
+  </div>
+  <div class="prose">
+    <h2>Smaller Header</h2>
+    <p>Testing <span class="italic">this function</span></p>
+    <img src="cat.png" custom-attr="1"/>
+  </div>
+</div>)"
 
 html2R(raw2)
 

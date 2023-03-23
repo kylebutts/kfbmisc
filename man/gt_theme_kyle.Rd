@@ -6,6 +6,11 @@
 \usage{
 gt_theme_kyle(data, ...)
 }
+\arguments{
+\item{data}{\code{gt} object. Pipe into this function to add theme}
+
+\item{...}{Additional arguments to pass to \code{gt::tab_options}}
+}
 \description{
 Custom gt theme which borrows heavily from Thomas Mock
 }

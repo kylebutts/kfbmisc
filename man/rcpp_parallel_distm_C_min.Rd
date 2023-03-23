@@ -7,8 +7,8 @@
 rcpp_parallel_distm_C_min(x, y)
 }
 \description{
-@param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-@param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+@param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+@param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
 }
 \details{
 @return Vector. Contains index of closest unit in y

@@ -13,7 +13,9 @@ fill_column(gtobj, columns, FUN, ...)
 
 \item{FUN}{Function that returns a vector of color values.
 Note that the first two arguments should be \code{data} which will be \code{gtobj[["_data"]]}
-and \code{columns} which passes \code{columns}. Additional optinos can be passed from \code{...}}
+and \code{columns} which passes \code{columns}.}
+
+\item{...}{Additional options passed into \code{FUN}}
 }
 \description{
 Conditionally fill column with custom function

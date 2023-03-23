@@ -4,7 +4,8 @@
 #' @param columns The names of the columns that are to be targeted.
 #' @param FUN Function that returns a vector of color values.
 #'   Note that the first two arguments should be `data` which will be `gtobj[["_data"]]`
-#'   and `columns` which passes `columns`. Additional optinos can be passed from `...`
+#'   and `columns` which passes `columns`. 
+#' @param ... Additional options passed into `FUN`
 #'
 #' @details If you have columns you want to reference in FUN that you don't want
 #'   in the final table, use `gt::cols_hide()`

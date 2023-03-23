@@ -27,13 +27,13 @@
 #'   geom_point()
 #'
 #' # Preview with specific dimensions
-#' ggpreview(plot1, width = 7, height = 4)
+#' if (interactive()) ggpreview(plot1, width = 7, height = 4)
 #'
 #' # Preview as PDF
-#' ggpreview(plot1, device = "pdf", width = 7, height = 4)
+#' if (interactive()) ggpreview(plot1, device = "pdf", width = 7, height = 4)
 #'
 #'
-ggpreview <- function(..., device = "png", cairo = FALSE) {
+ggpreview <- function(..., device = "png") {
 	fname <- tempfile(fileext = paste0(".", device))
 
 	ggplot2::ggsave(filename = fname, device = device, ...)
@@ -48,8 +48,7 @@ ggpreview <- function(..., device = "png", cairo = FALSE) {
 #' Create image grob from png and output the width and height
 #'
 #' This takes a png file and converts it to a grob. This is useful in
-#' combination with
-#' \code{\link[ggplot2::annotation_custom()]{ggplot2::annotation_custom()}}.o
+#' combination with `ggplot2::annotation_custom()`
 #'
 #' @param source name of image to read
 #'

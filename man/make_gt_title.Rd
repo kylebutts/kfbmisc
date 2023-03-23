@@ -6,6 +6,9 @@
 \usage{
 make_gt_title(title)
 }
+\arguments{
+\item{title}{Character containing title.}
+}
 \description{
 Helper function to make gt title with gt_theme_kyle
 }

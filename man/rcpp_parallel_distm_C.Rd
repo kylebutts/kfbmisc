@@ -7,9 +7,9 @@
 rcpp_parallel_distm_C(x, y)
 }
 \arguments{
-\item{x.}{matrix of coordinates. In the same format as st_coordinates output (X, Y)}
+\item{x}{matrix of coordinates. In the same format as st_coordinates output (X, Y)}
 
-\item{y.}{matrix of coordinates. In the same format as st_coordinates output (X, Y)}
+\item{y}{matrix of coordinates. In the same format as st_coordinates output (X, Y)}
 }
 \value{
 returns matrix of distances in miles

@@ -2,6 +2,9 @@
 
 #' Custom gt theme which borrows heavily from Thomas Mock
 #'
+#' @param data `gt` object. Pipe into this function to add theme
+#' @param ... Additional arguments to pass to `gt::tab_options`
+#' 
 #' @examples
 #'
 #' library(gt)
@@ -42,6 +45,8 @@ gt_theme_kyle <- function(data,...) {
 
 #' Helper function to make gt title with gt_theme_kyle
 #'
+#' @param title Character containing title.
+#' 
 #' @export
 make_gt_title <- function(title) {
 	html <- htmltools::span(style = "display: block; margin-bottom: 8px;", title)

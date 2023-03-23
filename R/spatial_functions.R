@@ -61,7 +61,7 @@ st_indicator_for_within <- function(x, y) {
 		stop("Both x and y must be sf objects")
 	}
 
-	temp = st_within(x, y)
+	temp = sf::st_within(x, y)
 
 	idx = unlist(temp)
 
@@ -104,12 +104,12 @@ st_multiply_sgbp <- function(sgbp, mat) {
 
 #' RcppParallel version of `st_distance`
 #'
-#' @param x. Object of class sf/sfc or a matrix of coordinates. If a
+#' @param x Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
-#' @param y. Optional. Object of class sf/sfc or a matrix of coordinates. If a
+#' @param y Optional. Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
 #'   If not included, x is used.
-#' @param unit.  Either "mi", "km", or "m". Sets the output distance.
+#' @param unit  Either "mi", "km", or "m". Sets the output distance.
 #'
 #' @return Matrix of distances of dimension n_x by n_y.
 #'
@@ -134,14 +134,14 @@ st_multiply_sgbp <- function(sgbp, mat) {
 #' @export
 st_dist_rcpp <- function(x, y = x, unit = "mi") {
 	if(inherits(x, "sf")) {
-		x <- st_geometry(x)
+		x <- sf::st_geometry(x)
 	}
 	if(inherits(x, "sfc")) {
 		if(!inherits(x, "sfc_POINT")) {
-			x <- st_point_on_surface(x)
+			x <- sf::st_point_on_surface(x)
 		}
 
-		x <- st_coordinates(x)
+		x <- sf::st_coordinates(x)
 		colnames(x) <- c("lon", "lat")
 	}
 	if(inherits(x, "data.frame")) {
@@ -156,14 +156,14 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 	# Non-symmetric
 	} else {
 		if(inherits(y, "sf")) {
-			y <- st_geometry(y)
+			y <- sf::st_geometry(y)
 		}
 		if(inherits(y, "sfc")) {
 			if(!inherits(y, "sfc_POINT")) {
-				y <- st_point_on_surface(y)
+				y <- sf::st_point_on_surface(y)
 			}
 
-			y <- st_coordinates(y)
+			y <- sf::st_coordinates(y)
 			colnames(y) <- c("lon", "lat")
 		}
 		if(inherits(y, "data.frame")) {
@@ -188,9 +188,9 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 
 #' RcppParallel version of `st_nearest_feature`
 #'
-#' @param x. Object of class sf/sfc or a matrix of coordinates. If a
+#' @param x Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
-#' @param y. Object of class sf/sfc or a matrix of coordinates. If a
+#' @param y Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
 #'   If missing, computes distance to nearest non-self element of `x`.
 #'
@@ -208,14 +208,14 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 st_nearest_rcpp <- function(x, y = NULL) {
 
 	if(inherits(x, "sf")) {
-		x <- st_geometry(x)
+		x <- sf::st_geometry(x)
 	}
 	if(inherits(x, "sfc")) {
 		if(!inherits(x, "sfc_POINT")) {
-			x <- st_point_on_surface(x)
+			x <- sf::st_point_on_surface(x)
 		}
 
-		x <- st_coordinates(x)
+		x <- sf::st_coordinates(x)
 		colnames(x) <- c("lon", "lat")
 	}
 	if(inherits(x, "data.frame")) {
@@ -230,14 +230,14 @@ st_nearest_rcpp <- function(x, y = NULL) {
 	# Non-symmetric
 	} else {
 		if(inherits(y, "sf")) {
-			y <- st_geometry(y)
+			y <- sf::st_geometry(y)
 		}
 		if(inherits(y, "sfc")) {
 			if(!inherits(y, "sfc_POINT")) {
-				y <- st_point_on_surface(y)
+				y <- sf::st_point_on_surface(y)
 			}
 
-			y <- st_coordinates(y)
+			y <- sf::st_coordinates(y)
 			colnames(y) <- c("lon", "lat")
 		}
 		if(inherits(y, "data.frame")) {
@@ -257,12 +257,12 @@ st_nearest_rcpp <- function(x, y = NULL) {
 
 #' RcppParallel distance to nearest point
 #'
-#' @param x. Object of class sf/sfc or a matrix of coordinates. If a
+#' @param x Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
-#' @param y. Object of class sf/sfc or a matrix of coordinates. If a
+#' @param y Object of class sf/sfc or a matrix of coordinates. If a
 #'   matrix of coordinates, use column order from `st_coordinates()`.
 #'   If missing, computes distance to nearest non-self element of `x`.
-#' @param unit. Either "mi", "km", or "m". Sets the output distance.
+#' @param unit Either "mi", "km", or "m". Sets the output distance.
 #'
 #' @return Matrix of two columns. First column is index corresponding to the
 #'   closest row of y. The second column is the distance to that element.
@@ -279,14 +279,14 @@ st_nearest_rcpp <- function(x, y = NULL) {
 st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
 
 	if(inherits(x, "sf")) {
-		x <- st_geometry(x)
+		x <- sf::st_geometry(x)
 	}
 	if(inherits(x, "sfc")) {
 		if(!inherits(x, "sfc_POINT")) {
-			x <- st_point_on_surface(x)
+			x <- sf::st_point_on_surface(x)
 		}
 
-		x <- st_coordinates(x)
+		x <- sf::st_coordinates(x)
 		colnames(x) <- c("lon", "lat")
 	}
 	if(inherits(x, "data.frame")) {
@@ -301,14 +301,14 @@ st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
 		# Non-symmetric
 	} else {
 		if(inherits(y, "sf")) {
-			y <- st_geometry(y)
+			y <- sf::st_geometry(y)
 		}
 		if(inherits(y, "sfc")) {
 			if(!inherits(y, "sfc_POINT")) {
-				y <- st_point_on_surface(y)
+				y <- sf::st_point_on_surface(y)
 			}
 
-			y <- st_coordinates(y)
+			y <- sf::st_coordinates(y)
 			colnames(y) <- c("lon", "lat")
 		}
 		if(inherits(y, "data.frame")) {

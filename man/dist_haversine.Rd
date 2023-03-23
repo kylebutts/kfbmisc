@@ -9,9 +9,11 @@ dist_haversine(lon_x, lat_x, lon_y, lat_y)
 \arguments{
 \item{lon_x}{Longitude for starting point}
 
-\item{lat_x}{Latitude for ending point}
+\item{lat_x}{Latitude for starting point}
 
 \item{lon_y}{Longitude for ending point}
+
+\item{lat_y}{Latitude for ending point}
 }
 \value{
 Double of distance between points in m

@@ -2,16 +2,16 @@
 % Please edit documentation in R/extract_table_body.R
 \name{extract_body_etable}
 \alias{extract_body_etable}
-\title{Extract table body from \code{\link[fixest:etable]{fixest::etable}}}
+\title{Extract table body from \code{fixest::etable}}
 \usage{
 extract_body_etable(tab)
 }
 \arguments{
-\item{tab}{The result of \code{\link[fixest:etable]{fixest::etable}} with
+\item{tab}{The result of \code{fixest::etable} with
 \code{tex = TRUE}}
 }
 \description{
-Extract table body from \code{\link[fixest:etable]{fixest::etable}}
+Extract table body from \code{fixest::etable}
 }
 \section{Examples}{
 

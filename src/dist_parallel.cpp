@@ -12,7 +12,7 @@ using namespace Rcpp;
 //' @param lon_x Longitude for starting point
 //' @param lat_x Latitude for starting point
 //' @param lon_y Longitude for ending point
-//' @param lat_x Latitude for ending point
+//' @param lat_y Latitude for ending point
 //'
 //' @return Double of distance between points in m
 //'
@@ -47,7 +47,7 @@ double dist_haversine(double lon_x, double lat_x, double lon_y, double lat_y) {
 //' @param lon_x Longitude for starting point
 //' @param lat_x Latitude for starting point
 //' @param lon_y Longitude for ending point
-//' @param lat_x Latitude for ending point
+//' @param lat_y Latitude for ending point
 //'
 //' @return Double of distance between points in m
 //'
@@ -85,8 +85,8 @@ struct myDistanceMatrix : public Worker {
 
 //' Parallel calculates distance between two matrices of lat/long.
 //'
-//' @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//' @param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
 //'
 //' @return returns matrix of distances in miles
 //'
@@ -141,8 +141,8 @@ struct myDistanceVector : public Worker {
 
 //'  Find closest unit from group y
 //'
-//'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
 //'
 //'  @return Vector. Contains index of closest unit in y
 //'
@@ -202,8 +202,8 @@ struct myDistanceVectorNonself : public Worker {
 
 //'  Find nearest neighbor of x (non-self)
 //'
-//'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y. Same as x.
+//'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param y Same as x.
 //'
 //'  @return Vector. Contains index of closest unit in y
 //'
@@ -264,8 +264,8 @@ struct facilityMatrix : public Worker {
 
 //'  Find closest unit from group y and measure distance
 //'
-//'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y. matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param x Matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param y Matrix of coordinates. In the same format as st_coordinates output (X, Y)
 //'
 //'  @return Matrix. 2 columns. First column is index of closest unit in y.
 //'  Second column is distance
@@ -329,8 +329,8 @@ struct facilityMatrixNonself : public Worker {
 
 //'  Find nearest neighbor of x and measure distance (non-self)
 //'
-//'  @param x. matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y. Same as x.
+//'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//'  @param y Same as x.
 //'
 //'  @return Matrix. 2 columns. First column is index of closest unit in y.
 //'  Second column is distance

@@ -2,16 +2,16 @@
 % Please edit documentation in R/extract_table_body.R
 \name{extract_body_gt}
 \alias{extract_body_gt}
-\title{Extract table body from \code{\link[gt::gt]{gt::gt}}}
+\title{Extract table body from \code{gt::gt}}
 \usage{
 extract_body_gt(tab)
 }
 \arguments{
-\item{tab}{The result of \code{\link[gt::gt]{gt::gt}} or after manually
+\item{tab}{The result of \code{gt::gt} or after manually
 calling \code{as.character(gt::as_latex(tab))}}
 }
 \description{
-Extract table body from \code{\link[gt::gt]{gt::gt}}
+Extract table body from \code{gt::gt}
 }
 \section{Examples}{
 
