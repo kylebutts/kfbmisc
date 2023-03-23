@@ -6,13 +6,15 @@
 \usage{
 rcpp_parallel_nearest_facility_nonself(x, y)
 }
-\description{
-@param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-@param y Same as x.
-}
-\details{
-@return Matrix. 2 columns. First column is index of closest unit in y.
-Second column is distance
+\arguments{
+\item{x}{matrix of coordinates. In the same format as st_coordinates output (X, Y)}
 
-@export
+\item{y}{Same as x.}
+}
+\value{
+Matrix. 2 columns. First column is index of closest unit in y.
+Second column is distance
+}
+\description{
+Find nearest neighbor of x and measure distance (non-self)
 }

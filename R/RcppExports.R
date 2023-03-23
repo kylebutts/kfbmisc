@@ -38,52 +38,52 @@ rcpp_parallel_distm_C <- function(x, y) {
     .Call('_kfbmisc_rcpp_parallel_distm_C', PACKAGE = 'kfbmisc', x, y)
 }
 
-#'  Find closest unit from group y
+#' Find closest unit from group y
 #'
-#'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#'  @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#' @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
 #'
-#'  @return Vector. Contains index of closest unit in y
+#' @return Vector. Contains index of closest unit in y
 #'
-#'  @export
+#' @export
 rcpp_parallel_distm_C_min <- function(x, y) {
     .Call('_kfbmisc_rcpp_parallel_distm_C_min', PACKAGE = 'kfbmisc', x, y)
 }
 
-#'  Find nearest neighbor of x (non-self)
+#' Find nearest neighbor of x (non-self)
 #'
-#'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#'  @param y Same as x.
+#' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#' @param y Same as x.
 #'
-#'  @return Vector. Contains index of closest unit in y
+#' @return Vector. Contains index of closest unit in y
 #'
-#'  @export
+#' @export
 rcpp_parallel_distm_C_min_nonself <- function(x, y) {
     .Call('_kfbmisc_rcpp_parallel_distm_C_min_nonself', PACKAGE = 'kfbmisc', x, y)
 }
 
-#'  Find closest unit from group y and measure distance
+#' Find closest unit from group y and measure distance
 #'
-#'  @param x Matrix
-#'  @param y Matrix
+#' @param x Matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#' @param y Matrix of coordinates. In the same format as st_coordinates output (X, Y)
 #'
-#'  @return Matrix. 2 columns. First column is index of closest unit in y.
-#'  Second column is distance
+#' @return Matrix. 2 columns. First column is index of closest unit in y.
+#' Second column is distance
 #'
-#'  @export
+#' @export
 rcpp_parallel_nearest_facility <- function(x, y) {
     .Call('_kfbmisc_rcpp_parallel_nearest_facility', PACKAGE = 'kfbmisc', x, y)
 }
 
-#'  Find nearest neighbor of x and measure distance (non-self)
+#' Find nearest neighbor of x and measure distance (non-self)
 #'
-#'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-#'  @param y Same as x.
+#' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+#' @param y Same as x.
 #'
-#'  @return Matrix. 2 columns. First column is index of closest unit in y.
-#'  Second column is distance
+#' @return Matrix. 2 columns. First column is index of closest unit in y.
+#' Second column is distance
 #'
-#'  @export
+#' @export
 rcpp_parallel_nearest_facility_nonself <- function(x, y) {
     .Call('_kfbmisc_rcpp_parallel_nearest_facility_nonself', PACKAGE = 'kfbmisc', x, y)
 }

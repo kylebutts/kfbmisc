@@ -41,5 +41,4 @@ if (interactive()) ggpreview(plot1, width = 7, height = 4)
 # Preview as PDF
 if (interactive()) ggpreview(plot1, device = "pdf", width = 7, height = 4)
 
-
 }

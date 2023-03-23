@@ -48,7 +48,7 @@ st_dist_rcpp(nc[1:3,])
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
 # massive speedup
 microbenchmark::microbenchmark(
- sf = sf::st_distance(nc_long),
+	 sf = sf::st_distance(nc_long),
   parallel = st_dist_rcpp(nc_long),
   times = 1
 )
@@ -56,12 +56,12 @@ microbenchmark::microbenchmark(
 #> results for longitude/latitude data
 #> > Distance in miles. To use kilometers use option `unit == 'km'`
 #> Unit: milliseconds
-#>      expr        min         lq       mean     median         uq        max
-#>        sf 4099.25671 4099.25671 4099.25671 4099.25671 4099.25671 4099.25671
-#>  parallel    6.48005    6.48005    6.48005    6.48005    6.48005    6.48005
-#>  neval
-#>      1
-#>      1
+#>      expr         min          lq        mean      median          uq
+#>        sf 4062.694920 4062.694920 4062.694920 4062.694920 4062.694920
+#>  parallel    6.373532    6.373532    6.373532    6.373532    6.373532
+#>          max neval
+#>  4062.694920     1
+#>     6.373532     1
 }\if{html}{\out{</div>}}
 }
 

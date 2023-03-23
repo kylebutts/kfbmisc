@@ -20,11 +20,11 @@ ggplot2::ggplot(mtcars) +
   ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) +
   theme_kyle(base_size = 18)
 
-ggplot2::ggplot(mtcars) + 
-  ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) + 
-  ggplot2::facet_wrap(~ cyl) +
+ggplot2::ggplot(mtcars) +
+  ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) +
+  ggplot2::facet_wrap(~cyl) +
   ggplot2::labs(
-    title = "mtcars Dataset", 
+    title = "mtcars Dataset",
     x = "Miles per Gallon", y = "Horsepower"
   ) +
   theme_kyle(base_size = 18)

@@ -6,13 +6,15 @@
 \usage{
 rcpp_parallel_nearest_facility(x, y)
 }
-\description{
-@param x Matrix
-@param y Matrix
-}
-\details{
-@return Matrix. 2 columns. First column is index of closest unit in y.
-Second column is distance
+\arguments{
+\item{x}{Matrix of coordinates. In the same format as st_coordinates output (X, Y)}
 
-@export
+\item{y}{Matrix of coordinates. In the same format as st_coordinates output (X, Y)}
+}
+\value{
+Matrix. 2 columns. First column is index of closest unit in y.
+Second column is distance
+}
+\description{
+Find closest unit from group y and measure distance
 }

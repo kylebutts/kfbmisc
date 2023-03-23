@@ -19,9 +19,9 @@ Custom gt theme which borrows heavily from Thomas Mock
 library(gt)
 
 mtcars[1:5, ] |>
-    gt() |>
-    gt_theme_kyle() |>
-    tab_header(title = make_gt_title("mtcars Dataset")) |>
-    tab_source_note(source_note = "Data from mtcars in R")
+  gt() |>
+  gt_theme_kyle() |>
+  tab_header(title = make_gt_title("mtcars Dataset")) |>
+  tab_source_note(source_note = "Data from mtcars in R")
 
 }

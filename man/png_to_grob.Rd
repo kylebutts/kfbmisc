@@ -17,9 +17,9 @@ combination with \code{ggplot2::annotation_custom()}
 
 library(ggplot2)
 
-img <- png_to_grob(system.file("img", "Rlogo.png", package="png"))
+img <- png_to_grob(system.file("img", "Rlogo.png", package = "png"))
 
 ggplot(mtcars, aes(x = mpg, y = wt, color = factor(cyl))) +
   geom_point() +
-  annotation_custom(img, xmin = 25, xmax = 30, ymin = 4, ymax =  5)
+  annotation_custom(img, xmin = 25, xmax = 30, ymin = 4, ymax = 5)
 }

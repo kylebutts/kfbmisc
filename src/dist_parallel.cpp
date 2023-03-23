@@ -139,14 +139,14 @@ struct myDistanceVector : public Worker {
 	}
 };
 
-//'  Find closest unit from group y
+//' Find closest unit from group y
 //'
-//'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param y matrix of coordinates. In the same format as st_coordinates output (X, Y)
 //'
-//'  @return Vector. Contains index of closest unit in y
+//' @return Vector. Contains index of closest unit in y
 //'
-//'  @export
+//' @export
 // [[Rcpp::export]]
 IntegerVector rcpp_parallel_distm_C_min(NumericMatrix x, NumericMatrix y) {
 	IntegerVector rvec(x.nrow());
@@ -200,14 +200,14 @@ struct myDistanceVectorNonself : public Worker {
 	}
 };
 
-//'  Find nearest neighbor of x (non-self)
+//' Find nearest neighbor of x (non-self)
 //'
-//'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y Same as x.
+//' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param y Same as x.
 //'
-//'  @return Vector. Contains index of closest unit in y
+//' @return Vector. Contains index of closest unit in y
 //'
-//'  @export
+//' @export
 // [[Rcpp::export]]
 IntegerVector rcpp_parallel_distm_C_min_nonself(NumericMatrix x, NumericMatrix y) {
 	IntegerVector rvec(x.nrow());
@@ -262,15 +262,15 @@ struct facilityMatrix : public Worker {
 	}
 };
 
-//'  Find closest unit from group y and measure distance
+//' Find closest unit from group y and measure distance
 //'
-//'  @param x Matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y Matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param x Matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param y Matrix of coordinates. In the same format as st_coordinates output (X, Y)
 //'
-//'  @return Matrix. 2 columns. First column is index of closest unit in y.
-//'  Second column is distance
+//' @return Matrix. 2 columns. First column is index of closest unit in y.
+//' Second column is distance
 //'
-//'  @export
+//' @export
 // [[Rcpp::export]]
 NumericMatrix rcpp_parallel_nearest_facility(NumericMatrix x, NumericMatrix y) {
 	NumericMatrix rmat(x.nrow(), 2);
@@ -327,15 +327,15 @@ struct facilityMatrixNonself : public Worker {
 	}
 };
 
-//'  Find nearest neighbor of x and measure distance (non-self)
+//' Find nearest neighbor of x and measure distance (non-self)
 //'
-//'  @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-//'  @param y Same as x.
+//' @param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
+//' @param y Same as x.
 //'
-//'  @return Matrix. 2 columns. First column is index of closest unit in y.
-//'  Second column is distance
+//' @return Matrix. 2 columns. First column is index of closest unit in y.
+//' Second column is distance
 //'
-//'  @export
+//' @export
 // [[Rcpp::export]]
 NumericMatrix rcpp_parallel_nearest_facility_nonself(NumericMatrix x, NumericMatrix y) {
 	NumericMatrix rmat(x.nrow(), 2);

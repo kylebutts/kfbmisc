@@ -27,9 +27,10 @@ raw1 <- htmltools::div(
     class = "prose",
     htmltools::h2("Smaller Header"),
     htmltools::p(
-      "Testing ", 
-      htmltools::span(class = "italic", "this function")),
-    htmltools::img(src = "cat.png", 'custom-attr' = 1)
+      "Testing ",
+      htmltools::span(class = "italic", "this function")
+    ),
+    htmltools::img(src = "cat.png", "custom-attr" = 1)
   )
 ) |>
   as.character()

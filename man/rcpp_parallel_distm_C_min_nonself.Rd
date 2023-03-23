@@ -6,12 +6,14 @@
 \usage{
 rcpp_parallel_distm_C_min_nonself(x, y)
 }
-\description{
-@param x matrix of coordinates. In the same format as st_coordinates output (X, Y)
-@param y Same as x.
-}
-\details{
-@return Vector. Contains index of closest unit in y
+\arguments{
+\item{x}{matrix of coordinates. In the same format as st_coordinates output (X, Y)}
 
-@export
+\item{y}{Same as x.}
+}
+\value{
+Vector. Contains index of closest unit in y
+}
+\description{
+Find nearest neighbor of x (non-self)
 }
