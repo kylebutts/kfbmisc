@@ -41,7 +41,7 @@
 #'   </div>
 #' </div>)"
 #'
-#' html2R(raw2)
+#' html2R(raw2) |> cat()
 #'
 #' @export
 html2R <- function(raw_html) {

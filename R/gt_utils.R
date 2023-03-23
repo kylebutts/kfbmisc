@@ -12,7 +12,7 @@
 #'
 #' @section Examples:
 #'
-#' Simple example that colors if a variable in the data equals some value
+#' iSmple example that colors if a variable in the data equals some value
 #'
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' color_if <- function(data, columns, var, value) {

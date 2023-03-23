@@ -4,11 +4,11 @@
 #' @param ... Additoinal options passed to `ggplot2::theme`
 #'
 #' @examples
-#'
+#' 
 #' ggplot2::ggplot(mtcars) +
 #'   ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) +
 #'   theme_kyle(base_size = 18)
-#'
+#' 
 #' ggplot2::ggplot(mtcars) +
 #'   ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) +
 #'   ggplot2::facet_wrap(~cyl) +
@@ -113,9 +113,9 @@ theme_kyle <- function(base_size = 14, ...) {
       ),
       strip.background = ggplot2::element_rect(
         fill = "white",
-        colour = "grey40", linewidth = 2,
+        colour = "grey40", linewidth = 1.5,
       ),
-      panel.margin = grid::unit(2, "lines"),
+      
 
       ## Panel ---------------------------------------------------------------
       panel.background = ggplot2::element_rect(
@@ -124,7 +124,7 @@ theme_kyle <- function(base_size = 14, ...) {
       panel.border = ggplot2::element_rect(
         colour = NA
       ),
-      panel.spacing = grid::unit(8, "points"),
+      panel.spacing = grid::unit(2, "lines"),
 
       ## Plot ----------------------------------------------------------------
       plot.background = ggplot2::element_rect(

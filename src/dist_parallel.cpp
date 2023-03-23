@@ -180,7 +180,7 @@ struct myDistanceVectorNonself : public Worker {
 				// if on first position in row, set minimum to the first value
 				// set pos to 0 + 1 (adjust by 1 for returning back to R)
 				// Nonself => don't set j = 0 for i = 0
-				if ( (j == 0 & i > 0) | (i == 0 & j == 1)) {
+				if ( ((j == 0) & (i > 0)) | ((i == 0) & (j == 1))) {
 					min = dist;
 					pos = j + 1;
 
@@ -188,7 +188,7 @@ struct myDistanceVectorNonself : public Worker {
 				// current distance and position (+1 again to account for array
 				// indexing)
 				// Nonself => dist > 0
-				} else if (dist < min & dist > 0) {
+				} else if ((dist < min) & (dist > 0)) {
 					min = dist;
 					pos = j + 1;
 				}
@@ -307,7 +307,7 @@ struct facilityMatrixNonself : public Worker {
 				// if on first position in row, set minimum to the first value
 				// set pos to 0 + 1 (adjust by 1 for returning back to R)
 				// Nonself => don't set j = 0 for i = 0
-				if ( (j == 0 & i > 0) | (i == 0 & j == 1)) {
+				if ( ((j == 0) & (i > 0)) | ((i == 0) & (j == 1))) {
 					min = dist;
 					pos = j + 1;
 
@@ -315,7 +315,7 @@ struct facilityMatrixNonself : public Worker {
 				// current distance and position (+1 again to account for array
 				// indexing)
 				// Nonself => dist > 0
-				} else if (dist < min & dist > 0) {
+				} else if ((dist < min) & (dist > 0)) {
 					min = dist;
 					pos = j + 1;
 				}

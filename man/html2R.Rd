@@ -50,6 +50,6 @@ raw2 <- r"(
   </div>
 </div>)"
 
-html2R(raw2)
+html2R(raw2) |> cat()
 
 }

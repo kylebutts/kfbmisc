@@ -9,11 +9,13 @@
 #'
 #' library(gt)
 #'
-#' mtcars[1:5, ] |>
-#'   gt() |>
-#'   gt_theme_kyle() |>
-#'   tab_header(title = make_gt_title("mtcars Dataset")) |>
-#'   tab_source_note(source_note = "Data from mtcars in R")
+#' if (interactive()) {
+#'   mtcars[1:5, ] |>
+#'     gt() |>
+#'     gt_theme_kyle() |>
+#'     tab_header(title = make_gt_title("mtcars Dataset")) |>
+#'     tab_source_note(source_note = "Data from mtcars in R")
+#' }
 #'
 #' @export
 gt_theme_kyle <- function(data, ...) {

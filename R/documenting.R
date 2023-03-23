@@ -70,9 +70,6 @@ header1 <- function(txt) {
   }
 }
 
-# Not for export (to avoid name conflicts)
-h1 <- header1
-
 #' Subsection headers
 #'
 #' @details `h2` has the following output that is automatically copied to the clipboard
@@ -100,4 +97,6 @@ header2 <- function(txt) {
   }
 }
 
+# Not for export (to avoid name conflicts)
+h1 <- header1
 h2 <- header2

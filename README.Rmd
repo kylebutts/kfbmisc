@@ -1,0 +1,94 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# kfbmisc
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+`kfbmisc` is a package full of utility function I find useful
+
+## Installation
+
+You can install the development version of kfbmisc from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("kylebutts/kfbmisc")
+```
+
+## Utilities
+
+```{r}
+library(kfbmisc)
+```
+
+### `ggplot2` theme
+
+This is a relatively simple theme that makes the font larger for figures and adds more margins around things. 
+
+```{r, fig.width = 8, fig.height = 5}
+library(ggplot2)
+
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = hp)) +
+  labs(
+    title = "mtcars Dataset",
+    x = "Miles per Gallon", y = "Horsepower"
+  ) +
+  theme_kyle(base_size = 14)
+```
+
+```{r, fig.width = 8, fig.height = 5}
+ggplot(mtcars) +
+  geom_point(aes(x = mpg, y = hp)) +
+  facet_wrap(~cyl) +
+  labs(
+    title = "mtcars Dataset",
+    x = "Miles per Gallon", y = "Horsepower"
+  ) +
+  theme_kyle(base_size = 14)
+```
+
+```{r, fig.width = 8, fig.height = 5}
+library(sf)
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+
+ggplot(nc) +
+  geom_sf(aes(fill = BIR74)) +
+  scale_fill_viridis_c() + 
+  theme_kyle(base_size = 14) + 
+  theme_map()
+```
+
+
+
+### `gt` theme
+
+This theme borrow heavily from [Thomas Mock](https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables/)
+
+```{r, results = "asis"}
+library(gt)
+
+mtcars[1:5, ] |>
+  gt() |>
+  gt_theme_kyle() |>
+  tab_header(title = make_gt_title("mtcars Dataset")) |>
+  tab_source_note(source_note = "Data from mtcars in R") |>
+  as_raw_html()
+```
+
+
+
