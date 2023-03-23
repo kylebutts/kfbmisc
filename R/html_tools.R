@@ -18,9 +18,10 @@
 #'     class = "prose",
 #'     htmltools::h2("Smaller Header"),
 #'     htmltools::p(
-#'       "Testing ", 
-#'       htmltools::span(class = "italic", "this function")),
-#'     htmltools::img(src = "cat.png", 'custom-attr' = 1)
+#'       "Testing ",
+#'       htmltools::span(class = "italic", "this function")
+#'     ),
+#'     htmltools::img(src = "cat.png", "custom-attr" = 1)
 #'   )
 #' ) |>
 #'   as.character()
@@ -44,67 +45,68 @@
 #'
 #' @export
 html2R <- function(raw_html) {
+  html <-
+    xml2::read_html(raw_html) |>
+    rvest::html_nodes("head,body,footer") |>
+    as.character() |>
+    stringr::str_replace_all(stringr::regex("<!--(.*?)-->"), "") |>
+    stringr::str_replace_all("\\n", "") |>
+    stringr::str_split("(?=<)") |>
+    unlist() |>
+    stringr::str_trim() |>
+    stringr::str_squish()
 
-	html <-
-		xml2::read_html(raw_html) |>
-		rvest::html_nodes("head,body,footer") |>
-		as.character() |>
-		stringr::str_replace_all(stringr::regex("<!--(.*?)-->"), "") |>
-		stringr::str_replace_all("\\n", "") |>
-		stringr::str_split("(?=<)") |>
-		unlist() |>
-		stringr::str_trim() |>
-		stringr::str_squish()
-
-	line <- html |>
-		# Remove empty lines and <body> tag that read_html creates
-		(\(line) { line[line != "" & !stringr::str_detect(line, "<body|</body")] })() |>
-		# Fix tags with />
-		# @TODO: Check if </img> is there?
-		stringr::str_replace("<img (.*?)>", "<img \\1\\/>") |>
-		stringr::str_replace("<hr(.*?)>", "<hr \\1\\/>") |>
-		# Embrace strings with "".
-		stringr::str_replace_all(">(.+)", '>, \\"\\1\\",') |>
-		# Replace </tag> with ), and /> with ),
-		stringr::str_replace_all("</[a-zA-Z0-9]+>", "),") |>
-		# Replace <img /> and <span /> with tags$
-		stringr::str_replace_all("<(.*?) (.*?)/>", "tags$\\1\\(\\2\\),") |>
-		# Replace opening < with tags$
-		stringr::str_replace("<([a-zA-Z0-9]+)>", "tags$\\1(") |>
-		# Add commas between attributes
-		stringr::str_replace_all('([a-zA-Z-]*?)="(.*?)"', '\\1=\\"\\2\\",') |>
-		stringr::str_replace("<(.*?) (.*?)?>", "tags$\\1\\( \\2") |>
-		# enquote attribute names with -
-		stringr::str_replace_all("([a-zA-z0-9]*?)-([a-zA-z0-9]*?)=\"(.*?)\",", "'\\1-\\2'=\"\\3\",") |>
-		# remove double commas
-		stringr::str_replace_all(",,", ",") |>
-		stringr::str_replace_all("tags\\$(.*?)\\(,", "tags$\\1(") |>
-		paste0(collapse = "") |>
-		# Remove ,)
-		stringr::str_replace_all(",\\)", ")") |>
-		# Remove last ,
-		stringr::str_remove(",$") |>
-		# new lines by tags$
-		stringr::str_split("(?=tags\\$)") |>
-		(\(x) paste0(x[[1]], collapse="\n"))() |>
-		# remove tags$ when not needed
-		stringr::str_remove_all("tags\\$(?=div|p|h1|h2|h3|h4|h5|h6|a|img|br|span|pre|code|strong|em|hr\\()") |>
-		# remove new line at start
-		stringr::str_remove("^\n")
+  line <- html |>
+    # Remove empty lines and <body> tag that read_html creates
+    (\(line) {
+      line[line != "" & !stringr::str_detect(line, "<body|</body")]
+    })() |>
+    # Fix tags with />
+    # @TODO: Check if </img> is there?
+    stringr::str_replace("<img (.*?)>", "<img \\1\\/>") |>
+    stringr::str_replace("<hr(.*?)>", "<hr \\1\\/>") |>
+    # Embrace strings with "".
+    stringr::str_replace_all(">(.+)", '>, \\"\\1\\",') |>
+    # Replace </tag> with ), and /> with ),
+    stringr::str_replace_all("</[a-zA-Z0-9]+>", "),") |>
+    # Replace <img /> and <span /> with tags$
+    stringr::str_replace_all("<(.*?) (.*?)/>", "tags$\\1\\(\\2\\),") |>
+    # Replace opening < with tags$
+    stringr::str_replace("<([a-zA-Z0-9]+)>", "tags$\\1(") |>
+    # Add commas between attributes
+    stringr::str_replace_all('([a-zA-Z-]*?)="(.*?)"', '\\1=\\"\\2\\",') |>
+    stringr::str_replace("<(.*?) (.*?)?>", "tags$\\1\\( \\2") |>
+    # enquote attribute names with -
+    stringr::str_replace_all("([a-zA-z0-9]*?)-([a-zA-z0-9]*?)=\"(.*?)\",", "'\\1-\\2'=\"\\3\",") |>
+    # remove double commas
+    stringr::str_replace_all(",,", ",") |>
+    stringr::str_replace_all("tags\\$(.*?)\\(,", "tags$\\1(") |>
+    paste0(collapse = "") |>
+    # Remove ,)
+    stringr::str_replace_all(",\\)", ")") |>
+    # Remove last ,
+    stringr::str_remove(",$") |>
+    # new lines by tags$
+    stringr::str_split("(?=tags\\$)") |>
+    (\(x) paste0(x[[1]], collapse = "\n"))() |>
+    # remove tags$ when not needed
+    stringr::str_remove_all("tags\\$(?=div|p|h1|h2|h3|h4|h5|h6|a|img|br|span|pre|code|strong|em|hr\\()") |>
+    # remove new line at start
+    stringr::str_remove("^\n")
 
 
-	# Wrap with tagList
-	line <- paste0("htmltools::tagList( ", line, " )")
+  # Wrap with tagList
+  line <- paste0("htmltools::tagList( ", line, " )")
 
-	# Indent properlly using styler
-	line <- styler::style_text(line)
-	
-	if (interactive()) {
+  # Indent properlly using styler
+  line <- styler::style_text(line)
+
+  if (interactive()) {
     cli::cli_alert("Copied htmltools taglist to clipboard")
     clipr::write_clip(line)
   }
 
-	line
+  line
 }
 
 

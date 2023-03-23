@@ -21,22 +21,22 @@
 #'
 #' @export
 st_extract_within <- function(x, y, var) {
-	if(!inherits(x, "sf") | !inherits(y, "sf")) {
-		stop("Both x and y must be sf objects")
-	}
+  if (!inherits(x, "sf") | !inherits(y, "sf")) {
+    stop("Both x and y must be sf objects")
+  }
 
-	temp = sf::st_within(x, y)
-	# Replace NULL with NA for unlist
-	temp[sapply(temp, function(x) length(x)==0L)] <- NA
+  temp <- sf::st_within(x, y)
+  # Replace NULL with NA for unlist
+  temp[sapply(temp, function(x) length(x) == 0L)] <- NA
 
-	val = rep(NA_real_, length(temp))
-	idx = unlist(temp)
+  val <- rep(NA_real_, length(temp))
+  idx <- unlist(temp)
 
 
 
-	val[!is.na(idx)] = sf::st_drop_geometry(y)[idx,][[var]]
+  val[!is.na(idx)] <- sf::st_drop_geometry(y)[idx, ][[var]]
 
-	return(val)
+  return(val)
 }
 
 #' Returns an indicator vector for whether y contains a point of x using st_within
@@ -57,19 +57,19 @@ st_extract_within <- function(x, y, var) {
 #'
 #' @export
 st_indicator_for_within <- function(x, y) {
-	if(!inherits(x, "sf") | !inherits(y, "sf")) {
-		stop("Both x and y must be sf objects")
-	}
+  if (!inherits(x, "sf") | !inherits(y, "sf")) {
+    stop("Both x and y must be sf objects")
+  }
 
-	temp = sf::st_within(x, y)
+  temp <- sf::st_within(x, y)
 
-	idx = unlist(temp)
+  idx <- unlist(temp)
 
-	ind = rep(0, nrow(y))
+  ind <- rep(0, nrow(y))
 
-	ind[idx] = 1
+  ind[idx] <- 1
 
-	return(ind)
+  return(ind)
 }
 
 #' Multiplies a sparse geometry binary predicate object (e.g. from `sf::st_within`) and a vector
@@ -85,21 +85,21 @@ st_indicator_for_within <- function(x, y) {
 #'
 #' @export
 st_multiply_sgbp <- function(sgbp, mat) {
-	mat = as.matrix(mat)
+  mat <- as.matrix(mat)
 
-	# mat[x, ] selects only the rows with sgbp = TRUE
-	ret = lapply(sgbp, function(x) mat[x, ])
+  # mat[x, ] selects only the rows with sgbp = TRUE
+  ret <- lapply(sgbp, function(x) mat[x, ])
 
-	# colSums is multiplying the non-sparse 1,0 matrix
-	if(dim(mat)[2] == 1){
-		ret = lapply(ret, function(x) sum(x))
-	}else {
-		ret = lapply(ret, function(x) colSums(x))
-	}
+  # colSums is multiplying the non-sparse 1,0 matrix
+  if (dim(mat)[2] == 1) {
+    ret <- lapply(ret, function(x) sum(x))
+  } else {
+    ret <- lapply(ret, function(x) colSums(x))
+  }
 
-	ret = do.call(rbind, ret)
+  ret <- do.call(rbind, ret)
 
-	return(ret)
+  return(ret)
 }
 
 #' RcppParallel version of `st_distance`
@@ -125,7 +125,7 @@ st_multiply_sgbp <- function(sgbp, mat) {
 #' nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
 #' # massive speedup
 #' microbenchmark::microbenchmark(
-#'	 sf = sf::st_distance(nc_long),
+#' 	 sf = sf::st_distance(nc_long),
 #'   parallel = st_dist_rcpp(nc_long),
 #'   times = 1
 #' )
@@ -133,57 +133,57 @@ st_multiply_sgbp <- function(sgbp, mat) {
 #'
 #' @export
 st_dist_rcpp <- function(x, y = x, unit = "mi") {
-	if(inherits(x, "sf")) {
-		x <- sf::st_geometry(x)
-	}
-	if(inherits(x, "sfc")) {
-		if(!inherits(x, "sfc_POINT")) {
-			x <- sf::st_point_on_surface(x)
-		}
+  if (inherits(x, "sf")) {
+    x <- sf::st_geometry(x)
+  }
+  if (inherits(x, "sfc")) {
+    if (!inherits(x, "sfc_POINT")) {
+      x <- sf::st_point_on_surface(x)
+    }
 
-		x <- sf::st_coordinates(x)
-		colnames(x) <- c("lon", "lat")
-	}
-	if(inherits(x, "data.frame")) {
-		x <- as.matrix(x)
-	}
+    x <- sf::st_coordinates(x)
+    colnames(x) <- c("lon", "lat")
+  }
+  if (inherits(x, "data.frame")) {
+    x <- as.matrix(x)
+  }
 
 
-	# Symmetric
-	if(identical(x, y)) {
-		dist <- rcpp_parallel_distm_C(x, x)
+  # Symmetric
+  if (identical(x, y)) {
+    dist <- rcpp_parallel_distm_C(x, x)
 
-	# Non-symmetric
-	} else {
-		if(inherits(y, "sf")) {
-			y <- sf::st_geometry(y)
-		}
-		if(inherits(y, "sfc")) {
-			if(!inherits(y, "sfc_POINT")) {
-				y <- sf::st_point_on_surface(y)
-			}
+    # Non-symmetric
+  } else {
+    if (inherits(y, "sf")) {
+      y <- sf::st_geometry(y)
+    }
+    if (inherits(y, "sfc")) {
+      if (!inherits(y, "sfc_POINT")) {
+        y <- sf::st_point_on_surface(y)
+      }
 
-			y <- sf::st_coordinates(y)
-			colnames(y) <- c("lon", "lat")
-		}
-		if(inherits(y, "data.frame")) {
-			y <- as.matrix(y)
-		}
+      y <- sf::st_coordinates(y)
+      colnames(y) <- c("lon", "lat")
+    }
+    if (inherits(y, "data.frame")) {
+      y <- as.matrix(y)
+    }
 
-		dist <- rcpp_parallel_distm_C(x, y)
-	}
+    dist <- rcpp_parallel_distm_C(x, y)
+  }
 
-	if(unit == "km") {
-		cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
-		dist <- dist / 0.621371
-	} else if(unit == "m") {
-		cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
-		dist <- dist / 0.621371 * 1000
-	} else {
-		cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
-	}
+  if (unit == "km") {
+    cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
+    dist <- dist / 0.621371
+  } else if (unit == "m") {
+    cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
+    dist <- dist / 0.621371 * 1000
+  } else {
+    cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
+  }
 
-	return(dist)
+  return(dist)
 }
 
 #' RcppParallel version of `st_nearest_feature`
@@ -206,53 +206,52 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
 #'
 #' @export
 st_nearest_rcpp <- function(x, y = NULL) {
+  if (inherits(x, "sf")) {
+    x <- sf::st_geometry(x)
+  }
+  if (inherits(x, "sfc")) {
+    if (!inherits(x, "sfc_POINT")) {
+      x <- sf::st_point_on_surface(x)
+    }
 
-	if(inherits(x, "sf")) {
-		x <- sf::st_geometry(x)
-	}
-	if(inherits(x, "sfc")) {
-		if(!inherits(x, "sfc_POINT")) {
-			x <- sf::st_point_on_surface(x)
-		}
-
-		x <- sf::st_coordinates(x)
-		colnames(x) <- c("lon", "lat")
-	}
-	if(inherits(x, "data.frame")) {
-		x <- as.matrix(x)
-	}
+    x <- sf::st_coordinates(x)
+    colnames(x) <- c("lon", "lat")
+  }
+  if (inherits(x, "data.frame")) {
+    x <- as.matrix(x)
+  }
 
 
-	# Symmetric
-	if(is.null(y)) {
-		idx <- rcpp_parallel_distm_C_min_nonself(x, x)
+  # Symmetric
+  if (is.null(y)) {
+    idx <- rcpp_parallel_distm_C_min_nonself(x, x)
 
-	# Non-symmetric
-	} else {
-		if(inherits(y, "sf")) {
-			y <- sf::st_geometry(y)
-		}
-		if(inherits(y, "sfc")) {
-			if(!inherits(y, "sfc_POINT")) {
-				y <- sf::st_point_on_surface(y)
-			}
+    # Non-symmetric
+  } else {
+    if (inherits(y, "sf")) {
+      y <- sf::st_geometry(y)
+    }
+    if (inherits(y, "sfc")) {
+      if (!inherits(y, "sfc_POINT")) {
+        y <- sf::st_point_on_surface(y)
+      }
 
-			y <- sf::st_coordinates(y)
-			colnames(y) <- c("lon", "lat")
-		}
-		if(inherits(y, "data.frame")) {
-			y <- as.matrix(y)
-		}
+      y <- sf::st_coordinates(y)
+      colnames(y) <- c("lon", "lat")
+    }
+    if (inherits(y, "data.frame")) {
+      y <- as.matrix(y)
+    }
 
-		# One last check for symmetry
-		if(identical(x, y)) {
-			idx <- rcpp_parallel_distm_C_min_nonself(x, x)
-		} else {
-			idx <- rcpp_parallel_distm_C_min(x, y)
-		}
-	}
+    # One last check for symmetry
+    if (identical(x, y)) {
+      idx <- rcpp_parallel_distm_C_min_nonself(x, x)
+    } else {
+      idx <- rcpp_parallel_distm_C_min(x, y)
+    }
+  }
 
-	return(idx)
+  return(idx)
 }
 
 #' RcppParallel distance to nearest point
@@ -277,77 +276,76 @@ st_nearest_rcpp <- function(x, y = NULL) {
 #'
 #' @export
 st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
+  if (inherits(x, "sf")) {
+    x <- sf::st_geometry(x)
+  }
+  if (inherits(x, "sfc")) {
+    if (!inherits(x, "sfc_POINT")) {
+      x <- sf::st_point_on_surface(x)
+    }
 
-	if(inherits(x, "sf")) {
-		x <- sf::st_geometry(x)
-	}
-	if(inherits(x, "sfc")) {
-		if(!inherits(x, "sfc_POINT")) {
-			x <- sf::st_point_on_surface(x)
-		}
-
-		x <- sf::st_coordinates(x)
-		colnames(x) <- c("lon", "lat")
-	}
-	if(inherits(x, "data.frame")) {
-		x <- as.matrix(x)
-	}
+    x <- sf::st_coordinates(x)
+    colnames(x) <- c("lon", "lat")
+  }
+  if (inherits(x, "data.frame")) {
+    x <- as.matrix(x)
+  }
 
 
-	# Symmetric
-	if(is.null(y)) {
-		mat <- rcpp_parallel_nearest_facility_nonself(x, x)
+  # Symmetric
+  if (is.null(y)) {
+    mat <- rcpp_parallel_nearest_facility_nonself(x, x)
 
-		# Non-symmetric
-	} else {
-		if(inherits(y, "sf")) {
-			y <- sf::st_geometry(y)
-		}
-		if(inherits(y, "sfc")) {
-			if(!inherits(y, "sfc_POINT")) {
-				y <- sf::st_point_on_surface(y)
-			}
+    # Non-symmetric
+  } else {
+    if (inherits(y, "sf")) {
+      y <- sf::st_geometry(y)
+    }
+    if (inherits(y, "sfc")) {
+      if (!inherits(y, "sfc_POINT")) {
+        y <- sf::st_point_on_surface(y)
+      }
 
-			y <- sf::st_coordinates(y)
-			colnames(y) <- c("lon", "lat")
-		}
-		if(inherits(y, "data.frame")) {
-			y <- as.matrix(y)
-		}
+      y <- sf::st_coordinates(y)
+      colnames(y) <- c("lon", "lat")
+    }
+    if (inherits(y, "data.frame")) {
+      y <- as.matrix(y)
+    }
 
-		# One last check for symmetry
-		if(identical(x, y)) {
-			mat <- rcpp_parallel_nearest_facility_nonself(x, x)
-		} else {
-			mat <- rcpp_parallel_nearest_facility(x, y)
-		}
-	}
+    # One last check for symmetry
+    if (identical(x, y)) {
+      mat <- rcpp_parallel_nearest_facility_nonself(x, x)
+    } else {
+      mat <- rcpp_parallel_nearest_facility(x, y)
+    }
+  }
 
-	if(unit == "km") {
-		cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
-		mat[, 2] <- mat[, 2] / 0.621371
-	} else if(unit == "m") {
-		cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
-		mat[, 2] <- mat[, 2] / 0.621371 * 1000
-	} else {
-		cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
-	}
+  if (unit == "km") {
+    cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
+    mat[, 2] <- mat[, 2] / 0.621371
+  } else if (unit == "m") {
+    cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
+    mat[, 2] <- mat[, 2] / 0.621371 * 1000
+  } else {
+    cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
+  }
 
-	return(mat)
+  return(mat)
 }
 
 #' @title Convert geometry column to `longitude`/`latitude` columns
 #' @param df data.frame with a `geometry` column
-#' @param geom_column String containing the name of the geometry column. 
+#' @param geom_column String containing the name of the geometry column.
 #'   Default is geometry
-#' 
+#'
 st_geometry_to_lat_long <- function(df, geom_column = "geometry") {
-  coords = df[[geom_column]] |> 
+  coords <- df[[geom_column]] |>
     sf::st_transform(sf::st_crs(4326)) |>
     sf::st_coordinates()
-  df[[geom_column]] = NULL
-  df$longitude = coords[, 1]
-  df$latitude = coords[, 2]
+  df[[geom_column]] <- NULL
+  df$longitude <- coords[, 1]
+  df$latitude <- coords[, 2]
 
   return(df)
 }

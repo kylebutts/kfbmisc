@@ -4,7 +4,7 @@
 #' @param columns The names of the columns that are to be targeted.
 #' @param FUN Function that returns a vector of color values.
 #'   Note that the first two arguments should be `data` which will be `gtobj[["_data"]]`
-#'   and `columns` which passes `columns`. 
+#'   and `columns` which passes `columns`.
 #' @param ... Additional options passed into `FUN`
 #'
 #' @details If you have columns you want to reference in FUN that you don't want
@@ -26,23 +26,19 @@
 #' ```
 #'
 #' @export
-fill_column <- function(gtobj, columns, FUN, ...){
-	data <- gtobj[["_data"]]
+fill_column <- function(gtobj, columns, FUN, ...) {
+  data <- gtobj[["_data"]]
 
-	color <- FUN(data = data, columns = columns, ...)
+  color <- FUN(data = data, columns = columns, ...)
 
-	# Loops through each row of `column` and color cells based on color vector
-	for(i in seq_along(data)){
-		gtobj <- gtobj |>
-			gt::tab_style(
-				style = gt::cell_fill(color = color[i]),
-				locations = gt::cells_body(columns = columns, rows = i)
-			)
-	}
+  # Loops through each row of `column` and color cells based on color vector
+  for (i in seq_along(data)) {
+    gtobj <- gtobj |>
+      gt::tab_style(
+        style = gt::cell_fill(color = color[i]),
+        locations = gt::cells_body(columns = columns, rows = i)
+      )
+  }
 
-	gtobj
+  gtobj
 }
-
-
-
-

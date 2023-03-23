@@ -1,7 +1,7 @@
 #' @title Prints vector with each item on a new line
-#' 
+#'
 #' @param vec Vector you want to print
-#' 
+#'
 #' @export
 copy_vec <- function(vec) {
   if (interactive()) {
@@ -11,4 +11,3 @@ copy_vec <- function(vec) {
     cli::cli_alert_success("Copied to clipboard")
   }
 }
-

@@ -19,12 +19,12 @@
 #'
 #' @export
 extract_body_etable <- function(tab) {
-	tab <- paste0(tab, collapse = "\n")
+  tab <- paste0(tab, collapse = "\n")
 
-	stringr::str_match(
-		tab,
-		"\\\\midrule\\\\midrule\\n\\n([.\\s\\S\\n]*?)\\n\\n\\\\midrule\\\\midrule"
-	)[[2]]
+  stringr::str_match(
+    tab,
+    "\\\\midrule\\\\midrule\\n\\n([.\\s\\S\\n]*?)\\n\\n\\\\midrule\\\\midrule"
+  )[[2]]
 }
 
 
@@ -65,15 +65,15 @@ extract_body_etable <- function(tab) {
 #' @export
 extract_body_gt <- function(tab) {
 
-	# from gtsummary::tbl_summary(), convert to gt_tbl
-	if(inherits(tab, "tbl_summary")) tab <- gtsummary::as_gt(tab)
+  # from gtsummary::tbl_summary(), convert to gt_tbl
+  if (inherits(tab, "tbl_summary")) tab <- gtsummary::as_gt(tab)
 
-	# from gt::gt()
-	if(inherits(tab, "gt_tbl")) tab <- as.character(gt::as_latex(tab))
+  # from gt::gt()
+  if (inherits(tab, "gt_tbl")) tab <- as.character(gt::as_latex(tab))
 
 
-	stringr::str_match(
-		tab,
-		"\\\\toprule\\n([.\\s\\S\\n]*?)\\n\\\\bottomrule"
-	)[[2]]
+  stringr::str_match(
+    tab,
+    "\\\\toprule\\n([.\\s\\S\\n]*?)\\n\\\\bottomrule"
+  )[[2]]
 }

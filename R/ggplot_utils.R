@@ -32,14 +32,13 @@
 #' # Preview as PDF
 #' if (interactive()) ggpreview(plot1, device = "pdf", width = 7, height = 4)
 #'
-#'
 ggpreview <- function(..., device = "png") {
-	fname <- tempfile(fileext = paste0(".", device))
+  fname <- tempfile(fileext = paste0(".", device))
 
-	ggplot2::ggsave(filename = fname, device = device, ...)
+  ggplot2::ggsave(filename = fname, device = device, ...)
 
-	system2("open", fname)
-	invisible(NULL)
+  system2("open", fname)
+  invisible(NULL)
 }
 
 
@@ -58,17 +57,16 @@ ggpreview <- function(..., device = "png") {
 #'
 #' library(ggplot2)
 #'
-#' img <- png_to_grob(system.file("img", "Rlogo.png", package="png"))
+#' img <- png_to_grob(system.file("img", "Rlogo.png", package = "png"))
 #'
 #' ggplot(mtcars, aes(x = mpg, y = wt, color = factor(cyl))) +
 #'   geom_point() +
-#'   annotation_custom(img, xmin = 25, xmax = 30, ymin = 4, ymax =  5)
+#'   annotation_custom(img, xmin = 25, xmax = 30, ymin = 4, ymax = 5)
 png_to_grob <- function(source) {
+  temp <- png::readPNG(source)
 
-	temp <- png::readPNG(source)
+  cli::cli_alert_info("Image has width = {dim(temp)[2]}px and height = {dim(temp)[1]}px")
 
-	cli::cli_alert_info("Image has width = {dim(temp)[2]}px and height = {dim(temp)[1]}px")
-
-	temp <- grid::rasterGrob(temp, interpolate = TRUE)
-	return(temp)
+  temp <- grid::rasterGrob(temp, interpolate = TRUE)
+  return(temp)
 }

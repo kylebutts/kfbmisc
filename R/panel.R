@@ -11,8 +11,8 @@
 #' @return Returns earliest y for which t == 1
 #'
 #' @export
-get_min_year = function(y, t) {
-	min = y[order(y)][min(which(t[order(y)] == 1))]
-	if(is.na(min)) min = Inf
-	return(min)
+get_min_year <- function(y, t) {
+  min <- y[order(y)][min(which(t[order(y)] == 1))]
+  if (is.na(min)) min <- Inf
+  return(min)
 }
