@@ -5,14 +5,15 @@
 #'   location of file will be used
 #'
 #' @export
-print_rmd <- function(file, pdf_file = NULL) {
+print_rmd <- function(file, pdf_file = NULL, ...) {
   if (is.null(pdf_file)) {
     pdf_file <- file
     pdf_file <- stringr::str_replace(pdf_file, ".Rmd", ".pdf")
     pdf_file <- stringr::str_replace(pdf_file, ".html", ".pdf")
   }
-
+  
   # temp allows for easier error output
+  cli::cli_alert_info("Attempting to print to pdf")
   temp <- NULL
   try({
     temp <- pagedown::chrome_print(

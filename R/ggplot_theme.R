@@ -36,7 +36,7 @@ theme_kyle <- function(base_size = 14, ...) {
       ),
       plot.subtitle = ggplot2::element_text(
         # Font
-        family = "merriweather", face = "italic", size = ggplot2::rel(.86),
+        face = "italic", size = ggplot2::rel(.86),
         colour = "#454545",
         # Center subtitle
         hjust = 0,
