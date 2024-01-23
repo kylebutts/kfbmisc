@@ -28,7 +28,7 @@ RcppParallel version of \code{st_distance}
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
-#>   `/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/sf/shape/nc.shp' 
+#>   `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/sf/shape/nc.shp' 
 #>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
@@ -38,7 +38,7 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 st_dist_rcpp(nc[1:3,])
 #> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
 #> results for longitude/latitude data
-#> > Distance in miles. To use kilometers use option `unit == 'km'`
+#> [1] "Distance in miles. To use kilometers use option `unit == 'km'`"
 #>          [,1]     [,2]     [,3]
 #> [1,]  0.00000 20.50102 44.71554
 #> [2,] 20.50102  0.00000 25.17342
@@ -54,14 +54,14 @@ microbenchmark::microbenchmark(
 )
 #> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
 #> results for longitude/latitude data
-#> > Distance in miles. To use kilometers use option `unit == 'km'`
+#> [1] "Distance in miles. To use kilometers use option `unit == 'km'`"
 #> Unit: milliseconds
 #>      expr         min          lq        mean      median          uq
-#>        sf 4051.794824 4051.794824 4051.794824 4051.794824 4051.794824
-#>  parallel    7.387216    7.387216    7.387216    7.387216    7.387216
+#>        sf 3886.049987 3886.049987 3886.049987 3886.049987 3886.049987
+#>  parallel    5.985426    5.985426    5.985426    5.985426    5.985426
 #>          max neval
-#>  4051.794824     1
-#>     7.387216     1
+#>  3886.049987     1
+#>     5.985426     1
 }\if{html}{\out{</div>}}
 }
 

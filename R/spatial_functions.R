@@ -174,13 +174,13 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
   }
 
   if (unit == "km") {
-    cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
+    print("Distance in kilometers. To use miles use option `unit == 'mi'`")
     dist <- dist / 0.621371
   } else if (unit == "m") {
-    cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
+    print("Distance in meters. To use miles use option `unit == 'mi'`")
     dist <- dist / 0.621371 * 1000
   } else {
-    cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
+    print("Distance in miles. To use kilometers use option `unit == 'km'`")
   }
 
   return(dist)
@@ -322,13 +322,13 @@ st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
   }
 
   if (unit == "km") {
-    cli::cli_alert("Distance in kilometers. To use miles use option `unit == 'mi'`")
+    print("Distance in kilometers. To use miles use option `unit == 'mi'`")
     mat[, 2] <- mat[, 2] / 0.621371
   } else if (unit == "m") {
-    cli::cli_alert("Distance in meters. To use miles use option `unit == 'mi'`")
+    print("Distance in meters. To use miles use option `unit == 'mi'`")
     mat[, 2] <- mat[, 2] / 0.621371 * 1000
   } else {
-    cli::cli_alert("Distance in miles. To use kilometers use option `unit == 'km'`")
+    print("Distance in miles. To use kilometers use option `unit == 'km'`")
   }
 
   return(mat)

@@ -24,7 +24,7 @@ points and you want to extract information about the county/census tract/etc.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
-#>   `/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/sf/shape/nc.shp' 
+#>   `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/sf/shape/nc.shp' 
 #>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
@@ -37,19 +37,19 @@ x
 #> Simple feature collection with 10 features and 2 fields
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: -81.14601 ymin: 33.97557 xmax: -76.51494 ymax: 36.31645
+#> Bounding box:  xmin: -80.75109 ymin: 34.02155 xmax: -76.84844 ymax: 35.9833
 #> Geodetic CRS:  NAD27
 #>    id                   geometry CNTY_ID
-#> 1   1    POINT (-77.625 36.2204)    1846
-#> 2   2 POINT (-79.79135 35.75225)    1968
-#> 3   3  POINT (-78.89238 35.3537)    2030
-#> 4   4 POINT (-81.14601 35.71722)    1986
-#> 5   5 POINT (-79.42877 36.26948)    1838
-#> 6   6  POINT (-79.79379 35.9432)    1903
-#> 7   7 POINT (-79.13715 34.53925)    2150
-#> 8   8 POINT (-78.22395 33.97557)    2241
-#> 9   9 POINT (-76.51494 36.31645)    1881
-#> 10 10 POINT (-78.12528 34.16746)    2241
+#> 1   1 POINT (-78.68961 35.01743)    2090
+#> 2   2 POINT (-78.20089 34.93634)    2083
+#> 3   3 POINT (-80.75109 35.29962)    2041
+#> 4   4  POINT (-77.65035 35.9833)    1928
+#> 5   5 POINT (-78.70325 34.26932)    2232
+#> 6   6 POINT (-79.20009 35.21409)    2040
+#> 7   7    POINT (-76.84844 35.76)    1937
+#> 8   8 POINT (-79.40155 35.61407)    1973
+#> 9   9 POINT (-79.24581 35.00677)    2097
+#> 10 10 POINT (-78.01581 34.02155)    2241
 }\if{html}{\out{</div>}}
 }
 

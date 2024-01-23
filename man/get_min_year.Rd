@@ -4,12 +4,12 @@
 \alias{get_min_year}
 \title{From an indicator for treatment, retrieve start year.}
 \usage{
-get_min_year(y, t)
+get_min_year(t, d)
 }
 \arguments{
-\item{y}{Vector of years}
+\item{t}{Vector of years}
 
-\item{t}{Vector of 0/1 for treatment}
+\item{d}{Vector of 0/1 for treatment}
 }
 \value{
 Returns earliest y for which t == 1
@@ -17,6 +17,8 @@ Returns earliest y for which t == 1
 \description{
 This function returns the earliest year where an indicator == 1.
 If indicator never equals zero, return Inf.
-This is most useful with \code{group_by(unit) |> mutate(g = ...)} or
-\code{DT(j = g := ..., by = unit)} to convert between D and g variable in panel data.
+This is most useful with
+\code{mutate(.by = unit, g = get_min_year(year, treat))} or
+\code{DT(j = g := get_min_year(year, treat), by = unit)}
+to convert between d and g variable in panel data.
 }

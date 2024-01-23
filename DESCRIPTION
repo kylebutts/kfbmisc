@@ -4,33 +4,27 @@ Title: Collection of Functions that I Find Useful
 Description: A suite of functions: my ggplot2 and gt themes; helper functions for ggplot2; tools for working with html; spatial functions; panel data functions; and function for saving Rmd files.
 Version: 0.2.0
 Authors@R: 
-    c(person(given = "Kyle",
-             family = "Butts",
-             role = c("aut","cre"),
-             email = "kyle.butts@colorado.edu",
-             comment = c(ORCID = "0000-0002-9048-8059")))
+    c(
+        person(
+            "Kyle", "Butts", role = c("aut","cre"), 
+            email = "kyle.butts@colorado.edu", 
+            comment = c(ORCID = "0000-0002-9048-8059")
+        )
+    )
 Maintainer: Kyle Butts <kyle.butts@colorado.edu>
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3.9000
 Imports: 
-    cli,
-    clipr,
     ggplot2,
     gt,
-    gtsummary,
     htmltools,
     pagedown,
-    pkgdown,
     png,
     Rcpp,
     RcppParallel,
-    rstudioapi,
-    rvest,
     sf,
-    stringr,
-    styler,
-    xml2
+    xfun
 Roxygen: list(markdown = TRUE)
 LinkingTo: 
     Rcpp,

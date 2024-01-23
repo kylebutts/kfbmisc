@@ -64,8 +64,7 @@ ggpreview <- function(..., device = "png") {
 #'   annotation_custom(img, xmin = 25, xmax = 30, ymin = 4, ymax = 5)
 png_to_grob <- function(source) {
   temp <- png::readPNG(source)
-
-  cli::cli_alert_info("Image has width = {dim(temp)[2]}px and height = {dim(temp)[1]}px")
+  message("Image has width = {dim(temp)[2]}px and height = {dim(temp)[1]}px")
 
   temp <- grid::rasterGrob(temp, interpolate = TRUE)
   return(temp)
