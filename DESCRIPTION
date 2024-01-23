@@ -16,14 +16,18 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3.9000
 Imports: 
+    fs,
     ggplot2,
+    glue,
     gt,
+    here,
     htmltools,
     pagedown,
     png,
     Rcpp,
     RcppParallel,
     sf,
+    tikzDevice,
     xfun
 Roxygen: list(markdown = TRUE)
 LinkingTo: 

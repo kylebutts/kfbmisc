@@ -4,9 +4,19 @@
 \alias{tikzsave}
 \title{Save a tikzpicture and then compile to pdf}
 \usage{
-tikzsave(filename, plot = last_plot(), packages = NULL, recompile = TRUE, ...)
+tikzsave(
+  filename,
+  plot = ggplot2::last_plot(),
+  packages = NULL,
+  recompile = TRUE,
+  ...
+)
 }
 \arguments{
+\item{filename}{File name to create on disk.}
+
+\item{plot}{Plot to save, defaults to last plot displayed.}
+
 \item{packages}{Vector of strings. Absolute file paths to \code{.sty} files to
 include in preamble. Default is my \code{paper.sty} and \code{math.sty} in
 \code{inst/tikzsave}.}

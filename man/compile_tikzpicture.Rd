@@ -17,7 +17,7 @@ include in preamble. Default is my \code{paper.sty} and \code{math.sty} in
 is newer than the tex date.}
 }
 \value{
-invisible
+Invisibly returns \code{TRUE} if compilation succeeds.
 }
 \description{
 Takes the output of \code{tikzDevice::tikz} with \code{standalone = FALSE}, wraps into

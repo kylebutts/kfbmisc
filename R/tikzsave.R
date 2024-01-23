@@ -7,6 +7,7 @@ delete_if_exists <- function(filename) {
 #' Uses `ggplot2::ggsave` with `tikzDevice::tikz` to create the tikz figure
 #' and then compiles using `latexmk`.
 #' 
+#' @inheritParams ggplot2::ggsave
 #' @param packages Vector of strings. Absolute file paths to `.sty` files to 
 #' include in preamble. Default is my `paper.sty` and `math.sty` in 
 #' `inst/tikzsave`.
@@ -17,7 +18,7 @@ delete_if_exists <- function(filename) {
 #' @param ... Passed to `ggplot2::ggsave`
 #' 
 #' @return Invisibly returns filename
-tikzsave <- function(filename, plot = last_plot(), packages = NULL, recompile = TRUE, ...) {
+tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, recompile = TRUE, ...) {
 
   fs::dir_create(fs::path_dir(filename), recurse = TRUE)
   
@@ -63,10 +64,10 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
 
   # Make sure to clean-up
   on.exit({
-    delete_if_exists(here(dir, "temp.tex"))
+    delete_if_exists(here::here(dir, "temp.tex"))
     for (ext in c(".aux", ".fdb_latexmk", ".flx", ".log", ".xdv", ".fls")) {
       delete_if_exists(
-        here(dir, paste0(base_san_ext, ext))
+        here::here(dir, paste0(base_san_ext, ext))
       )
     }
   })
@@ -77,7 +78,7 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
     tikz_compile_time <- file.info(filename)$mtime
     pdf_compile_time <- file.info(pdf_name)$mtime
 
-    if ((pdf_compile_time > tikz_compile_time) & redo == FALSE) {
+    if ((pdf_compile_time > tikz_compile_time) & recompile == FALSE) {
       return(invisible(TRUE))
     }
   }
@@ -98,12 +99,12 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
     xfun::read_utf8(filename),
     WRAPPER[[2]]
   )
-  xfun::write_utf8(standalone_str, here(dir, "temp.tex"))
+  xfun::write_utf8(standalone_str, here::here(dir, "temp.tex"))
 
   # `latexmk`
   # https://texdoc.org/serve/latexmk/0
-  compile_command <- glue(r'(
-    cd "{here(dir)}" &&
+  compile_command <- glue::glue(r'(
+    cd "{here::here(dir)}" &&
     latexmk -pdf -interaction=nonstopmode -bibtex- -jobname={base_san_ext} temp.tex
   )')
   system(
@@ -111,8 +112,8 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
     ignore.stdout = TRUE
   )
 
-  cleanup_command <- glue(r'(
-    cd "{here(dir)}" && latexmk -c
+  cleanup_command <- glue::glue(r'(
+    cd "{here::here(dir)}" && latexmk -c
   )')
   system(
     cleanup_command,
