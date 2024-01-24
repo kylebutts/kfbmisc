@@ -33,12 +33,12 @@ and adds more margins around things.
 library(ggplot2)
 library(palmerpenguins)
 
-(p = ggplot(penguins) +
+ggplot(penguins) +
   geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
   labs(
     x = "Body mass", y = "Bill length"
   ) +
-  theme_kyle(base_size = 14))
+  theme_kyle(base_size = 12)
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_point()`).
 ```
@@ -52,7 +52,7 @@ ggplot(penguins) +
   labs(
     x = "Body mass", y = "Bill length"
   ) +
-  theme_kyle(base_size = 14)
+  theme_kyle(base_size = 12)
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_point()`).
 ```
@@ -76,7 +76,7 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 ggplot(nc) +
   geom_sf(aes(fill = BIR74)) +
   scale_fill_viridis_c() + 
-  theme_kyle(base_size = 14) + 
+  theme_kyle(base_size = 12) + 
   theme_map()
 ```
 
@@ -85,17 +85,37 @@ ggplot(nc) +
 ### `tikzsave`
 
 ``` r
+mod = lm(bill_length_mm ~ body_mass_g, penguins)
+title_str = paste0(
+  "$\\hat{y} = ", round(coef(mod)[1], 1), " + ", round(coef(mod)[2], 3), "x$"
+)
+p = ggplot(penguins) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_smooth(
+    aes(x = body_mass_g, y = bill_length_mm), 
+    method = lm
+  ) +
+  labs(
+    x = "Body mass", y = "Bill length",
+    title = title_str
+  ) +
+  theme_kyle(base_size = 12)
+```
+
+``` r
 # `plot` -> `tikzpicture` -> `pdf`
 tikzsave(
   "man/figures/README-penguins.tex",
   p, width = 8, height = 5
 )
+#> `geom_smooth()` using formula = 'y ~ x'
+#> Warning: Removed 2 rows containing non-finite outside the scale range
+#> (`stat_smooth()`).
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_point()`).
-knitr::include_graphics("man/figures/README-penguins.pdf")
 ```
 
-<embed src="man/figures/README-penguins.pdf" width="100%" type="application/pdf" />
+<img src="man/figures/README-penguins.png" width="100%" />
 
 ### `gt` theme
 
@@ -114,7 +134,7 @@ mtcars[1:5, ] |>
   as_raw_html()
 ```
 
-<div id="bslhxqnztp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="udqxbviokk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: 'Fira Code', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: rgba(255, 255, 255, 0); border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 3px; border-bottom-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
   <thead style="border-style: none;">
     <tr class="gt_heading" style="border-style: none; background-color: #FFFFFF; text-align: left; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;" bgcolor="#FFFFFF" align="left">

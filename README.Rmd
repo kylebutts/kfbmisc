@@ -46,12 +46,12 @@ This is a relatively simple theme that makes the font larger for figures and add
 library(ggplot2)
 library(palmerpenguins)
 
-(p = ggplot(penguins) +
+ggplot(penguins) +
   geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
   labs(
     x = "Body mass", y = "Bill length"
   ) +
-  theme_kyle(base_size = 14))
+  theme_kyle(base_size = 12)
 ```
 
 ```{r}
@@ -63,7 +63,7 @@ ggplot(penguins) +
   labs(
     x = "Body mass", y = "Bill length"
   ) +
-  theme_kyle(base_size = 14)
+  theme_kyle(base_size = 12)
 ```
 
 ```{r}
@@ -75,11 +75,29 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 ggplot(nc) +
   geom_sf(aes(fill = BIR74)) +
   scale_fill_viridis_c() + 
-  theme_kyle(base_size = 14) + 
+  theme_kyle(base_size = 12) + 
   theme_map()
 ```
 
 ### `tikzsave`
+
+```{r}
+mod = lm(bill_length_mm ~ body_mass_g, penguins)
+title_str = paste0(
+  "$\\hat{y} = ", round(coef(mod)[1], 1), " + ", round(coef(mod)[2], 3), "x$"
+)
+p = ggplot(penguins) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_smooth(
+    aes(x = body_mass_g, y = bill_length_mm), 
+    method = lm
+  ) +
+  labs(
+    x = "Body mass", y = "Bill length",
+    title = title_str
+  ) +
+  theme_kyle(base_size = 12)
+```
 
 ```{r}
 # `plot` -> `tikzpicture` -> `pdf`
@@ -87,7 +105,18 @@ tikzsave(
   "man/figures/README-penguins.tex",
   p, width = 8, height = 5
 )
-knitr::include_graphics("man/figures/README-penguins.pdf")
+```
+
+```{r}
+#| include: false
+#| echo: false
+#| message: false
+pdftools::pdf_convert("man/figures/README-penguins.pdf", "png", filenames = "man/figures/README-penguins.png",dpi = 300)
+```
+
+```{r}
+#| echo: false
+knitr::include_graphics("man/figures/README-penguins.png")
 ```
 
 
