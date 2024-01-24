@@ -1,3 +1,5 @@
+# TODO: Figure out tikzDictionary when using Rmarkdown
+
 delete_if_exists <- function(filename) {
   if (file.exists(filename)) file.remove(filename)
 }
