@@ -57,11 +57,11 @@ microbenchmark::microbenchmark(
 #> [1] "Distance in miles. To use kilometers use option `unit == 'km'`"
 #> Unit: milliseconds
 #>      expr         min          lq        mean      median          uq
-#>        sf 3999.101501 3999.101501 3999.101501 3999.101501 3999.101501
-#>  parallel    6.042949    6.042949    6.042949    6.042949    6.042949
+#>        sf 4069.046189 4069.046189 4069.046189 4069.046189 4069.046189
+#>  parallel    6.236469    6.236469    6.236469    6.236469    6.236469
 #>          max neval
-#>  3999.101501     1
-#>     6.042949     1
+#>  4069.046189     1
+#>     6.236469     1
 }\if{html}{\out{</div>}}
 }
 

@@ -18,17 +18,21 @@ delete_if_exists <- function(filename) {
 #' @param ... Passed to `ggplot2::ggsave`
 #' 
 #' @return Invisibly returns filename
-tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, recompile = TRUE, ...) {
+#' @export 
+#' 
+tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, recompile = TRUE, quiet = TRUE, ...) {
 
   fs::dir_create(fs::path_dir(filename), recurse = TRUE)
   
   # plot -> tikzpicture
+  if (!quiet) message("Saving tikzpicture")
   ggplot2::ggsave(
     filename = filename, plot = plot, 
     device = function(...) tikzDevice::tikz(..., standAlone = FALSE, verbose = FALSE),
     ...
   )
   
+  if (!quiet) message("Compiling tikzpicture to pdf")
   compile_tikzpicture(filename, packages = packages, recompile = recompile)
 
   return(invisible(filename))
@@ -47,6 +51,7 @@ tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, rec
 #' is newer than the tex date.
 #'
 #' @return Invisibly returns `TRUE` if compilation succeeds.
+#' 
 #' @export
 compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
 
@@ -56,7 +61,7 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
       system.file("tikzsave/math.sty", package = "kfbmisc")
     )
   }
-  pkg_tex = paste0("\\usepackage{", packages, "}")
+  pkg_tex = paste0("\\usepackage{", xfun::sans_ext(packages), "}")
 
   dir = dirname(filename)
   base_san_ext = xfun::sans_ext(basename(filename))
@@ -65,7 +70,7 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
   # Make sure to clean-up
   on.exit({
     delete_if_exists(here::here(dir, "temp.tex"))
-    for (ext in c(".aux", ".fdb_latexmk", ".flx", ".log", ".xdv", ".fls")) {
+    for (ext in c(".aux", ".fdb_latexmk", ".flx", ".log", ".xdv", ".fls", ".bbl")) {
       delete_if_exists(
         here::here(dir, paste0(base_san_ext, ext))
       )
@@ -100,12 +105,14 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE) {
     WRAPPER[[2]]
   )
   xfun::write_utf8(standalone_str, here::here(dir, "temp.tex"))
+  # This is a bit of a "hack" to prevent an issue with latexmk looking for bbl
+  fs::file_create(here::here(dir, paste0(base_san_ext, ".bbl")))
 
   # `latexmk`
   # https://texdoc.org/serve/latexmk/0
   compile_command <- glue::glue(r'(
     cd "{here::here(dir)}" &&
-    latexmk -pdf -interaction=nonstopmode -bibtex- -jobname={base_san_ext} temp.tex
+    latexmk -pdf -interaction=nonstopmode -bibtex- -quiet -jobname={base_san_ext} temp.tex
   )')
   system(
     compile_command,

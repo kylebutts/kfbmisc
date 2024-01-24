@@ -9,6 +9,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
+  dpi = 300,
   out.width = "100%"
 )
 ```
@@ -39,30 +40,35 @@ library(kfbmisc)
 
 This is a relatively simple theme that makes the font larger for figures and adds more margins around things. 
 
-```{r, fig.width = 8, fig.height = 5}
+```{r}
+#| fig.width: 8
+#| fig.height: 5
 library(ggplot2)
+library(palmerpenguins)
 
-ggplot(mtcars) +
-  geom_point(aes(x = mpg, y = hp)) +
+(p = ggplot(penguins) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
   labs(
-    title = "mtcars Dataset",
-    x = "Miles per Gallon", y = "Horsepower"
+    x = "Body mass", y = "Bill length"
+  ) +
+  theme_kyle(base_size = 14))
+```
+
+```{r}
+#| fig.width: 8
+#| fig.height: 5
+ggplot(penguins) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
+  facet_wrap(~ species) +
+  labs(
+    x = "Body mass", y = "Bill length"
   ) +
   theme_kyle(base_size = 14)
 ```
 
-```{r, fig.width = 8, fig.height = 5}
-ggplot(mtcars) +
-  geom_point(aes(x = mpg, y = hp)) +
-  facet_wrap(~cyl) +
-  labs(
-    title = "mtcars Dataset",
-    x = "Miles per Gallon", y = "Horsepower"
-  ) +
-  theme_kyle(base_size = 14)
-```
-
-```{r, fig.width = 8, fig.height = 5}
+```{r}
+#| fig.width: 8
+#| fig.height: 5
 library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 
@@ -73,13 +79,24 @@ ggplot(nc) +
   theme_map()
 ```
 
+### `tikzsave`
+
+```{r}
+# `plot` -> `tikzpicture` -> `pdf`
+tikzsave(
+  "man/figures/README-penguins.tex",
+  p, width = 8, height = 5
+)
+knitr::include_graphics("man/figures/README-penguins.pdf")
+```
 
 
 ### `gt` theme
 
 This theme borrow heavily from [Thomas Mock](https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables/)
 
-```{r, results = "asis"}
+```{r}
+#| results: asis
 library(gt)
 
 mtcars[1:5, ] |>
