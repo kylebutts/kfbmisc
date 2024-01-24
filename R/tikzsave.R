@@ -25,6 +25,11 @@ delete_if_exists <- function(filename) {
 tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, recompile = TRUE, quiet = TRUE, ...) {
 
   fs::dir_create(fs::path_dir(filename), recurse = TRUE)
+
+  # If `.pdf` passed, use `.tex`  
+  if (fs::path_ext(filename) == ".pdf") {
+    filename = fs::path_ext_set(filename, ".tex")
+  }
   
   # plot -> tikzpicture
   if (!quiet) message("Saving tikzpicture")
