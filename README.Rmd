@@ -30,21 +30,21 @@ You can install the development version of kfbmisc from [GitHub](https://github.
 devtools::install_github("kylebutts/kfbmisc")
 ```
 
-## Utilities
-
 ```{r}
 library(kfbmisc)
 ```
 
-### `ggplot2` theme
+## `ggplot2` theme
 
 This is a relatively simple theme that makes the font larger for figures and adds more margins around things. 
 
 ```{r}
 #| fig.width: 8
-#| fig.height: 5
+#| fig.height: 4
 library(ggplot2)
 library(palmerpenguins)
+
+penguins = subset(penguins, !is.na(body_mass_g) & !is.na(bill_length_mm))
 
 ggplot(penguins) +
   geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
@@ -56,7 +56,7 @@ ggplot(penguins) +
 
 ```{r}
 #| fig.width: 8
-#| fig.height: 5
+#| fig.height: 4
 ggplot(penguins) +
   geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
   facet_wrap(~ species) +
@@ -66,17 +66,30 @@ ggplot(penguins) +
   theme_kyle(base_size = 12)
 ```
 
+### Maps
+
 ```{r}
 #| fig.width: 8
 #| fig.height: 5
 library(sf)
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
+nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 
 ggplot(nc) +
   geom_sf(aes(fill = BIR74)) +
-  scale_fill_viridis_c() + 
-  theme_kyle(base_size = 12) + 
-  theme_map()
+  scale_fill_fermenter(
+    direction = 1, palette = 3,
+    guide = guide_colorbar()
+  ) + 
+  labs(fill = "1974 Birth Rate (%)") +
+  theme_kyle(
+    base_size = 12,
+  ) + 
+  theme_map() +
+  theme(
+    legend.position = "bottom",
+    legend.title.position = "top",
+    legend.key.width = unit(6, "lines")
+  )
 ```
 
 ### `tikzsave`
@@ -103,7 +116,7 @@ p = ggplot(penguins) +
 # `plot` -> `tikzpicture` -> `pdf`
 tikzsave(
   "man/figures/README-penguins.pdf",
-  p, width = 8, height = 5,
+  p, width = 8, height = 4,
   # uses `imagemagick` to convert to png 
   create_png = TRUE 
 )
@@ -114,22 +127,25 @@ tikzsave(
 knitr::include_graphics("man/figures/README-penguins.png")
 ```
 
+### Additional Examples
 
-### `gt` theme
+Most of these examples are taken from [`pilot`](https://github.com/olihawkins/pilot). The source code can be found in `gallery/`:
 
-This theme borrow heavily from [Thomas Mock](https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables/)
+[Line Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/line-chart.R)
+`r knitr::include_graphics("gallery/figures/line-chart.png")`
 
-```{r}
-#| results: asis
-library(gt)
+[Scatter Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter-chart-basic.R)
+`r knitr::include_graphics("gallery/figures/scatter-chart.png")`
 
-mtcars[1:5, ] |>
-  gt() |>
-  gt_theme_kyle() |>
-  tab_header(title = make_gt_title("mtcars Dataset")) |>
-  tab_source_note(source_note = "Data from mtcars in R") |>
-  as_raw_html()
-```
+[Scatter Chart Facets](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter-chart-facets.R)
+`r knitr::include_graphics("gallery/figures/scatter-chart-facets.png")`
 
+[Stacked Column Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/stacked-column-chart.R)
+`r knitr::include_graphics("gallery/figures/stacked-column-chart.png")`
 
+[Map](https://github.com/kylebutts/kfbmisc/blob/master/gallery/map.R)
+`r knitr::include_graphics("gallery/figures/map.png")`
+
+[Facet Map](https://github.com/kylebutts/kfbmisc/blob/master/gallery/map.R)
+`r knitr::include_graphics("gallery/figures/facet_map.png")`
 
