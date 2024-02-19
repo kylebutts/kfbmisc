@@ -68,7 +68,7 @@ ggplot(nc) +
     direction = 1, palette = 3,
     guide = guide_colorbar()
   ) + 
-  labs(fill = "1974 Birth Rate (%)") +
+  labs(fill = "1974 Births") +
   theme_kyle(
     base_size = 12,
   ) + 
@@ -76,7 +76,7 @@ ggplot(nc) +
   theme(
     legend.position = "bottom",
     legend.title.position = "top",
-    legend.key.width = unit(6, "lines")
+    legend.key.width = unit(4, "lines")
   )
 ```
 

@@ -137,12 +137,12 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
         fill = "white"
       ),
       legend.title = ggplot2::element_text(
-        size = ggplot2::rel(SCALE),
+        size = ggplot2::rel(1),
         face = "bold",
         color = tailwind["grey-700"]
       ),
       legend.text = ggplot2::element_text(
-        size = ggplot2::rel(1),
+        size = ggplot2::rel(1/SCALE),
         color = tailwind["grey-700"]
       ),
 
