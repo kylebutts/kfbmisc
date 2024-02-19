@@ -4,12 +4,42 @@
 \alias{theme_kyle}
 \title{Custom ggplot2 theme}
 \usage{
-theme_kyle(base_size = 14, ...)
+theme_kyle(
+  base_size = 14,
+  axes = "bl",
+  grid = "hv",
+  grid_minor = "hv",
+  map = FALSE,
+  ...
+)
 }
 \arguments{
 \item{base_size}{The base_size of the font. Title, axis text, etc. all adjust to base_size. Default is 14.}
 
-\item{...}{Additoinal options passed to \code{ggplot2::theme}}
+\item{axes}{A string indicating which axes should have lines and ticks.
+Specify which axes to show by including the matching characters in the
+string: "t" for top, "r" for right, "b" for bottom, "l" for left. You will
+need to ensure this argument is consistent with the axes settings in your
+plot for the lines and ticks to be displayed. The default is an empty
+string, meaning ticks and lines for the bottom and left axes are shown by
+default.}
+
+\item{grid}{A string indicating which gridlines should be shown. Specify
+the gridlines to show by including the matching characters in the string:
+"h" for horizontal, "v" for vertical. The default is "hv",
+meaning both gridlines are shown by default.}
+
+\item{grid_minor}{A string indicating which gridlines should be shown. Specify
+the gridlines to show by including the matching characters in the string:
+"h" for horizontal, "v" for vertical. The default is "hv",
+meaning both gridlines are shown by default.}
+
+\item{map}{Logical. If true, clear axes and plot for maps}
+
+\item{...}{Additional options passed to \code{ggplot2::theme}}
+}
+\value{
+A ggplot2 theme
 }
 \description{
 Custom ggplot2 theme

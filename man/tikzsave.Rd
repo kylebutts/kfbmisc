@@ -9,6 +9,8 @@ tikzsave(
   plot = ggplot2::last_plot(),
   packages = NULL,
   recompile = TRUE,
+  create_png = FALSE,
+  quiet = TRUE,
   ...
 )
 }
@@ -25,6 +27,11 @@ include in preamble. Default is my \code{paper.sty} and \code{math.sty} in
 sometimes the \code{.pdf} file will be newer than the saved \code{.tex} file.
 If \code{FALSE}, this will skip recomipilation in these cases.
 Default is \code{TRUE}.}
+
+\item{create_png}{Logical. If true, will also output a png in addition to
+the pdf.}
+
+\item{quiet}{Logical. If \code{TRUE} (default), do not display info messages.}
 
 \item{...}{Passed to \code{ggplot2::ggsave}}
 }

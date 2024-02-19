@@ -61,7 +61,6 @@ ggplot(penguins) +
 
 ``` r
 library(sf)
-#> Warning: package 'sf' was built under R version 4.3.1
 #> Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
@@ -105,8 +104,10 @@ p = ggplot(penguins) +
 ``` r
 # `plot` -> `tikzpicture` -> `pdf`
 tikzsave(
-  "man/figures/README-penguins.tex",
-  p, width = 8, height = 5
+  "man/figures/README-penguins.pdf",
+  p, width = 8, height = 5,
+  # uses `imagemagick` to convert to png 
+  create_png = TRUE 
 )
 #> `geom_smooth()` using formula = 'y ~ x'
 #> Warning: Removed 2 rows containing non-finite outside the scale range
@@ -124,7 +125,6 @@ Mock](https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables
 
 ``` r
 library(gt)
-#> Warning: package 'gt' was built under R version 4.3.1
 
 mtcars[1:5, ] |>
   gt() |>
@@ -134,7 +134,7 @@ mtcars[1:5, ] |>
   as_raw_html()
 ```
 
-<div id="udqxbviokk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="gpvurlcrei" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: 'Fira Code', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: rgba(255, 255, 255, 0); border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 3px; border-bottom-color: rgba(255, 255, 255, 0); border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
   <thead style="border-style: none;">
     <tr class="gt_heading" style="border-style: none; background-color: #FFFFFF; text-align: left; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;" bgcolor="#FFFFFF" align="left">

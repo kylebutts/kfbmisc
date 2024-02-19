@@ -4,7 +4,12 @@
 \alias{compile_tikzpicture}
 \title{Wraps and compiles a tikzpicture}
 \usage{
-compile_tikzpicture(filename, packages = NULL, recompile = TRUE)
+compile_tikzpicture(
+  filename,
+  packages = NULL,
+  recompile = TRUE,
+  create_png = FALSE
+)
 }
 \arguments{
 \item{filename}{Character. Filename of a tikzpicture in \code{.tex} file}
@@ -15,6 +20,9 @@ include in preamble. Default is my \code{paper.sty} and \code{math.sty} in
 
 \item{recompile}{Logical. If FALSE, does not update if pdf date
 is newer than the tex date.}
+
+\item{create_png}{Logical. If true, will also output a png in addition to
+the pdf.}
 }
 \value{
 Invisibly returns \code{TRUE} if compilation succeeds.

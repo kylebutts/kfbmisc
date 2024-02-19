@@ -102,16 +102,11 @@ p = ggplot(penguins) +
 ```{r}
 # `plot` -> `tikzpicture` -> `pdf`
 tikzsave(
-  "man/figures/README-penguins.tex",
-  p, width = 8, height = 5
+  "man/figures/README-penguins.pdf",
+  p, width = 8, height = 5,
+  # uses `imagemagick` to convert to png 
+  create_png = TRUE 
 )
-```
-
-```{r}
-#| include: false
-#| echo: false
-#| message: false
-pdftools::pdf_convert("man/figures/README-penguins.pdf", "png", filenames = "man/figures/README-penguins.png",dpi = 300)
 ```
 
 ```{r}

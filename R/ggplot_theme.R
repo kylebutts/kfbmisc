@@ -1,14 +1,30 @@
 #' Custom ggplot2 theme
 #'
 #' @param base_size The base_size of the font. Title, axis text, etc. all adjust to base_size. Default is 14.
-#' @param ... Additoinal options passed to `ggplot2::theme`
+#' @param axes A string indicating which axes should have lines and ticks.
+#'   Specify which axes to show by including the matching characters in the
+#'   string: "t" for top, "r" for right, "b" for bottom, "l" for left. You will
+#'   need to ensure this argument is consistent with the axes settings in your
+#'   plot for the lines and ticks to be displayed. The default is an empty
+#'   string, meaning ticks and lines for the bottom and left axes are shown by
+#'   default.
+#' @param grid A string indicating which gridlines should be shown. Specify
+#'   the gridlines to show by including the matching characters in the string:
+#'   "h" for horizontal, "v" for vertical. The default is "hv",
+#'   meaning both gridlines are shown by default.
+#' @param grid_minor A string indicating which gridlines should be shown. Specify
+#'   the gridlines to show by including the matching characters in the string:
+#'   "h" for horizontal, "v" for vertical. The default is "hv",
+#'   meaning both gridlines are shown by default.
+#' @param map Logical. If true, clear axes and plot for maps
+#' @param ... Additional options passed to `ggplot2::theme`
 #'
 #' @examples
-#' 
+#'
 #' ggplot2::ggplot(mtcars) +
 #'   ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) +
 #'   theme_kyle(base_size = 18)
-#' 
+#'
 #' ggplot2::ggplot(mtcars) +
 #'   ggplot2::geom_point(ggplot2::aes(x = mpg, y = hp)) +
 #'   ggplot2::facet_wrap(~cyl) +
@@ -18,128 +34,225 @@
 #'   ) +
 #'   theme_kyle(base_size = 18)
 #'
+#' @importFrom ggplot2 '%+replace%'
+#' @return A ggplot2 theme
+#'
 #' @export
-theme_kyle <- function(base_size = 14, ...) {
-  ggplot2::theme_bw(
-    base_size = base_size
-  ) +
+theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "hv", map = FALSE, ...) {
+  # Fluid scale: https://utopia.fyi/type/
+  SCALE <- 1.125
+
+  axis_line_color <- tailwind["grey-400"]
+  axis_line <- ggplot2::element_line(
+    color = axis_line_color,
+    size = 0.3,
+    linetype = "solid"
+  )
+  grid_line_color <- tailwind["grey-300"]
+  grid_line <- ggplot2::element_line(
+    color = grid_line_color, 
+    size = 0.35, linetype = "solid"
+  )
+  grid_minor_line <- ggplot2::element_line(
+    color = tailwind["grey-200"], 
+    size = 0.2, linetype = "solid"
+  )
+
+  theme_kyle <-
+    ggplot2::theme_bw(
+      base_size = base_size
+    ) +
     theme(
-      ## Title and Subtitle --------------------------------------------------
+      ## Plot
+      plot.background = ggplot2::element_rect(
+        color = "white",
+      ),
+      plot.margin = ggplot2::margin(16, 16, 16, 16, unit = "pt"),
+
+      ## Panel
+      panel.background = ggplot2::element_rect(
+        color = "white", fill = "white"
+      ),
+      panel.border = ggplot2::element_rect(
+        color = NA
+      ),
+      panel.spacing = grid::unit(1.5, "lines"),
+
+      ## Title & subtitle
       plot.title = ggplot2::element_text(
-        # Font
-        face = "bold", size = ggplot2::rel(1.285),
-        colour = "#454545",
-        # Center title
+        face = "bold",
+        size = ggplot2::rel(SCALE^2),
+        color = tailwind["grey-900"],
         hjust = 0,
-        # Margins
         margin = ggplot2::margin(b = 8, unit = "pt")
       ),
       plot.subtitle = ggplot2::element_text(
-        # Font
-        face = "italic", size = ggplot2::rel(.86),
-        colour = "#454545",
-        # Center subtitle
+        size = ggplot2::rel(SCALE),
+        color = tailwind["grey-500"],
         hjust = 0,
-        # Margins
         margin = ggplot2::margin(b = 16, unit = "pt")
       ),
       plot.title.position = "plot",
 
-      ## Caption -------------------------------------------------------------
+      ## Caption
       plot.caption = ggplot2::element_text(
-        # Font
-        size = ggplot2::rel(0.72), colour = "#454545",
-        # Right-align caption
+        size = ggplot2::rel(1 / SCALE),
+        color = tailwind["grey-500"],
         hjust = 1,
-        # Margins
         margin = ggplot2::margin(t = 20)
       ),
       plot.caption.position = "plot",
 
-      ## Axis ----------------------------------------------------------------
-      # Axis title
+      ## Axes
       axis.title = ggplot2::element_text(
-        # Font
-        size = ggplot2::rel(1.285), colour = "#454545"
+        size = ggplot2::rel(SCALE),
+        color = tailwind["grey-800"]
       ),
-      # Axis Title x/y
       axis.title.y = ggplot2::element_text(
-        # Right-align y axis title
         hjust = 0.5,
-        # Margins
         margin = ggplot2::margin(r = 10)
       ),
       axis.title.x = ggplot2::element_text(
-        # Left-align x axis title
         hjust = 0.5,
-        # Margins
         margin = ggplot2::margin(t = 10)
       ),
-      # Axis labels
       axis.text = ggplot2::element_text(
-        # Font
-        size = ggplot2::rel(1), colour = "#212121"
+        size = ggplot2::rel(1/SCALE),
+        color = tailwind["grey-700"]
       ),
-      # Axis Lines
-      axis.line = ggplot2::element_line(
-        colour = "grey40"
-      ),
-      axis.ticks = ggplot2::element_line(
-        colour = "grey40"
-      ),
-      panel.grid = ggplot2::element_line(
-        colour = "grey92"
-      ),
+      # Default to none, edited below
+      axis.ticks = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank(),
+      axis.line.x.top = ggplot2::element_blank(),
+      axis.line.y.right = ggplot2::element_blank(),
+      axis.line.x.bottom = ggplot2::element_blank(),
+      axis.line.y.left = ggplot2::element_blank(),
 
-
-      ## Legend -------------------------------------------------------------
-      # Legend title
+      ## Legend
+      legend.background = ggplot2::element_rect(
+        color = "white", size = 0
+      ),
+      legend.key = ggplot2::element_rect(
+        color = "white",
+        fill = "white"
+      ),
       legend.title = ggplot2::element_text(
-        # Font
-        size = ggplot2::rel(.86), colour = "#454545"
+        size = ggplot2::rel(SCALE),
+        face = "bold",
+        color = tailwind["grey-700"]
       ),
-      # Legend labels
       legend.text = ggplot2::element_text(
-        # Font
-        size = ggplot2::rel(.72), colour = "#454545"
+        size = ggplot2::rel(1),
+        color = tailwind["grey-700"]
       ),
 
-      ## Facet Wrap ----------------------------------------------------------
-      strip.text = ggplot2::element_text(
-        # Font
-        size = ggplot2::rel(.86), colour = "#454545",
-        # Margin
-        margin = ggplot2::margin(t = 10, b = 10)
-      ),
+      ## Facet Wrap
       strip.background = ggplot2::element_rect(
-        fill = "white",
-        colour = "grey40", linewidth = 1.5,
+        color = "white",
+        fill = "white"
       ),
-      
+      strip.text = ggplot2::element_text(
+        size = ggplot2::rel(1/SCALE),
+        color = tailwind["grey-800"],
+        face = "bold",
+        margin = ggplot2::margin(t = 0, b = 8)
+      ),
 
-      ## Panel ---------------------------------------------------------------
-      panel.background = ggplot2::element_rect(
-        colour = NA
-      ),
-      panel.border = ggplot2::element_rect(
-        colour = NA
-      ),
-      panel.spacing = grid::unit(2, "lines"),
-
-      ## Plot ----------------------------------------------------------------
-      plot.background = ggplot2::element_rect(
-        colour = NA
-      ),
-      plot.margin = ggplot2::margin(16, 16, 16, 16, unit = "pt")
-    ) +
-    ## Additional options passed by user ---------------------------------------
-    theme(
-      ...
+      ## Gridlines
+      # Default to none, edited below
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank()
     )
+
+  # Axes
+  if (grepl("t", axes)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(
+        axis.line.x.top = axis_line,
+        axis.ticks.x.top = axis_line
+      )
+  }
+  if (grepl("r", axes)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(
+        axis.line.y.right = axis_line,
+        axis.ticks.y.right = axis_line
+      )
+  }
+  if (grepl("b", axes)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(
+        axis.line.x.bottom = axis_line,
+        axis.ticks.x.bottom = axis_line
+      )
+  }
+  if (grepl("l", axes)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(
+        axis.line.y.left = axis_line,
+        axis.ticks.y.left = axis_line
+      )
+  }
+
+  # Gridlines
+  if (grepl("v", grid)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(panel.grid.major.x = grid_line)
+  }
+  if (grepl("h", grid)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(panel.grid.major.y = grid_line)
+  }
+  if (grepl("v", grid_minor)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(panel.grid.minor.x = grid_minor_line)
+  }
+  if (grepl("h", grid_minor)) {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(panel.grid.minor.y = grid_minor_line)
+  }
+
+  if (map == TRUE) {
+    theme_kyle <- theme_kyle %+replace% 
+      ggplot2::theme(
+        panel.background = ggplot2::element_rect(fill = "white"),
+        panel.grid.major = ggplot2::element_blank(),
+        axis.title = ggplot2::element_blank(),
+        axis.text = ggplot2::element_blank(),
+        axis.ticks = ggplot2::element_blank(),
+        axis.ticks.x.top = ggplot2::element_blank(),
+        axis.ticks.x.bottom = ggplot2::element_blank(),
+        axis.ticks.y.left = ggplot2::element_blank(),
+        axis.ticks.y.right = ggplot2::element_blank(),
+        axis.line = ggplot2::element_blank(),
+        axis.line.x.top = ggplot2::element_blank(),
+        axis.line.x.bottom = ggplot2::element_blank(),
+        axis.line.y.left = ggplot2::element_blank(),
+        axis.line.y.right = ggplot2::element_blank()
+      )
+  }
+
+  # Additional options passed by user
+  theme_kyle %+replace% ggplot2::theme(...)
 }
 
-
-
+#' Tailwind color palette
+#' 
+#' Source: <https://tailwindcss.com/docs/customizing-colors>
+#' @export
+tailwind <- c(
+  "grey-50"  = "#f9fafb",
+  "grey-100" = "#f3f4f6",
+  "grey-200" = "#e5e7eb",
+  "grey-300" = "#d1d5db",
+  "grey-400" = "#9ca3af",
+  "grey-500" = "#6b7280",
+  "grey-600" = "#4b5563",
+  "grey-700" = "#374151",
+  "grey-800" = "#1f2937",
+  "grey-900" = "#111827",
+  "grey-950" = "#030712"
+)
 
 #' Remove axis for maps
 #'
@@ -147,13 +260,20 @@ theme_kyle <- function(base_size = 14, ...) {
 #'
 #' @export
 theme_map <- function() {
-  ## Additional options passed by user ---------------------------------------
   ggplot2::theme(
-    axis.text = ggplot2::element_blank(),
-    axis.ticks = ggplot2::element_blank(),
     panel.background = ggplot2::element_rect(fill = "white"),
     panel.grid.major = ggplot2::element_blank(),
+    axis.title = ggplot2::element_blank(),
+    axis.text = ggplot2::element_blank(),
+    axis.ticks = ggplot2::element_blank(),
+    axis.ticks.x.top = ggplot2::element_blank(),
+    axis.ticks.x.bottom = ggplot2::element_blank(),
+    axis.ticks.y.left = ggplot2::element_blank(),
+    axis.ticks.y.right = ggplot2::element_blank(),
     axis.line = ggplot2::element_blank(),
-    axis.title = ggplot2::element_blank()
+    axis.line.x.top = ggplot2::element_blank(),
+    axis.line.x.bottom = ggplot2::element_blank(),
+    axis.line.y.left = ggplot2::element_blank(),
+    axis.line.y.right = ggplot2::element_blank()
   )
 }
