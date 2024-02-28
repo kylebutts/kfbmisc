@@ -53,6 +53,7 @@ df <-
   ) + 
   theme(
     legend.position = "top",
+    legend.margin = margin(0, 0, 5, 0),
     legend.justification = c(0, 1),
     legend.location = "plot"
   )
