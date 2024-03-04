@@ -4,7 +4,7 @@
 \alias{print_rmd}
 \title{Print Xaringan .Rmd/.html file using \code{pagedown::chrome_print}}
 \usage{
-print_rmd(file, pdf_file = NULL)
+print_rmd(file, pdf_file = NULL, verbose = TRUE)
 }
 \arguments{
 \item{file}{The full file path to .Rmd/.html file}
