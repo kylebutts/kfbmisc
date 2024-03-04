@@ -5,11 +5,7 @@
 #'   location of file will be used
 #'
 #' @export
-<<<<<<< HEAD
 print_rmd <- function(file, pdf_file = NULL, verbose = TRUE) {
-=======
-print_rmd <- function(file, pdf_file = NULL, verbose = FALSE) {
->>>>>>> 684aec1f3d91b881afa2c9ef9b7de61e04666cde
   if (is.null(pdf_file)) {
     pdf_file <- fs::path_ext_set(file, ".pdf")
   }
@@ -35,12 +31,7 @@ print_rmd <- function(file, pdf_file = NULL, verbose = FALSE) {
   }
 
   # temp allows for easier error output
-<<<<<<< HEAD
   if (verbose) print("Attempting to print to pdf")
-=======
-  verbose && print("Attempting to print to pdf")
-
->>>>>>> 684aec1f3d91b881afa2c9ef9b7de61e04666cde
   
   temp <- NULL
   try({
