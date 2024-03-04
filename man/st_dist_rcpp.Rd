@@ -52,18 +52,16 @@ microbenchmark::microbenchmark(
   parallel = st_dist_rcpp(nc_long),
   times = 1
 )
-#> Warning in microbenchmark::microbenchmark(sf = sf::st_distance(nc_long), : less
-#> accurate nanosecond times to avoid potential integer overflows
 #> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
 #> results for longitude/latitude data
 #> [1] "Distance in miles. To use kilometers use option `unit == 'km'`"
 #> Unit: milliseconds
 #>      expr         min          lq        mean      median          uq
-#>        sf 4161.888680 4161.888680 4161.888680 4161.888680 4161.888680
-#>  parallel    6.392884    6.392884    6.392884    6.392884    6.392884
+#>        sf 3967.234948 3967.234948 3967.234948 3967.234948 3967.234948
+#>  parallel    5.899777    5.899777    5.899777    5.899777    5.899777
 #>          max neval
-#>  4161.888680     1
-#>     6.392884     1
+#>  3967.234948     1
+#>     5.899777     1
 }\if{html}{\out{</div>}}
 }
 

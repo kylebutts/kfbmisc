@@ -13,6 +13,7 @@
 #'
 #' ```{r, comment = "#>"}
 #' library(sf)
+#' set.seed(1)
 #' nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #' x <- st_as_sf(data.frame(id = 1:10, geometry = st_sample(nc, 10)))
 #' x$CNTY_ID = st_extract_within(x, nc, "CNTY_ID")
