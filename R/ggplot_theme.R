@@ -1,3 +1,14 @@
+# TODO: Adapt from `theme_bw()` base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22,
+
+# Needed b/c ggplot2::element_* acts weird with `ifelse`
+grepl_ifelse <- function(pattern, x, yes, no) {
+  if (grepl(pattern, x)) {
+    return(yes)
+  } else {
+    return(no)
+  }
+}
+
 #' Custom ggplot2 theme
 #'
 #' @param base_size The base_size of the font. Title, axis text, etc. all adjust to base_size. Default is 14.
@@ -42,26 +53,30 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
   # Fluid scale: https://utopia.fyi/type/
   SCALE <- 1.125
 
+  grid_line_color <- tailwind["grey-300"]
+  grid_line <- ggplot2::element_line(
+    color = grid_line_color,
+    linewidth = 0.35, linetype = "solid"
+  )
+
+  grid_minor_line_color <- tailwind["grey-200"]
+  grid_minor_line <- ggplot2::element_line(
+    color = grid_minor_line_color,
+    linewidth = 0.2, linetype = "solid"
+  )
+
   axis_line_color <- tailwind["grey-400"]
   axis_line <- ggplot2::element_line(
     color = axis_line_color,
-    size = 0.3,
-    linetype = "solid"
-  )
-  grid_line_color <- tailwind["grey-300"]
-  grid_line <- ggplot2::element_line(
-    color = grid_line_color, 
-    size = 0.35, linetype = "solid"
-  )
-  grid_minor_line <- ggplot2::element_line(
-    color = tailwind["grey-200"], 
-    size = 0.2, linetype = "solid"
+    linewidth = 0.3,
+    linetype = "solid",
+    inherit.blank = FALSE
   )
 
   theme_kyle <-
     ggplot2::theme_bw(
       base_size = base_size
-    ) +
+    ) %+replace%
     theme(
       ## Plot
       plot.background = ggplot2::element_rect(
@@ -73,9 +88,7 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
       panel.background = ggplot2::element_rect(
         color = "white", fill = "white"
       ),
-      panel.border = ggplot2::element_rect(
-        color = NA
-      ),
+      panel.border = ggplot2::element_blank(),
       panel.spacing = grid::unit(1.5, "lines"),
 
       ## Title & subtitle
@@ -117,20 +130,41 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
         margin = ggplot2::margin(t = 10)
       ),
       axis.text = ggplot2::element_text(
-        size = ggplot2::rel(1/SCALE),
+        size = ggplot2::rel(1 / SCALE),
         color = tailwind["grey-700"]
       ),
-      # Default to none, edited below
-      axis.ticks = ggplot2::element_blank(),
-      axis.line = ggplot2::element_blank(),
-      axis.line.x.top = ggplot2::element_blank(),
-      axis.line.y.right = ggplot2::element_blank(),
-      axis.line.x.bottom = ggplot2::element_blank(),
-      axis.line.y.left = ggplot2::element_blank(),
+
+      # Axes
+      axis.ticks = axis_line,
+      axis.line = axis_line,
+      axis.line.x.top = grepl_ifelse(
+        "t", axes, axis_line, ggplot2::element_blank()
+      ),
+      axis.ticks.x.top = grepl_ifelse(
+        "t", axes, axis_line, ggplot2::element_blank()
+      ),
+      axis.line.y.right = grepl_ifelse(
+        "r", axes, axis_line, ggplot2::element_blank()
+      ),
+      axis.ticks.y.right = grepl_ifelse(
+        "r", axes, axis_line, ggplot2::element_blank()
+      ),
+      axis.line.x.bottom = grepl_ifelse(
+        "b", axes, axis_line, ggplot2::element_blank()
+      ),
+      axis.ticks.x.bottom = grepl_ifelse(
+        "b", axes, axis_line, ggplot2::element_blank()
+      ),
+      axis.line.y.left = grepl_ifelse(
+        "l", axes, axis_line, ggplot2::element_blank()
+      ),
+      axis.ticks.y.left = grepl_ifelse(
+        "l", axes, axis_line, ggplot2::element_blank()
+      ),
 
       ## Legend
       legend.background = ggplot2::element_rect(
-        color = "white", size = 0
+        color = "white"
       ),
       legend.key = ggplot2::element_rect(
         color = "white",
@@ -142,7 +176,7 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
         color = tailwind["grey-700"]
       ),
       legend.text = ggplot2::element_text(
-        size = ggplot2::rel(1/SCALE),
+        size = ggplot2::rel(1 / SCALE),
         color = tailwind["grey-700"]
       ),
 
@@ -152,7 +186,7 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
         fill = "white"
       ),
       strip.text = ggplot2::element_text(
-        size = ggplot2::rel(1/SCALE),
+        size = ggplot2::rel(1 / SCALE),
         color = tailwind["grey-800"],
         face = "bold",
         margin = ggplot2::margin(t = 0, b = 8)
@@ -160,63 +194,32 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
 
       ## Gridlines
       # Default to none, edited below
-      panel.grid.major = ggplot2::element_blank(),
-      panel.grid.minor = ggplot2::element_blank()
+      panel.grid.major = grid_line,
+      panel.grid.minor = grid_line,
+      panel.grid.major.y = grepl_ifelse(
+        "h", grid, grid_line, ggplot2::element_blank()
+      ),
+      panel.grid.minor.y = grepl_ifelse(
+        "h", grid_minor, grid_line, ggplot2::element_blank()
+      ),
+      panel.grid.major.x = grepl_ifelse(
+        "v", grid, grid_line, ggplot2::element_blank()
+      ),
+      panel.grid.minor.x = grepl_ifelse(
+        "v", grid_minor, grid_line, ggplot2::element_blank()
+      ),
+
+      # https://ggplot2-book.org/extensions#complete-themes
+      complete = TRUE
     )
 
-  # Axes
-  if (grepl("t", axes)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(
-        axis.line.x.top = axis_line,
-        axis.ticks.x.top = axis_line
-      )
-  }
-  if (grepl("r", axes)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(
-        axis.line.y.right = axis_line,
-        axis.ticks.y.right = axis_line
-      )
-  }
-  if (grepl("b", axes)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(
-        axis.line.x.bottom = axis_line,
-        axis.ticks.x.bottom = axis_line
-      )
-  }
-  if (grepl("l", axes)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(
-        axis.line.y.left = axis_line,
-        axis.ticks.y.left = axis_line
-      )
-  }
-
-  # Gridlines
-  if (grepl("v", grid)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(panel.grid.major.x = grid_line)
-  }
-  if (grepl("h", grid)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(panel.grid.major.y = grid_line)
-  }
-  if (grepl("v", grid_minor)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(panel.grid.minor.x = grid_minor_line)
-  }
-  if (grepl("h", grid_minor)) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(panel.grid.minor.y = grid_minor_line)
-  }
-
   if (map == TRUE) {
-    theme_kyle <- theme_kyle %+replace% 
+    theme_kyle <- theme_kyle %+replace%
       ggplot2::theme(
-        panel.background = ggplot2::element_rect(fill = "white"),
+        panel.background = ggplot2::element_blank(),
+        panel.border = ggplot2::element_blank(),
         panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
         axis.title = ggplot2::element_blank(),
         axis.text = ggplot2::element_blank(),
         axis.ticks = ggplot2::element_blank(),
@@ -228,16 +231,19 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
         axis.line.x.top = ggplot2::element_blank(),
         axis.line.x.bottom = ggplot2::element_blank(),
         axis.line.y.left = ggplot2::element_blank(),
-        axis.line.y.right = ggplot2::element_blank()
+        axis.line.y.right = ggplot2::element_blank(),
+        complete = TRUE
       )
   }
 
   # Additional options passed by user
-  theme_kyle %+replace% ggplot2::theme(...)
+  theme_kyle <- theme_kyle %+replace% ggplot2::theme(...)
+
+  return(theme_kyle)
 }
 
 #' Tailwind color palette
-#' 
+#'
 #' Source: <https://tailwindcss.com/docs/customizing-colors>
 #' @export
 tailwind <- c(
