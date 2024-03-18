@@ -22,6 +22,7 @@ Imports:
     gt,
     here,
     htmltools,
+    indexthis,
     pagedown,
     png,
     Rcpp,

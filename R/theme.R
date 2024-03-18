@@ -122,7 +122,7 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
         color = tailwind["grey-800"]
       ),
       axis.title.y = ggplot2::element_text(
-        hjust = 0.5,
+        hjust = 0.5, angle = 90,
         margin = ggplot2::margin(r = 10)
       ),
       axis.title.x = ggplot2::element_text(

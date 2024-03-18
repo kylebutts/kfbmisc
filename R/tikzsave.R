@@ -73,6 +73,10 @@ tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, rec
 #' @export
 compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE, create_png = FALSE) {
 
+  base = basename(filename)
+  dir = here::here(dirname(filename))
+  fs::dir_create(dir)
+
   if (is.null(packages)) {
     packages = c(
       system.file("tikzsave/paper.sty", package = "kfbmisc"), 
@@ -80,77 +84,47 @@ compile_tikzpicture <- function(filename, packages = NULL, recompile = TRUE, cre
     )
   }
   pkg_tex = paste0("\\usepackage{", xfun::sans_ext(packages), "}")
-
-  base = basename(filename)
-  dir = here::here(dirname(filename))
-  fs::dir_create(dir)
-
-  # Make sure to clean-up
-  on.exit({
-    delete_if_exists(here::here(dir, "temp.tex"))
-    for (ext in c(".aux", ".fdb_latexmk", ".flx", ".log", ".xdv", ".fls", ".bbl")) {
-      delete_if_exists(
-        here::here(dir, fs::path_ext_set(base, ext))
-      )
-    }
-    tikzDicts = fs::dir_ls(dir, regexp="tikzDictionary")
-    lapply(tikzDicts, delete_if_exists)
-  })
-
-  # right margin is added cause it usually looks cropped too tight to the right
-  # source: https://tex.stackexchange.com/questions/138677/why-does-standalone-not-detect-the-tikz-crop-correctly
-  WRAPPER <- list(
-    c(
-      "\\documentclass[margin={0mm 0mm 0mm 0mm}]{standalone}",
-      pkg_tex,
-      "\\begin{document}"
-    ), 
-    c("\\end{document}")
-  )
-
+  
   standalone_str <- c(
-    WRAPPER[[1]],
+    "\\documentclass[margin={0mm 0mm 0mm 0mm}]{standalone}",
+    pkg_tex, 
+    "\\begin{document}",
     xfun::read_utf8(
       here::here(dir, fs::path_ext_set(base, ".tex"))
     ),
-    WRAPPER[[2]]
+    "\\end{document}"
   )
-  xfun::write_utf8(standalone_str, here::here(dir, "temp.tex"))
 
+  temp_tex = fs::path(fs::path_temp(), "temp.tex")
+  xfun::write_utf8(standalone_str, temp_tex)
   # This is a bit of a "hack" to prevent an issue with latexmk looking for bbl
-  fs::file_create(
-    here::here(dir,  fs::path_ext_set(base, ".bbl"))
-  )
+  temp_bbl = fs::path(fs::path_temp(), fs::path_ext_set(base, "bbl"))
+  fs::file_create(temp_bbl)
 
   # `latexmk`
   # https://texdoc.org/serve/latexmk/0
-  compile_command <- glue::glue(r'(
-    cd "{here::here(dir)}" &&
-    latexmk -pdf -interaction=nonstopmode -bibtex- -quiet -jobname={xfun::sans_ext(base)} temp.tex
-  )')
   system(
-    compile_command,
+    glue::glue(r'(
+      cd "{fs::path_temp()}" &&
+      latexmk -pdf -interaction=nonstopmode -bibtex- -quiet -jobname={fs::path_ext_remove(base)} {temp_tex}
+    )'),
     ignore.stdout = TRUE
   )
 
-  cleanup_command <- glue::glue(r'(
-    cd "{here::here(dir)}" && latexmk -c
-  )')
-  system(
-    cleanup_command,
-    ignore.stdout = TRUE
+  # Copy file to filename
+  pdf_name = fs::path_ext_set(base, "pdf")
+  fs::file_copy(
+    fs::path(fs::path_temp(), pdf_name), fs::path(dir), overwrite = TRUE
   )
 
   # Conditionally create png as well
   if (create_png == TRUE) {
-    pdf_name = fs::path_ext_set(base, "pdf")
     png_name = fs::path_ext_set(base, "png")
-    convert_command = glue::glue(r'(
-      cd "{here::here(dir)}" &&
-      convert -density 400 {pdf_name} {png_name}
-    )')
     system(
-      convert_command,
+      glue::glue(r'(
+        cd "{here::here(dir)}" &&
+        convert -density 400 {pdf_name} {png_name}
+      )'),
       ignore.stdout = TRUE
     )
   }

@@ -93,7 +93,7 @@ p = ggplot(penguins) +
   geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
   geom_smooth(
     aes(x = body_mass_g, y = bill_length_mm), 
-    method = lm
+    method = lm, formula = y ~ x
   ) +
   labs(
     x = "Body mass", y = "Bill length",
@@ -108,9 +108,8 @@ tikzsave(
   "man/figures/README-penguins.pdf",
   p, width = 8, height = 4,
   # uses `imagemagick` to convert to png 
-  create_png = TRUE 
+  create_png = TRUE
 )
-#> `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="man/figures/README-penguins.png" width="100%" />
