@@ -27,7 +27,9 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #'   the gridlines to show by including the matching characters in the string:
 #'   "h" for horizontal, "v" for vertical. The default is "hv",
 #'   meaning both gridlines are shown by default.
-#' @param map Logical. If true, clear axes and plot for maps
+#' @param scale logical.
+#' @param map Logical. If true, clear axes and plot for maps. Could also add
+#'   `theme_map` to plot
 #' @param ... Additional options passed to `ggplot2::theme`
 #'
 #' @examples
@@ -49,9 +51,9 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #' @return A ggplot2 theme
 #'
 #' @export
-theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "hv", map = FALSE, ...) {
+theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "hv", map = FALSE, scale = 1.125, ...) {
   # Fluid scale: https://utopia.fyi/type/
-  SCALE <- 1.125
+  SCALE <- scale
 
   grid_line_color <- tailwind["grey-300"]
   grid_line <- ggplot2::element_line(
@@ -77,7 +79,7 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
     ggplot2::theme_bw(
       base_size = base_size
     ) %+replace%
-    theme(
+    ggplot2::theme(
       ## Plot
       plot.background = ggplot2::element_rect(
         color = "white",
@@ -93,7 +95,6 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
 
       ## Title & subtitle
       plot.title = ggplot2::element_text(
-        face = "bold",
         size = ggplot2::rel(SCALE^2),
         color = tailwind["grey-900"],
         hjust = 0,
@@ -172,7 +173,6 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
       ),
       legend.title = ggplot2::element_text(
         size = ggplot2::rel(1),
-        face = "bold",
         color = tailwind["grey-700"]
       ),
       legend.text = ggplot2::element_text(
@@ -188,7 +188,6 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
       strip.text = ggplot2::element_text(
         size = ggplot2::rel(1 / SCALE),
         color = tailwind["grey-800"],
-        face = "bold",
         margin = ggplot2::margin(t = 0, b = 8)
       ),
 
