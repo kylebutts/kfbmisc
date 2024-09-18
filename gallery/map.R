@@ -17,7 +17,7 @@ df <- df |>
     crs = st_crs(4326)
   )
 
-sample = df |>
+sample <- df |>
   filter(!is.na(primary_fur_color)) |>
   slice_sample(n = 1000)
 
@@ -28,14 +28,14 @@ hull <- df$geometry |>
 
 central_park <- sf::read_sf(here("gallery/data/central_park.geojson"))
 central_park <- central_park |>
-  st_intersection(hull) |>
+  sf::st_intersection(hull) |>
   rmapshaper::ms_simplify(keep = 0.02)
 
 
 # %%
 squirrel_colors <- c(
   "Black" = "black",
-  "Cinnamon" = "#5A2A14", 
+  "Cinnamon" = "#5A2A14",
   "Gray" = "#A9AAB8"
 )
 (map <- ggplot() +
@@ -46,7 +46,7 @@ squirrel_colors <- c(
   ) +
   geom_sf(
     aes(color = primary_fur_color),
-    data = sample, 
+    data = sample,
     size = 0.5
   ) +
   labs(
@@ -68,15 +68,15 @@ squirrel_colors <- c(
   )
 )
 
-# %% 
-(facet_map = map +
-  facet_grid(~ primary_fur_color) +
+# %%
+(facet_map <- map +
+  facet_grid(~primary_fur_color) +
   theme(
     legend.position = "bottom"
   )
 )
 
-# %% 
+# %%
 tikzsave(
   filename = here("gallery/figures/map.pdf"),
   plot = map, width = 6, height = 5,
@@ -88,4 +88,3 @@ tikzsave(
   plot = facet_map, width = 8, height = 4.5,
   create_png = TRUE
 )
-

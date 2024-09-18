@@ -6,11 +6,10 @@ library(tidyverse)
 library(scales)
 library(here)
 
-# %% 
 df <- read_csv(
-    here("gallery/data/scatter-chart-facets.csv"),
-    show_col_types = FALSE
-  ) |>
+  here("gallery/data/scatter-chart-facets.csv"),
+  show_col_types = FALSE
+) |>
   filter(!is.na(classification))
 
 settlement_classes <- c(
@@ -24,8 +23,8 @@ settlement_classes <- c(
 
 df$classification <- factor(df$classification, levels = settlement_classes)
 
-# %% 
-(plot <- 
+# %%
+(plot <-
   ggplot(
     data = df,
     mapping = aes(
@@ -53,22 +52,22 @@ df$classification <- factor(df$classification, levels = settlement_classes)
   ) +
   scale_y_continuous(
     limits = c(0.5, 0.8),
-    label = scales::percent_format(accuracy = 1, suffix="\\%")
+    label = scales::percent_format(accuracy = 1, suffix = "\\%")
   ) +
   scale_color_manual(values = c(
-    "London" = pilot_color("navy"),
-    "Other city" = pilot_color("blue"),
-    "Large town" = pilot_color("brown"),
-    "Medium town" = pilot_color("green"),
-    "Small town" = pilot_color("orange"),
-    "Village" = pilot_color("purple")
-  )) + 
+    "London" = kyle_color("navy"),
+    "Other city" = kyle_color("magenta"),
+    "Large town" = kyle_color("purple"),
+    "Medium town" = kyle_color("blue"),
+    "Small town" = kyle_color("green"),
+    "Village" = kyle_color("yellow")
+  )) +
   theme_kyle(
     base_size = 14, axes = "bl", grid = "hv",
     legend.position = "none"
   ))
 
-# %% 
+# %%
 tikzsave(
   filename = here("gallery/figures/scatter-chart-facets.pdf"),
   plot, width = 8, height = 6,

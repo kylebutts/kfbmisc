@@ -21,7 +21,7 @@ Returns an indicator vector for whether y contains a point of x using st_within
 set.seed(1)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
-#>   `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/sf/shape/nc.shp' 
+#>   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' 
 #>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
@@ -50,7 +50,7 @@ nc
 #> 10 0.124     1.428  1837    1837      Stokes 37169  37169       85  1612     1
 #>    NWBIR74 BIR79 SID79 NWBIR79                       geometry contains_x
 #> 1       10  1364     0      19 MULTIPOLYGON (((-81.47276 3...          0
-#> 2       10   542     3      12 MULTIPOLYGON (((-81.23989 3...          0
+#> 2       10   542     3      12 MULTIPOLYGON (((-81.23989 3...          1
 #> 3      208  3616     6     260 MULTIPOLYGON (((-80.45634 3...          0
 #> 4      123   830     2     145 MULTIPOLYGON (((-76.00897 3...          0
 #> 5     1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...          0

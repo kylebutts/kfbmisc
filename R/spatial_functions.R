@@ -114,23 +114,14 @@ st_multiply_sgbp <- function(sgbp, mat) {
 #'
 #' @return Matrix of distances of dimension n_x by n_y.
 #'
-#' @section Examples:
-#'
-#' ```{r, comment = "#>"}
+#' @examples
 #' library(sf)
 #' nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #' st_dist_rcpp(nc[1:3,])
-#' ```
 #'
-#' ```{r, comment = "#>"}
 #' nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
-#' # massive speedup
-#' microbenchmark::microbenchmark(
-#' 	 sf = sf::st_distance(nc_long),
-#'   parallel = st_dist_rcpp(nc_long),
-#'   times = 1
-#' )
-#' ```
+#' sf::st_distance(nc_long)
+#' st_dist_rcpp(nc_long)
 #'
 #' @export
 st_dist_rcpp <- function(x, y = x, unit = "mi") {

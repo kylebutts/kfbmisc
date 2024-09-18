@@ -22,10 +22,12 @@ points and you want to extract information about the county/census tract/etc.
 
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
+#> Warning: package 'sf' was built under R version 4.4.1
+#> Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
 set.seed(1)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
-#>   `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/sf/shape/nc.shp' 
+#>   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' 
 #>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
@@ -38,19 +40,19 @@ x
 #> Simple feature collection with 10 features and 2 fields
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: -82.75835 ymin: 34.93753 xmax: -76.35794 ymax: 36.30275
+#> Bounding box:  xmin: -82.75835 ymin: 33.91767 xmax: -76.27089 ymax: 36.41003
 #> Geodetic CRS:  NAD27
 #>    id                   geometry CNTY_ID
-#> 1   1 POINT (-79.24443 35.68907)    1973
-#> 2   2 POINT (-76.35794 34.94789)    2156
-#> 3   3 POINT (-78.46464 34.93753)    2083
-#> 4   4 POINT (-78.74558 36.30275)    1840
-#> 5   5  POINT (-82.4975 35.21495)    2047
-#> 6   6  POINT (-82.75835 35.5431)    1988
-#> 7   7  POINT (-78.23211 35.2469)    2029
-#> 8   8 POINT (-77.49777 36.18326)    1846
-#> 9   9 POINT (-79.91082 35.73617)    1968
-#> 10 10 POINT (-77.96082 36.08983)    1913
+#> 1   1 POINT (-81.96962 35.97911)    1892
+#> 2   2 POINT (-81.02428 36.41003)    1827
+#> 3   3 POINT (-79.24443 34.44897)    2150
+#> 4   4 POINT (-76.27089 35.63616)    1963
+#> 5   5 POINT (-78.46464 33.91767)    2241
+#> 6   6 POINT (-78.74558 34.90677)    2090
+#> 7   7 POINT (-82.75835 35.17603)    2067
+#> 8   8  POINT (-78.23211 35.4945)    1989
+#> 9   9 POINT (-80.91805 35.20704)    2041
+#> 10 10 POINT (-79.91082 36.11566)    1903
 }\if{html}{\out{</div>}}
 }
 

@@ -4,16 +4,14 @@
 library(kfbmisc)
 library(tidyverse)
 library(here)
-library(pilot)
 
-# %% 
 df <- read_csv(
   here("gallery/data/line-chart.csv"),
   show_col_types = FALSE
 )
 
-# %% 
-(plot <- 
+# %%
+(plot <-
   ggplot(
     data = df
   ) +
@@ -23,7 +21,7 @@ df <- read_csv(
       x = quarter,
       y = estimate,
       color = flow
-    ), 
+    ),
     linewidth = 1.6
   ) +
   # Set labels for the axes, legend, and caption, but don't set titles here
@@ -38,7 +36,7 @@ df <- read_csv(
   scale_x_date(
     breaks = lubridate::as_date(
       paste0(seq(2010, 2020, 2), "-01-01")
-    ), 
+    ),
     date_labels = "%Y"
   ) +
   scale_y_continuous(
@@ -47,8 +45,8 @@ df <- read_csv(
     expand = c(0, 0)
   ) +
   scale_color_manual(values = c(
-    "Immigration" = pilot_color("navy"),
-    "Net migration" = pilot_color("blue")
+    "Immigration" = kyle_color("navy"),
+    "Net migration" = kyle_color("blue")
   )) +
   theme_kyle(
     base_size = 14,
@@ -61,7 +59,7 @@ df <- read_csv(
     legend.direction = "horizontal"
   ))
 
-# %% 
+# %%
 tikzsave(
   filename = here("gallery/figures/line-chart.pdf"),
   plot = plot, width = 8, height = 5.5,

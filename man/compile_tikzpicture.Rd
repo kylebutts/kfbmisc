@@ -7,6 +7,7 @@
 compile_tikzpicture(
   filename,
   packages = NULL,
+  pre_begin_document = NULL,
   recompile = TRUE,
   create_png = FALSE
 )
@@ -14,9 +15,13 @@ compile_tikzpicture(
 \arguments{
 \item{filename}{Character. Filename of a tikzpicture in \code{.tex} file}
 
-\item{packages}{Vector of strings. Absolute file paths to \code{.sty} files to
+\item{packages}{Vector of strings. If no \verb{\\} is detected, then this is
+assumed to be an absolute file paths to a \code{.sty} file to
 include in preamble. Default is my \code{paper.sty} and \code{math.sty} in
 \code{inst/tikzsave}.}
+
+\item{pre_begin_document}{Verbatim text to include right before
+\verb{\\begin\{document\}}}
 
 \item{recompile}{Logical. If FALSE, does not update if pdf date
 is newer than the tex date.}

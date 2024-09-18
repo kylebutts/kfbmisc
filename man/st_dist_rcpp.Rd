@@ -22,46 +22,13 @@ Matrix of distances of dimension n_x by n_y.
 \description{
 RcppParallel version of \code{st_distance}
 }
-\section{Examples}{
-
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
+\examples{
+library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source 
-#>   `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/sf/shape/nc.shp' 
-#>   using driver `ESRI Shapefile'
-#> Simple feature collection with 100 features and 14 fields
-#> Geometry type: MULTIPOLYGON
-#> Dimension:     XY
-#> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-#> Geodetic CRS:  NAD27
 st_dist_rcpp(nc[1:3,])
-#> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
-#> results for longitude/latitude data
-#> [1] "Distance in miles. To use kilometers use option `unit == 'km'`"
-#>          [,1]     [,2]     [,3]
-#> [1,]  0.00000 20.50102 44.71554
-#> [2,] 20.50102  0.00000 25.17342
-#> [3,] 44.71554 25.17342  0.00000
-}\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
-# massive speedup
-microbenchmark::microbenchmark(
-	 sf = sf::st_distance(nc_long),
-  parallel = st_dist_rcpp(nc_long),
-  times = 1
-)
-#> Warning in st_point_on_surface.sfc(x): st_point_on_surface may not give correct
-#> results for longitude/latitude data
-#> [1] "Distance in miles. To use kilometers use option `unit == 'km'`"
-#> Unit: milliseconds
-#>      expr         min          lq        mean      median          uq
-#>        sf 3967.234948 3967.234948 3967.234948 3967.234948 3967.234948
-#>  parallel    5.899777    5.899777    5.899777    5.899777    5.899777
-#>          max neval
-#>  3967.234948     1
-#>     5.899777     1
-}\if{html}{\out{</div>}}
+nc_long <- nc[rep(seq_len(nrow(nc)), 5), ]
+sf::st_distance(nc_long)
+st_dist_rcpp(nc_long)
+
 }
-

@@ -8,6 +8,7 @@ tikzsave(
   filename,
   plot = ggplot2::last_plot(),
   packages = NULL,
+  pre_begin_document = NULL,
   recompile = TRUE,
   create_png = FALSE,
   quiet = TRUE,
@@ -19,9 +20,13 @@ tikzsave(
 
 \item{plot}{Plot to save, defaults to last plot displayed.}
 
-\item{packages}{Vector of strings. Absolute file paths to \code{.sty} files to
+\item{packages}{Vector of strings. If no \verb{\\} is detected, then this is
+assumed to be an absolute file paths to a \code{.sty} file to
 include in preamble. Default is my \code{paper.sty} and \code{math.sty} in
 \code{inst/tikzsave}.}
+
+\item{pre_begin_document}{Verbatim text to include right before
+\verb{\\begin\{document\}}}
 
 \item{recompile}{Logical. Since \code{tikzDevice::tikz} caches effectively,
 sometimes the \code{.pdf} file will be newer than the saved \code{.tex} file.
