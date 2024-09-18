@@ -59,6 +59,7 @@ ggplot(penguins) +
 
 ``` r
 library(sf)
+#> Warning: package 'sf' was built under R version 4.4.1
 #> Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
 nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 
@@ -66,17 +67,18 @@ ggplot(nc) +
   geom_sf(aes(fill = BIR74)) +
   scale_fill_fermenter(
     direction = 1, palette = 3,
-    guide = guide_colorbar()
+    guide = guide_colorbar(direction = "horizontal")
   ) + 
   labs(fill = "1974 Births") +
-  theme_kyle(
-    base_size = 12,
-  ) + 
+  theme_kyle(base_size = 12) + 
   theme_map() +
   theme(
-    legend.position = "bottom",
+    legend.position = "inside",
+    legend.position.inside = c(0.1, 0.07),
+    legend.justification = c(0, 0),
     legend.title.position = "top",
-    legend.key.width = unit(4, "lines")
+    legend.key.width = unit(3, "lines"),
+    legend.key.height = unit(0.5, "lines")
   )
 ```
 
@@ -135,10 +137,3 @@ Facets](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter-chart-f
 [Stacked Column
 Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/stacked-column-chart.R)
 <img src="gallery/figures/stacked-column-chart.png" width="100%" />
-
-[Map](https://github.com/kylebutts/kfbmisc/blob/master/gallery/map.R)
-<img src="gallery/figures/map.png" width="100%" />
-
-[Facet
-Map](https://github.com/kylebutts/kfbmisc/blob/master/gallery/map.R)
-<img src="gallery/figures/facet_map.png" width="100%" />
