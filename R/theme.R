@@ -51,7 +51,16 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #' @return A ggplot2 theme
 #'
 #' @export
-theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "hv", map = FALSE, scale = 1.125, ...) {
+theme_kyle <- function(
+  base_size = 14, 
+  axes = "bl", 
+  grid = "hv", 
+  grid_minor = "hv", 
+  legend = c("top", "bottom", "right"),
+  map = FALSE, 
+  scale = 1.125, 
+  ...
+) {
   # Fluid scale: https://utopia.fyi/type/
   SCALE <- scale
 
@@ -231,6 +240,26 @@ theme_kyle <- function(base_size = 14, axes = "bl", grid = "hv", grid_minor = "h
         axis.line.x.bottom = ggplot2::element_blank(),
         axis.line.y.left = ggplot2::element_blank(),
         axis.line.y.right = ggplot2::element_blank(),
+        complete = TRUE
+      )
+  }
+
+  if (legend == "top") {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(
+        legend.position = "top",
+        legend.margin = margin(0, 0, 5, 0),
+        legend.justification = c(0, 1),
+        legend.location = "plot",
+        complete = TRUE
+      )
+  } else if (legend == "bottom") {
+    theme_kyle <- theme_kyle %+replace%
+      ggplot2::theme(
+        legend.position = "bottom",
+        legend.margin = margin(5, 0, 0, 0),
+        legend.justification = "center",
+        legend.location = "plot",
         complete = TRUE
       )
   }

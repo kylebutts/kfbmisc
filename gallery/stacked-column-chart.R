@@ -49,14 +49,8 @@ df <-
   ) +
   theme_kyle(
     base_size = 14,
-    grid = "h"
-  ) +
-  theme(
-    legend.position = "top",
-    legend.margin = margin(0, 0, 5, 0),
-    legend.justification = c(0, 1),
-    legend.location = "plot"
-  )
+    grid = "h", legend = "top"
+  ) 
 )
 
 # %%
