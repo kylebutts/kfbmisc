@@ -4,10 +4,10 @@
 \alias{kyle_color}
 \title{Get color from my palette by name}
 \usage{
-kyle_color(color = NULL)
+kyle_color(...)
 }
 \arguments{
-\item{color}{Character(s) of colors}
+\item{...}{Character(s) of colors}
 }
 \value{
 Vector of colors. If color is null, returns the full palette.
@@ -15,4 +15,9 @@ Otherwise, the vector is the corresponding colors
 }
 \description{
 Get color from my palette by name
+}
+\examples{
+kyle_color()
+kyle_color("magenta", "blue")
+
 }

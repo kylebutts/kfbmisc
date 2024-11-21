@@ -27,6 +27,7 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #'   the gridlines to show by including the matching characters in the string:
 #'   "h" for horizontal, "v" for vertical. The default is "hv",
 #'   meaning both gridlines are shown by default.
+#' @param legend Either "top", "bottom", or "right".
 #' @param scale logical.
 #' @param map Logical. If true, clear axes and plot for maps. Could also add
 #'   `theme_map` to plot
@@ -56,7 +57,7 @@ theme_kyle <- function(
   axes = "bl", 
   grid = "hv", 
   grid_minor = "hv", 
-  legend = c("top", "bottom", "right"),
+  legend = "right",
   map = FALSE, 
   scale = 1.125, 
   ...

@@ -9,6 +9,7 @@ theme_kyle(
   axes = "bl",
   grid = "hv",
   grid_minor = "hv",
+  legend = "right",
   map = FALSE,
   scale = 1.125,
   ...
@@ -34,6 +35,8 @@ meaning both gridlines are shown by default.}
 the gridlines to show by including the matching characters in the string:
 "h" for horizontal, "v" for vertical. The default is "hv",
 meaning both gridlines are shown by default.}
+
+\item{legend}{Either "top", "bottom", or "right".}
 
 \item{map}{Logical. If true, clear axes and plot for maps. Could also add
 \code{theme_map} to plot}
