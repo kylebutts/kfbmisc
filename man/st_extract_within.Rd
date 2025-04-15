@@ -22,11 +22,11 @@ points and you want to extract information about the county/census tract/etc.
 
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
-#> Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
+#> Linking to GEOS 3.13.0, GDAL 3.8.5, PROJ 9.5.1; sf_use_s2() is TRUE
 set.seed(1)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
-#>   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' 
+#>   `/Users/kbutts/Library/R/arm64/4.4/library/sf/shape/nc.shp' 
 #>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
@@ -34,9 +34,6 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
 x <- st_as_sf(data.frame(id = 1:10, geometry = st_sample(nc, 10)))
-#> Warning in st_poly_sample(x, size = size, ..., type = type, by_polygon =
-#> by_polygon, : coordinate ranges not computed along great circles; install
-#> package lwgeom to get rid of this warning
 x$CNTY_ID = st_extract_within(x, nc, "CNTY_ID")
 x
 #> Simple feature collection with 10 features and 2 fields

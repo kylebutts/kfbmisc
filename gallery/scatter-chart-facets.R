@@ -54,22 +54,31 @@ df$classification <- factor(df$classification, levels = settlement_classes)
     limits = c(0.5, 0.8),
     label = scales::percent_format(accuracy = 1, suffix = "\\%")
   ) +
-  scale_color_manual(values = c(
-    "London" = kyle_color("navy"),
-    "Other city" = kyle_color("magenta"),
-    "Large town" = kyle_color("purple"),
-    "Medium town" = kyle_color("blue"),
-    "Small town" = kyle_color("green"),
-    "Village" = kyle_color("yellow")
-  )) +
+  scale_color_manual(
+    values = c(
+      "London" = kyle_color("navy"),
+      "Other city" = kyle_color("magenta"),
+      "Large town" = kyle_color("purple"),
+      "Medium town" = kyle_color("blue"),
+      "Small town" = kyle_color("green"),
+      "Village" = kyle_color("yellow")
+    )
+  ) +
   theme_kyle(
-    base_size = 14, axes = "bl", grid = "hv",
+    base_size = 14,
+    axes = "",
+    grid = "hv",
+    grid_minor = ""
+  ) +
+  theme(
     legend.position = "none"
   ))
 
 # %%
 tikzsave(
   filename = here("gallery/figures/scatter-chart-facets.pdf"),
-  plot, width = 8, height = 6,
+  plot,
+  width = 8,
+  height = 6,
   create_png = TRUE
 )

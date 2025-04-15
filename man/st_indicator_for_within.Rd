@@ -21,7 +21,7 @@ Returns an indicator vector for whether y contains a point of x using st_within
 set.seed(1)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
-#>   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' 
+#>   `/Users/kbutts/Library/R/arm64/4.4/library/sf/shape/nc.shp' 
 #>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
@@ -29,9 +29,6 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
 x <- st_as_sf(data.frame(id = 1:10, geometry = st_sample(nc, 10)))
-#> Warning in st_poly_sample(x, size = size, ..., type = type, by_polygon =
-#> by_polygon, : coordinate ranges not computed along great circles; install
-#> package lwgeom to get rid of this warning
 nc$contains_x = st_indicator_for_within(x, nc)
 nc
 #> Simple feature collection with 100 features and 15 fields

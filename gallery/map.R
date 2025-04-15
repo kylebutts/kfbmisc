@@ -59,32 +59,34 @@ squirrel_colors <- c(
     )
   ) +
   theme_kyle(
-    base_size = 14
+    base_size = 14,
+    map = TRUE
   ) +
-  theme_map() +
   theme(
     legend.position = "inside",
     legend.position.inside = c(0.15, 0.85)
-  )
-)
+  ))
 
 # %%
 (facet_map <- map +
   facet_grid(~primary_fur_color) +
   theme(
     legend.position = "bottom"
-  )
-)
+  ))
 
 # %%
 tikzsave(
   filename = here("gallery/figures/map.pdf"),
-  plot = map, width = 6, height = 5,
+  plot = map,
+  width = 6,
+  height = 5,
   create_png = TRUE
 )
 
 tikzsave(
   filename = here("gallery/figures/facet_map.pdf"),
-  plot = facet_map, width = 8, height = 4.5,
+  plot = facet_map,
+  width = 8,
+  height = 4.5,
   create_png = TRUE
 )

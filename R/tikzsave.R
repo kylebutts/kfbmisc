@@ -35,7 +35,16 @@ tikzsave_minimal_required_preamble <- c(
 #' @return Invisibly returns filename
 #' @export
 #'
-tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, pre_begin_document = NULL, recompile = TRUE, create_png = FALSE, quiet = TRUE, ...) {
+tikzsave <- function(
+  filename,
+  plot = ggplot2::last_plot(),
+  packages = NULL,
+  pre_begin_document = NULL,
+  recompile = TRUE,
+  create_png = FALSE,
+  quiet = TRUE,
+  ...
+) {
   base <- basename(filename)
   dir <- here::here(dirname(filename))
   fs::dir_create(dir)
@@ -46,7 +55,8 @@ tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, pre
   # plot -> tikzpicture
   if (!quiet) message("Saving tikzpicture")
   ggplot2::ggsave(
-    filename = filename, plot = plot,
+    filename = filename,
+    plot = plot,
     device = function(...) {
       tikzDevice::tikz(..., standAlone = FALSE, verbose = FALSE)
     },
@@ -84,7 +94,13 @@ tikzsave <- function(filename, plot = ggplot2::last_plot(), packages = NULL, pre
 #' @return Invisibly returns `TRUE` if compilation succeeds.
 #'
 #' @export
-compile_tikzpicture <- function(filename, packages = NULL, pre_begin_document = NULL, recompile = TRUE, create_png = FALSE) {
+compile_tikzpicture <- function(
+  filename,
+  packages = NULL,
+  pre_begin_document = NULL,
+  recompile = TRUE,
+  create_png = FALSE
+) {
   tex_base <- fs::path_ext_remove(fs::path_file(filename))
   output_dir <- here::here(fs::path_dir(filename))
   fs::dir_create(output_dir)
@@ -137,17 +153,20 @@ compile_tikzpicture <- function(filename, packages = NULL, pre_begin_document = 
   # `latexmk`
   # https://texdoc.org/serve/latexmk/0
   system(
-    glue::glue(r'(
+    glue::glue(
+      r'(
       cd "{compile_temp_dir}" &&
       latexmk -pdf -interaction=nonstopmode -bibtex- -quiet -jobname={tex_base} {temp_tex}
-    )'),
+    )'
+    ),
     ignore.stdout = TRUE
   )
 
   # Copy file to filename
   pdf_name <- fs::path_ext_set(tex_base, "pdf")
   fs::file_copy(
-    fs::path(compile_temp_dir, pdf_name), fs::path(output_dir),
+    fs::path(compile_temp_dir, pdf_name),
+    fs::path(output_dir),
     overwrite = TRUE
   )
 
@@ -158,17 +177,18 @@ compile_tikzpicture <- function(filename, packages = NULL, pre_begin_document = 
   if (create_png == TRUE) {
     png_name <- fs::path_ext_set(tex_base, "png")
     system(
-      glue::glue(r'(
+      glue::glue(
+        r'(
         cd "{here::here(output_dir)}" &&
         magick -density 300 {pdf_name} {png_name}
-      )'),
+      )'
+      ),
       ignore.stdout = TRUE
     )
   }
 
   return(invisible(TRUE))
 }
-
 
 
 # Taken directly from xfun

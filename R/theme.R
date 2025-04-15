@@ -25,12 +25,12 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #'   meaning both gridlines are shown by default.
 #' @param grid_minor A string indicating which gridlines should be shown. Specify
 #'   the gridlines to show by including the matching characters in the string:
-#'   "h" for horizontal, "v" for vertical. The default is "hv",
-#'   meaning both gridlines are shown by default.
+#'   "h" for horizontal, "v" for vertical. The default takes the value of
+#'   `grid` unless overriden.
 #' @param legend Either "top", "bottom", or "right".
 #' @param scale logical.
-#' @param map Logical. If true, clear axes and plot for maps. Could also add
-#'   `theme_map` to plot
+#' @param map Logical. If true, clear axes and plot for maps.
+#'    Could alternatively  add `theme_map` to plot.
 #' @param ... Additional options passed to `ggplot2::theme`
 #'
 #' @examples
@@ -49,35 +49,37 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #'   theme_kyle(base_size = 18)
 #'
 #' @importFrom ggplot2 '%+replace%'
-#' @return A ggplot2 theme
+#' @return A (complete) ggplot2 theme
 #'
 #' @export
 theme_kyle <- function(
-  base_size = 14, 
-  axes = "bl", 
-  grid = "hv", 
-  grid_minor = "hv", 
+  base_size = 14,
+  axes = "bl",
+  grid = "hv",
+  grid_minor = "",
   legend = "right",
-  map = FALSE, 
-  scale = 1.125, 
+  map = FALSE,
+  scale = 1.125,
   ...
 ) {
   # Fluid scale: https://utopia.fyi/type/
   SCALE <- scale
 
-  grid_line_color <- tailwind["grey-300"]
+  grid_line_color <- tailwind_color("zinc-200")
   grid_line <- ggplot2::element_line(
     color = grid_line_color,
-    linewidth = 0.35, linetype = "solid"
+    linewidth = 0.35,
+    linetype = "solid"
   )
 
-  grid_minor_line_color <- tailwind["grey-200"]
+  grid_minor_line_color <- tailwind_color("zinc-200")
   grid_minor_line <- ggplot2::element_line(
     color = grid_minor_line_color,
-    linewidth = 0.2, linetype = "solid"
+    linewidth = 0.2,
+    linetype = "solid"
   )
 
-  axis_line_color <- tailwind["grey-400"]
+  axis_line_color <- tailwind_color("zinc-500")
   axis_line <- ggplot2::element_line(
     color = axis_line_color,
     linewidth = 0.3,
@@ -98,7 +100,8 @@ theme_kyle <- function(
 
       ## Panel
       panel.background = ggplot2::element_rect(
-        color = "white", fill = "white"
+        color = "white",
+        fill = "white"
       ),
       panel.border = ggplot2::element_blank(),
       panel.spacing = grid::unit(1.5, "lines"),
@@ -106,13 +109,13 @@ theme_kyle <- function(
       ## Title & subtitle
       plot.title = ggplot2::element_text(
         size = ggplot2::rel(SCALE^2),
-        color = tailwind["grey-900"],
+        color = tailwind_color("zinc-900"),
         hjust = 0,
         margin = ggplot2::margin(b = 8, unit = "pt")
       ),
       plot.subtitle = ggplot2::element_text(
         size = ggplot2::rel(SCALE),
-        color = tailwind["grey-500"],
+        color = tailwind_color("zinc-500"),
         hjust = 0,
         margin = ggplot2::margin(b = 16, unit = "pt")
       ),
@@ -121,7 +124,7 @@ theme_kyle <- function(
       ## Caption
       plot.caption = ggplot2::element_text(
         size = ggplot2::rel(1 / SCALE),
-        color = tailwind["grey-500"],
+        color = tailwind_color("zinc-500"),
         hjust = 1,
         margin = ggplot2::margin(t = 20)
       ),
@@ -130,10 +133,11 @@ theme_kyle <- function(
       ## Axes
       axis.title = ggplot2::element_text(
         size = ggplot2::rel(1),
-        color = tailwind["grey-800"]
+        color = tailwind_color("zinc-800")
       ),
       axis.title.y = ggplot2::element_text(
-        hjust = 0.5, angle = 90,
+        hjust = 0.5,
+        angle = 90,
         margin = ggplot2::margin(r = 10)
       ),
       axis.title.x = ggplot2::element_text(
@@ -142,35 +146,59 @@ theme_kyle <- function(
       ),
       axis.text = ggplot2::element_text(
         size = ggplot2::rel(1 / SCALE),
-        color = tailwind["grey-700"]
+        color = tailwind_color("zinc-700")
       ),
 
       # Axes
       axis.ticks = axis_line,
       axis.line = axis_line,
       axis.line.x.top = grepl_ifelse(
-        "t", axes, axis_line, ggplot2::element_blank()
+        "t",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
       axis.ticks.x.top = grepl_ifelse(
-        "t", axes, axis_line, ggplot2::element_blank()
+        "t",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
       axis.line.y.right = grepl_ifelse(
-        "r", axes, axis_line, ggplot2::element_blank()
+        "r",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
       axis.ticks.y.right = grepl_ifelse(
-        "r", axes, axis_line, ggplot2::element_blank()
+        "r",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
       axis.line.x.bottom = grepl_ifelse(
-        "b", axes, axis_line, ggplot2::element_blank()
+        "b",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
       axis.ticks.x.bottom = grepl_ifelse(
-        "b", axes, axis_line, ggplot2::element_blank()
+        "b",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
       axis.line.y.left = grepl_ifelse(
-        "l", axes, axis_line, ggplot2::element_blank()
+        "l",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
       axis.ticks.y.left = grepl_ifelse(
-        "l", axes, axis_line, ggplot2::element_blank()
+        "l",
+        axes,
+        axis_line,
+        ggplot2::element_blank()
       ),
 
       ## Legend
@@ -183,11 +211,11 @@ theme_kyle <- function(
       ),
       legend.title = ggplot2::element_text(
         size = ggplot2::rel(1),
-        color = tailwind["grey-700"]
+        color = tailwind_color("zinc-700")
       ),
       legend.text = ggplot2::element_text(
         size = ggplot2::rel(1 / SCALE),
-        color = tailwind["grey-700"]
+        color = tailwind_color("zinc-700")
       ),
 
       ## Facet Wrap
@@ -197,7 +225,7 @@ theme_kyle <- function(
       ),
       strip.text = ggplot2::element_text(
         size = ggplot2::rel(1 / SCALE),
-        color = tailwind["grey-800"],
+        color = tailwind_color("zinc-800"),
         margin = ggplot2::margin(t = 0, b = 8)
       ),
 
@@ -206,16 +234,28 @@ theme_kyle <- function(
       panel.grid.major = grid_line,
       panel.grid.minor = grid_line,
       panel.grid.major.y = grepl_ifelse(
-        "h", grid, grid_line, ggplot2::element_blank()
+        "h",
+        grid,
+        grid_line,
+        ggplot2::element_blank()
       ),
       panel.grid.minor.y = grepl_ifelse(
-        "h", grid_minor, grid_line, ggplot2::element_blank()
+        "h",
+        grid_minor,
+        grid_line,
+        ggplot2::element_blank()
       ),
       panel.grid.major.x = grepl_ifelse(
-        "v", grid, grid_line, ggplot2::element_blank()
+        "v",
+        grid,
+        grid_line,
+        ggplot2::element_blank()
       ),
       panel.grid.minor.x = grepl_ifelse(
-        "v", grid_minor, grid_line, ggplot2::element_blank()
+        "v",
+        grid_minor,
+        grid_line,
+        ggplot2::element_blank()
       ),
 
       # https://ggplot2-book.org/extensions#complete-themes
@@ -252,15 +292,18 @@ theme_kyle <- function(
         legend.margin = margin(0, 0, 5, 0),
         legend.justification = c(0, 1),
         legend.location = "plot",
+        legend.key.spacing.x = unit(12, "pt"),
         complete = TRUE
       )
   } else if (legend == "bottom") {
     theme_kyle <- theme_kyle %+replace%
       ggplot2::theme(
         legend.position = "bottom",
+        legend.title.position = "top",
         legend.margin = margin(5, 0, 0, 0),
         legend.justification = "center",
         legend.location = "plot",
+        legend.key.spacing.x = unit(12, "pt"),
         complete = TRUE
       )
   }
@@ -270,24 +313,6 @@ theme_kyle <- function(
 
   return(theme_kyle)
 }
-
-#' Tailwind color palette
-#'
-#' Source: <https://tailwindcss.com/docs/customizing-colors>
-#' @export
-tailwind <- c(
-  "grey-50"  = "#f9fafb",
-  "grey-100" = "#f3f4f6",
-  "grey-200" = "#e5e7eb",
-  "grey-300" = "#d1d5db",
-  "grey-400" = "#9ca3af",
-  "grey-500" = "#6b7280",
-  "grey-600" = "#4b5563",
-  "grey-700" = "#374151",
-  "grey-800" = "#1f2937",
-  "grey-900" = "#111827",
-  "grey-950" = "#030712"
-)
 
 #' Remove axis for maps
 #'
@@ -309,6 +334,7 @@ theme_map <- function() {
     axis.line.x.top = ggplot2::element_blank(),
     axis.line.x.bottom = ggplot2::element_blank(),
     axis.line.y.left = ggplot2::element_blank(),
-    axis.line.y.right = ggplot2::element_blank()
+    axis.line.y.right = ggplot2::element_blank(),
+    complete = TRUE
   )
 }

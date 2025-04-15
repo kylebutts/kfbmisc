@@ -2,9 +2,9 @@
 #'
 #' @description This function returns the earliest year where an indicator == 1.
 #'   If indicator never equals zero, return Inf.
-#'   This is most useful with 
+#'   This is most useful with
 #'   `mutate(.by = unit, g = get_min_year(year, treat))` or
-#'   `DT(j = g := get_min_year(year, treat), by = unit)` 
+#'   `DT(j = g := get_min_year(year, treat), by = unit)`
 #'   to convert between d and g variable in panel data.
 #'
 #' @param t Vector of years

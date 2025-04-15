@@ -20,8 +20,6 @@ ed_rubin_colors <- c(
 
 # Old: https://projects.susielu.com/viz-palette?colors=[%22#002c55%22,%22#b3114b%22,%22#5c4cbf%22,%22#158ea6%22,%22#f28100%22,%22#77c669%22,%22#ffc517%22]&backgroundColor=%22white%22&fontColor=%22black%22&mode=%22normal%22
 
-
-
 make_swatch <- function(colors) {
   color_df <- data.frame(colors = colors)
   color_df$y <- seq_len(nrow(color_df))
@@ -157,13 +155,20 @@ get_kyle_palette <- function(palette = "seven", reverse = FALSE, ...) {
 #' @param ... Additional arguments passed to \code{discrete_scale} or
 #'   \code{scale_color_gradientn}, depending on the value of \code{discrete}.
 #' @export
-scale_color_kyle <- function(palette = "seven", discrete = TRUE, reverse = FALSE, ...) {
+scale_color_kyle <- function(
+  palette = "seven",
+  discrete = TRUE,
+  reverse = FALSE,
+  ...
+) {
   p <- get_kyle_palette(palette = palette, reverse = reverse)
 
   if (discrete) {
     ggplot2::discrete_scale(
-      "color", paste0("kyle_", palette),
-      palette = p, ...
+      "color",
+      paste0("kyle_", palette),
+      palette = p,
+      ...
     )
   } else {
     ggplot2::scale_color_gradientn(colors = p(256), ...)
@@ -178,13 +183,20 @@ scale_color_kyle <- function(palette = "seven", discrete = TRUE, reverse = FALSE
 #' @param ... Additional arguments passed to \code{discrete_scale} or
 #'   \code{scale_color_gradientn}, depending on the value of \code{discrete}.
 #' @export
-scale_fill_kyle <- function(palette = "seven", discrete = TRUE, reverse = FALSE, ...) {
+scale_fill_kyle <- function(
+  palette = "seven",
+  discrete = TRUE,
+  reverse = FALSE,
+  ...
+) {
   p <- get_kyle_palette(palette = palette, reverse = reverse)
 
   if (discrete) {
     ggplot2::discrete_scale(
-      "fill", paste0("kyle_", palette),
-      palette = p, ...
+      "fill",
+      paste0("kyle_", palette),
+      palette = p,
+      ...
     )
   } else {
     ggplot2::scale_fill_gradientn(colors = p(256), ...)

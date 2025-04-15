@@ -44,13 +44,16 @@ df <- read_csv(
     limits = c(0, 800),
     expand = c(0, 0)
   ) +
-  scale_color_manual(values = c(
-    "Immigration" = kyle_color("navy"),
-    "Net migration" = kyle_color("blue")
-  )) +
+  scale_color_manual(
+    values = c(
+      "Immigration" = kyle_color("navy"),
+      "Net migration" = kyle_color("blue")
+    )
+  ) +
   theme_kyle(
     base_size = 14,
-    axes = "b", grid = "h"
+    axes = "b",
+    grid = "h",
   ) +
   theme(
     legend.position = "inside",
@@ -62,6 +65,8 @@ df <- read_csv(
 # %%
 tikzsave(
   filename = here("gallery/figures/line-chart.pdf"),
-  plot = plot, width = 8, height = 5.5,
+  plot = plot,
+  width = 8,
+  height = 5.5,
   create_png = TRUE
 )

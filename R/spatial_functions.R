@@ -33,8 +33,6 @@ st_extract_within <- function(x, y, var) {
   val <- rep(NA_real_, length(temp))
   idx <- unlist(temp)
 
-
-
   val[!is.na(idx)] <- sf::st_drop_geometry(y)[idx, ][[var]]
 
   return(val)
@@ -140,7 +138,6 @@ st_dist_rcpp <- function(x, y = x, unit = "mi") {
     x <- as.matrix(x)
   }
 
-
   # Symmetric
   if (identical(x, y)) {
     dist <- rcpp_parallel_distm_C(x, x)
@@ -213,7 +210,6 @@ st_nearest_rcpp <- function(x, y = NULL) {
     x <- as.matrix(x)
   }
 
-
   # Symmetric
   if (is.null(y)) {
     idx <- rcpp_parallel_distm_C_min_nonself(x, x)
@@ -282,7 +278,6 @@ st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
   if (inherits(x, "data.frame")) {
     x <- as.matrix(x)
   }
-
 
   # Symmetric
   if (is.null(y)) {

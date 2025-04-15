@@ -14,7 +14,9 @@ create_sparse <- function(i, j, x = 1) {
   j_idx <- indexthis::to_index(j, items = TRUE)
 
   Matrix::sparseMatrix(
-    i = i_idx$index, j = j_idx$index, x = x,
+    i = i_idx$index,
+    j = j_idx$index,
+    x = x,
     dimnames = list(i_idx$items, j_idx$items)
   )
 }

@@ -8,8 +8,8 @@ theme_kyle(
   base_size = 14,
   axes = "bl",
   grid = "hv",
-  grid_minor = "hv",
-  legend = "right",
+  grid_minor = "",
+  legend = "bottom",
   map = FALSE,
   scale = 1.125,
   ...
@@ -33,20 +33,20 @@ meaning both gridlines are shown by default.}
 
 \item{grid_minor}{A string indicating which gridlines should be shown. Specify
 the gridlines to show by including the matching characters in the string:
-"h" for horizontal, "v" for vertical. The default is "hv",
-meaning both gridlines are shown by default.}
+"h" for horizontal, "v" for vertical. The default takes the value of
+\code{grid} unless overriden.}
 
 \item{legend}{Either "top", "bottom", or "right".}
 
-\item{map}{Logical. If true, clear axes and plot for maps. Could also add
-\code{theme_map} to plot}
+\item{map}{Logical. If true, clear axes and plot for maps.
+Could alternatively  add \code{theme_map} to plot.}
 
 \item{scale}{logical.}
 
 \item{...}{Additional options passed to \code{ggplot2::theme}}
 }
 \value{
-A ggplot2 theme
+A (complete) ggplot2 theme
 }
 \description{
 Custom ggplot2 theme

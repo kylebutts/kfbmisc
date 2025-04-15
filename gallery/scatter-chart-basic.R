@@ -32,12 +32,13 @@ mpg$class <- mpg$class |>
     legend.position = "bottom",
     legend.justification = c(0.5, 0),
     legend.location = "plot"
-  )
-)
+  ))
 
 # %%
 tikzsave(
   filename = here("gallery/figures/scatter-chart.pdf"),
-  plot = plot, width = 8, height = 5,
+  plot = plot,
+  width = 8,
+  height = 5,
   create_png = TRUE
 )

@@ -42,8 +42,6 @@ ggpreview <- function(..., device = "png") {
 }
 
 
-
-
 #' Create image grob from png and output the width and height
 #'
 #' This takes a png file and converts it to a grob. This is useful in

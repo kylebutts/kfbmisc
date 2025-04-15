@@ -45,17 +45,26 @@ df <-
       "British" = kyle_color("rose"),
       "EU" = kyle_color("navy"),
       "Non-EU" = kyle_color("blue")
+    ),
+    guide = guide_legend(
+      keywidth = unit(8, "pt"),
+      keyheight = unit(2, "pt")
     )
   ) +
   theme_kyle(
     base_size = 14,
-    grid = "h", legend = "top"
-  ) 
-)
+    grid = "hv",
+    legend = "top"
+  ) +
+  theme(
+    legend.key.spacing.x = unit(12, "pt"),
+  ))
 
 # %%
 tikzsave(
   filename = here("gallery/figures/stacked-column-chart.pdf"),
-  plot = plot, width = 8, height = 5,
+  plot = plot,
+  width = 8,
+  height = 5,
   create_png = TRUE
 )
