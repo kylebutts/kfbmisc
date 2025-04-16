@@ -6,7 +6,7 @@ library(tidyverse)
 library(here)
 
 df <- read_csv(
-  here("gallery/data/line-chart.csv"),
+  here("gallery/data/line_chart.csv"),
   show_col_types = FALSE
 )
 
@@ -64,7 +64,7 @@ df <- read_csv(
 
 # %%
 tikzsave(
-  filename = here("gallery/figures/line-chart.pdf"),
+  filename = here("gallery/figures/line_chart.pdf"),
   plot = plot,
   width = 8,
   height = 5.5,

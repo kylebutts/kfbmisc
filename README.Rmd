@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  fig.path = "man/figures/README_",
   dpi = 300,
   out.width = "100%"
 )
@@ -116,7 +116,7 @@ p = ggplot(penguins) +
 ```{r}
 # `plot` -> `tikzpicture` -> `pdf`
 tikzsave(
-  "man/figures/README-penguins.pdf",
+  "man/figures/README_penguins.pdf",
   p, width = 8, height = 4,
   # uses `imagemagick` to convert to png 
   create_png = TRUE
@@ -125,22 +125,26 @@ tikzsave(
 
 ```{r}
 #| echo: false
-knitr::include_graphics("man/figures/README-penguins.png")
+knitr::include_graphics("man/figures/README_penguins.png")
 ```
 
 ### Additional Examples
 
 Most of these examples are taken from [`pilot`](https://github.com/olihawkins/pilot). The source code can be found in `gallery/`:
 
-[Line Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/line-chart.R)
-`r knitr::include_graphics("gallery/figures/line-chart.png")`
+[Line Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/line_chart.R)
+`r knitr::include_graphics("gallery/figures/line_chart.png")`
 
-[Scatter Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter-chart-basic.R)
-`r knitr::include_graphics("gallery/figures/scatter-chart.png")`
+[Scatter Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter_chart_basic.R)
+`r knitr::include_graphics("gallery/figures/scatter_chart.png")`
 
-[Scatter Chart Facets](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter-chart-facets.R)
-`r knitr::include_graphics("gallery/figures/scatter-chart-facets.png")`
+[Scatter Chart Facets](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter_chart_facets.R)
+`r knitr::include_graphics("gallery/figures/scatter_chart_facets.png")`
 
-[Stacked Column Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/stacked-column-chart.R)
-`r knitr::include_graphics("gallery/figures/stacked-column-chart.png")`
+[Stacked Column Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/stacked_column_chart.R)
+`r knitr::include_graphics("gallery/figures/stacked_column_chart.png")`
+
+[Custom Labels](https://github.com/kylebutts/kfbmisc/blob/master/gallery/label_ex.R)
+`r knitr::include_graphics("gallery/figures/reg_line_with_label.png")`
+
 

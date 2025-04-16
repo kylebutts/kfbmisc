@@ -7,7 +7,7 @@ library(here)
 
 df <-
   read_csv(
-    here("gallery/data/stacked-column-chart.csv"),
+    here("gallery/data/stacked_column_chart.csv"),
     show_col_types = FALSE
   ) |>
   mutate(
@@ -62,7 +62,7 @@ df <-
 
 # %%
 tikzsave(
-  filename = here("gallery/figures/stacked-column-chart.pdf"),
+  filename = here("gallery/figures/stacked_column_chart.pdf"),
   plot = plot,
   width = 8,
   height = 5,

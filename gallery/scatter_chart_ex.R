@@ -36,7 +36,7 @@ mpg$class <- mpg$class |>
 
 # %%
 tikzsave(
-  filename = here("gallery/figures/scatter-chart.pdf"),
+  filename = here("gallery/figures/scatter_chart.pdf"),
   plot = plot,
   width = 8,
   height = 5,

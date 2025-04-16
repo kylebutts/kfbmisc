@@ -123,8 +123,8 @@ Most of these examples are taken from
 found in `gallery/`:
 
 [Line
-Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/line-chart.R)
-<img src="gallery/figures/line-chart.png" width="100%" />
+Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/line_chart.R)
+<img src="gallery/figures/line_chart.png" width="100%" />
 
 [Scatter
 Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter-chart-basic.R)

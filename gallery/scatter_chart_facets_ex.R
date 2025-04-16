@@ -7,7 +7,7 @@ library(scales)
 library(here)
 
 df <- read_csv(
-  here("gallery/data/scatter-chart-facets.csv"),
+  here("gallery/data/scatter_chart_facets.csv"),
   show_col_types = FALSE
 ) |>
   filter(!is.na(classification))
@@ -76,7 +76,7 @@ df$classification <- factor(df$classification, levels = settlement_classes)
 
 # %%
 tikzsave(
-  filename = here("gallery/figures/scatter-chart-facets.pdf"),
+  filename = here("gallery/figures/scatter_chart_facets.pdf"),
   plot,
   width = 8,
   height = 6,
