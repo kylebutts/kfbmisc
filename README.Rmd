@@ -41,56 +41,46 @@ This is a relatively simple theme that makes the font larger for figures and add
 ```{r}
 #| fig.width: 8
 #| fig.height: 4
-library(ggplot2)
+library(tidyverse)
 library(palmerpenguins)
-
-penguins = subset(penguins, !is.na(body_mass_g) & !is.na(bill_length_mm))
-
+penguins = penguins |> drop_na(body_mass_g, bill_length_mm, sex)
 ggplot(penguins) +
-  geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm), shape = 21) +
   labs(
     x = "Body mass", y = "Bill length"
   ) +
-  theme_kyle(base_size = 12)
+  theme_kyle()
 ```
 
 ```{r}
 #| fig.width: 8
 #| fig.height: 4
 ggplot(penguins) +
-  geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
-  facet_wrap(~ species) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm, color = species), shape = 21) +
+  scale_color_manual(
+    values = kfbmisc::kyle_color("magenta", "blue", "green")
+  ) + 
   labs(
-    x = "Body mass", y = "Bill length"
+    x = "Body mass", y = "Bill length", color = NULL
   ) +
-  theme_kyle(base_size = 12)
+  theme_kyle(legend = "top")
 ```
-
-### Maps
 
 ```{r}
 #| fig.width: 8
-#| fig.height: 5
-library(sf)
-nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-
-ggplot(nc) +
-  geom_sf(aes(fill = BIR74)) +
-  scale_fill_fermenter(
-    direction = 1, palette = 3,
-    guide = guide_colorbar(direction = "horizontal")
+#| fig.height: 4
+ggplot(
+  penguins |> mutate(sex = str_to_title(sex))
+) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm, color = species), shape = 21) +
+  facet_wrap(~ sex) +
+  scale_color_manual(
+    values = kfbmisc::kyle_color("magenta", "blue", "green")
   ) + 
-  labs(fill = "1974 Births") +
-  theme_kyle(base_size = 12) + 
-  theme_map() +
-  theme(
-    legend.position = "inside",
-    legend.position.inside = c(0.1, 0.07),
-    legend.justification = c(0, 0),
-    legend.title.position = "top",
-    legend.key.width = unit(3, "lines"),
-    legend.key.height = unit(0.5, "lines")
-  )
+  labs(
+    x = "Body mass", y = "Bill length", color = NULL
+  ) +
+  theme_kyle(legend = "top")
 ```
 
 ### `tikzsave`
@@ -101,16 +91,20 @@ title_str = paste0(
   "$\\hat{y} = ", round(coef(mod)[1], 1), " + ", round(coef(mod)[2], 3), "x$"
 )
 p = ggplot(penguins) +
-  geom_point(aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(x = body_mass_g, y = bill_length_mm), shape = 21) +
   geom_smooth(
     aes(x = body_mass_g, y = bill_length_mm), 
-    method = lm, formula = y ~ x
+    color = kfbmisc::kyle_color("blue"),
+    fill = colorspace::lighten(kfbmisc::kyle_color("blue"), 0.8),
+    method = "lm",
+    formula = y ~ x,
+    linewidth = 1.5,
   ) +
   labs(
     x = "Body mass", y = "Bill length",
-    title = title_str
+    title = sprintf("$\\hat{y} = %0.1f + %0.3f x$", coef(mod)[1], coef(mod)[2])
   ) +
-  theme_kyle(base_size = 12)
+  theme_kyle() 
 ```
 
 ```{r}
@@ -128,23 +122,57 @@ tikzsave(
 knitr::include_graphics("man/figures/README_penguins.png")
 ```
 
+
+### Maps
+
+```{r}
+#| fig.width: 8
+#| fig.height: 5
+library(sf)
+nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+
+(map <- ggplot(nc) +
+  geom_sf(aes(fill = BIR74)) +
+  scale_fill_fermenter(
+    direction = 1, palette = 3,
+    guide = guide_colorbar(direction = "horizontal")
+  ) + 
+  labs(fill = "1974 Births") +
+  theme_kyle(map = TRUE) +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(0.1, 0.07),
+    legend.justification = c(0, 0),
+    legend.title.position = "top",
+    legend.key = element_rect(fill ="red"),
+    legend.key.size = unit(5, "lines"),
+    legend.key.height = unit(16, "pt")
+  ))
+```
+
+
 ### Additional Examples
 
 Most of these examples are taken from [`pilot`](https://github.com/olihawkins/pilot). The source code can be found in `gallery/`:
 
-[Line Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/line_chart.R)
+#### [Line Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/line_chart.R)
+
 `r knitr::include_graphics("gallery/figures/line_chart.png")`
 
-[Scatter Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter_chart_basic.R)
+#### [Scatter Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/
+scatter_chart_basic.R)
 `r knitr::include_graphics("gallery/figures/scatter_chart.png")`
 
-[Scatter Chart Facets](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter_chart_facets.R)
+#### [Scatter Chart Facets](https://github.com/kylebutts/kfbmisc/blob/master/gallery/
+scatter_chart_facets.R)
 `r knitr::include_graphics("gallery/figures/scatter_chart_facets.png")`
 
-[Stacked Column Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/stacked_column_chart.R)
+#### [Stacked Column Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/
+stacked_column_chart.R)
 `r knitr::include_graphics("gallery/figures/stacked_column_chart.png")`
 
-[Custom Labels](https://github.com/kylebutts/kfbmisc/blob/master/gallery/label_ex.R)
+#### [Custom Labels](https://github.com/kylebutts/kfbmisc/blob/master/gallery/label_ex.R)
+
 `r knitr::include_graphics("gallery/figures/reg_line_with_label.png")`
 
 

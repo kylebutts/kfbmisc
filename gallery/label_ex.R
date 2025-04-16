@@ -16,9 +16,9 @@ reg <- lm(body_mass_g ~ bill_length_mm, palmerpenguins::penguins)
   ) +
   geom_smooth(
     aes(x = body_mass_g, y = bill_length_mm),
+    data = palmerpenguins::penguins,
     color = kfbmisc::kyle_color("blue"),
     fill = colorspace::lighten(kfbmisc::kyle_color("blue"), 0.8),
-    data = palmerpenguins::penguins,
     method = "lm",
     formula = y ~ x,
     linewidth = 1.5,
