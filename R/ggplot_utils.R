@@ -12,7 +12,7 @@
 #' @param label.r radius of rounded corners
 #' @param label.padding padding around the label
 #' @param hjust horizontal justification
-#' @param vjust vertical justification
+#' @param vjust vertical justificationw
 #'
 #' @return A ggplot layer object with a textbox annotation
 #'
