@@ -1,3 +1,117 @@
+#' Nice looking annotations using `ggtext``
+#'
+#' @param label Text to be displayed
+#' @param x x coordinate of the label
+#' @param y y coordinate of the label
+#' @param size Text size in points
+#' @param width width of textbox
+#' @param text.color color of text
+#' @param fill background color
+#' @param border.color color of border
+#' @param linewidth width of border
+#' @param label.r radius of rounded corners
+#' @param label.padding padding around the label
+#' @param hjust horizontal justification
+#' @param vjust vertical justification
+#'
+#' @return A ggplot layer object with a textbox annotation
+#'
+#' @export
+kyle_textbox <- function(
+  label,
+  x,
+  y,
+  size = 10,
+  width = unit(0.2, "npc"),
+  text.color = tailwind_color("zinc-800"),
+  fill = "white",
+  box.color = tailwind_color("zinc-300"),
+  box.size = unit(0.5, "pt"),
+  box.r = unit(4, "pt"),
+  box.padding = unit(c(6, 6, 6, 6), "pt"),
+  hjust = 0,
+  vjust = 1
+) {
+  annotate(
+    "textbox",
+    label = label,
+    x = x,
+    y = y,
+    width = width,
+    size = pt_to_mm(size),
+    text.color = text.color,
+    fill = fill,
+    box.color = box.color,
+    box.r = box.r,
+    box.padding = box.padding,
+    box.size = box.size,
+    hjust = hjust,
+    vjust = vjust
+  )
+}
+#' Convert a numeric vector specified in pt to mm
+#' @param x Numeric vector of units specified in pt
+#' @return Numeric vector of units specified in mm
+#' @export
+pt_to_mm <- function(x) {
+  # 72.27 pt = 1 in
+  # 1 in = 25.4 mm
+  return(x / 72.72 * 25.4)
+}
+
+
+#' Custom default for `label` annotation
+#'
+#' @param label Text to be displayed
+#' @param x x coordinate of the label
+#' @param y y coordinate of the label
+#' @param size Text size in points
+#' @param size.unit units for size
+#' @param text.color color of text
+#' @param fill background color
+#' @param border.color color of border
+#' @param linewidth width of border
+#' @param label.r radius of rounded corners
+#' @param label.padding padding around the label
+#' @param hjust horizontal justification
+#' @param vjust vertical justification
+#'
+#' @return A ggplot layer object with a label annotation
+#'
+#' @export
+kyle_label <- function(
+  label,
+  x,
+  y,
+  size = 10,
+  size.unit = "pt",
+  text.color = tailwind_color("zinc-800"),
+  fill = "white",
+  border.color = tailwind_color("zinc-300"),
+  linewidth = 0.5,
+  label.r = unit(4, "pt"),
+  label.padding = unit(6, "pt"),
+  hjust = 0,
+  vjust = 1
+) {
+  annotate(
+    "label",
+    label = label,
+    x = x,
+    y = y,
+    size = size,
+    size.unit = size.unit,
+    text.color = text.color,
+    fill = fill,
+    border.color = border.color,
+    linewidth = linewidth,
+    label.r = label.r,
+    label.padding = label.padding,
+    hjust = 0,
+    vjust = 1,
+  )
+}
+
 #' Preview output from \code{ggsave()}
 #'
 #' Displays a preview of what a ggplot-based plot looks like after being saved

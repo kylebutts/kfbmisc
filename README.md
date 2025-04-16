@@ -137,3 +137,6 @@ Facets](https://github.com/kylebutts/kfbmisc/blob/master/gallery/scatter-chart-f
 [Stacked Column
 Chart](https://github.com/kylebutts/kfbmisc/blob/master/gallery/stacked-column-chart.R)
 <img src="gallery/figures/stacked-column-chart.png" width="100%" />
+
+[Custom Labels](https://github.com/kylebutts/kfbmisc/blob/master/gallery/label_ex.R)
+<img src="gallery/figures/reg_line_with_label.png" width="100%" />

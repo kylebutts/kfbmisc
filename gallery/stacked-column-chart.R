@@ -52,7 +52,7 @@ df <-
     )
   ) +
   theme_kyle(
-    base_size = 14,
+    base_size = 12,
     grid = "hv",
     legend = "top"
   ) +

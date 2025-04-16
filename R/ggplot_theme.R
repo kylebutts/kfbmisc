@@ -53,7 +53,7 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #'
 #' @export
 theme_kyle <- function(
-  base_size = 14,
+  base_size = 12,
   axes = "bl",
   grid = "hv",
   grid_minor = "",

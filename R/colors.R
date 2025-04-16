@@ -51,7 +51,7 @@ ex_scatter_plot <- function(colors) {
       values = unname(colors),
       guide = guide_legend(nrow = 2)
     ) +
-    theme_kyle(base_size = 14) +
+    theme_kyle(base_size = 12) +
     theme(
       legend.position = "bottom",
       legend.justification = c(0.5, 0)

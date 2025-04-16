@@ -65,7 +65,7 @@ df$classification <- factor(df$classification, levels = settlement_classes)
     )
   ) +
   theme_kyle(
-    base_size = 14,
+    base_size = 12,
     axes = "",
     grid = "hv",
     grid_minor = ""

@@ -41,7 +41,7 @@ squirrel_colors <- c(
 (map <- ggplot() +
   geom_sf(
     data = central_park,
-    color = tailwind["grey-300"],
+    color = kfbmisc::tailwind_color("zinc-300"),
     linewidth = 0.5
   ) +
   geom_sf(
@@ -59,7 +59,7 @@ squirrel_colors <- c(
     )
   ) +
   theme_kyle(
-    base_size = 14,
+    base_size = 12,
     map = TRUE
   ) +
   theme(

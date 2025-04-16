@@ -51,7 +51,7 @@ df <- read_csv(
     )
   ) +
   theme_kyle(
-    base_size = 14,
+    base_size = 12,
     axes = "b",
     grid = "h",
   ) +
