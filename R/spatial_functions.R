@@ -309,13 +309,9 @@ st_nearest_distance_rcpp <- function(x, y = NULL, unit = "mi") {
   }
 
   if (unit == "km") {
-    print("Distance in kilometers. To use miles use option `unit == 'mi'`")
     mat[, 2] <- mat[, 2] / 0.621371
   } else if (unit == "m") {
-    print("Distance in meters. To use miles use option `unit == 'mi'`")
     mat[, 2] <- mat[, 2] / 0.621371 * 1000
-  } else {
-    print("Distance in miles. To use kilometers use option `unit == 'km'`")
   }
 
   return(mat)

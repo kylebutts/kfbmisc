@@ -1,4 +1,7 @@
-# TODO: Adapt from `theme_bw()` base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22,
+## TODO: Add default discrete palette https://www.tidyverse.org/blog/2025/10/ggplot2-styling/#palettes
+## TODO: Consider moving axes, grid, and legend to theme setting bundles
+## https://www.tidyverse.org/blog/2025/10/ggplot2-styling/#bundling-theme-settings
+## TODO: Adapt from `theme_bw()` base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22,
 
 # Needed b/c ggplot2::element_* acts weird with `ifelse`
 grepl_ifelse <- function(pattern, x, yes, no) {
@@ -53,7 +56,7 @@ grepl_ifelse <- function(pattern, x, yes, no) {
 #'
 #' @export
 theme_kyle <- function(
-  base_size = 12,
+  base_size = 14,
   axes = "bl",
   grid = "hv",
   grid_minor = "",
@@ -258,52 +261,40 @@ theme_kyle <- function(
         ggplot2::element_blank()
       ),
 
+      ## Palettes
+      ## https://tidyverse.org/blog/2025/09/ggplot2-4-0-0/#discrete-scales
+      # palette.colour.continuous = c("chartreuse", "forestgreen"),
+      # palette.colour.discrete = c(),
+      # palette.fill.continuous = c("chartreuse", "forestgreen"),
+      # palette.fill.discrete = c(),
+
       # https://ggplot2-book.org/extensions#complete-themes
       complete = TRUE
     )
 
   if (map == TRUE) {
-    theme_kyle <- theme_kyle %+replace%
-      ggplot2::theme(
-        panel.background = ggplot2::element_blank(),
-        panel.border = ggplot2::element_blank(),
-        panel.grid.major = ggplot2::element_blank(),
-        panel.grid.minor = ggplot2::element_blank(),
-        axis.title = ggplot2::element_blank(),
-        axis.text = ggplot2::element_blank(),
-        axis.ticks = ggplot2::element_blank(),
-        axis.ticks.x.top = ggplot2::element_blank(),
-        axis.ticks.x.bottom = ggplot2::element_blank(),
-        axis.ticks.y.left = ggplot2::element_blank(),
-        axis.ticks.y.right = ggplot2::element_blank(),
-        axis.line = ggplot2::element_blank(),
-        axis.line.x.top = ggplot2::element_blank(),
-        axis.line.x.bottom = ggplot2::element_blank(),
-        axis.line.y.left = ggplot2::element_blank(),
-        axis.line.y.right = ggplot2::element_blank(),
-        complete = TRUE
-      )
+    theme_kyle <- theme_kyle %+replace% map_settings()
   }
 
   if (legend == "top") {
     theme_kyle <- theme_kyle %+replace%
       ggplot2::theme(
-        legend.position = "top",
-        legend.margin = margin(0, 0, 5, 0),
-        legend.justification = c(0, 1),
         legend.location = "plot",
-        legend.key.spacing.x = unit(12, "pt"),
+        legend.position = "top",
+        legend.justification = c(0, 1),
+        legend.margin = ggplot2::margin(0, 0, 5, 0),
+        legend.key.spacing.x = ggplot2::unit(12, "pt"),
         complete = TRUE
       )
   } else if (legend == "bottom") {
     theme_kyle <- theme_kyle %+replace%
       ggplot2::theme(
+        legend.location = "plot",
         legend.position = "bottom",
         legend.title.position = "top",
-        legend.margin = margin(5, 0, 0, 0),
         legend.justification = "center",
-        legend.location = "plot",
-        legend.key.spacing.x = unit(12, "pt"),
+        legend.margin = ggplot2::margin(5, 0, 0, 0),
+        legend.key.spacing.x = ggplot2::unit(12, "pt"),
         complete = TRUE
       )
   }
@@ -318,8 +309,10 @@ theme_kyle <- function(
 #'
 #' Add this to `theme_kyle` to produce maps without axis lines.
 #'
+#' @aliases theme_map
+#'
 #' @export
-theme_map <- function() {
+map_settings <- function() {
   ggplot2::theme(
     panel.background = ggplot2::element_rect(fill = "white"),
     panel.grid.major = ggplot2::element_blank(),
@@ -336,5 +329,28 @@ theme_map <- function() {
     axis.line.y.left = ggplot2::element_blank(),
     axis.line.y.right = ggplot2::element_blank(),
     complete = TRUE
+  )
+}
+
+theme_map <- map_settings
+
+#' Make colorbar the full width
+#' @export
+colorbar_settings <- function() {
+  ggplot2::theme(
+    legend.title.position = "top",
+    # Stretch bar across width of panels
+    legend.key.width = ggplot2::unit(1, "null"),
+    legend.margin = ggplot2::margin_part(l = 0, r = 0),
+    legend.justification.bottom = "left"
+  )
+}
+
+#' Settings for bar charts
+#' @export
+barchart_settings <- function() {
+  list(
+    ggplot2::theme(panel.grid.major = ggplot2::element_blank()),
+    ggplot2::coord_cartesian(expand = c(bottom = FALSE))
   )
 }

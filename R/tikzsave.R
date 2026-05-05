@@ -34,7 +34,6 @@ tikzsave_minimal_required_preamble <- c(
 #'
 #' @return Invisibly returns filename
 #' @export
-#'
 tikzsave <- function(
   filename,
   plot = ggplot2::last_plot(),
@@ -53,7 +52,9 @@ tikzsave <- function(
   filename <- fs::path_ext_set(here::here(dir, base), ".tex")
 
   # plot -> tikzpicture
-  if (!quiet) message("Saving tikzpicture")
+  if (!quiet) {
+    message("Saving tikzpicture")
+  }
   ggplot2::ggsave(
     filename = filename,
     plot = plot,
@@ -63,7 +64,9 @@ tikzsave <- function(
     ...
   )
 
-  if (!quiet) message("Compiling tikzpicture to pdf")
+  if (!quiet) {
+    message("Compiling tikzpicture to pdf")
+  }
   compile_tikzpicture(
     filename = filename,
     packages = packages,
@@ -153,11 +156,11 @@ compile_tikzpicture <- function(
   # `latexmk`
   # https://texdoc.org/serve/latexmk/0
   system(
-    glue::glue(
-      r'(
-      cd "{compile_temp_dir}" &&
-      latexmk -pdf -interaction=nonstopmode -bibtex- -quiet -jobname={tex_base} {temp_tex}
-    )'
+    sprintf(
+      "cd \"%s\" && latexmk -pdf -interaction=nonstopmode -bibtex- -quiet -jobname=%s %s",
+      compile_temp_dir,
+      tex_base,
+      temp_tex
     ),
     ignore.stdout = TRUE
   )
@@ -177,11 +180,11 @@ compile_tikzpicture <- function(
   if (create_png == TRUE) {
     png_name <- fs::path_ext_set(tex_base, "png")
     system(
-      glue::glue(
-        r'(
-        cd "{here::here(output_dir)}" &&
-        magick -density 300 {pdf_name} {png_name}
-      )'
+      sprintf(
+        "cd \"%s\" && magick -density 300 %s %s",
+        here::here(output_dir),
+        pdf_name,
+        png_name
       ),
       ignore.stdout = TRUE
     )

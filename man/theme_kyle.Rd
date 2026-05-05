@@ -5,7 +5,7 @@
 \title{Custom ggplot2 theme}
 \usage{
 theme_kyle(
-  base_size = 12,
+  base_size = 14,
   axes = "bl",
   grid = "hv",
   grid_minor = "",

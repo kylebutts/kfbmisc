@@ -22,10 +22,11 @@ points and you want to extract information about the county/census tract/etc.
 
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(sf)
+#> Linking to GEOS 3.13.0, GDAL 3.8.5, PROJ 9.5.1; sf_use_s2() is TRUE
 set.seed(1)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source 
-#>   `/Users/kbutts/Library/R/arm64/4.4/library/sf/shape/nc.shp' 
+#>   `/Users/kbutts/Library/R/arm64/4.5/library/sf/shape/nc.shp' 
 #>   using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON

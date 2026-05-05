@@ -17,14 +17,10 @@ LazyData: true
 RoxygenNote: 7.3.2
 Imports: 
     fs,
-    ggplot2,
-    ggtext,
-    glue,
-    gt,
+    ggplot2 (>= 4.0.0),
     here,
-    htmltools,
     indexthis,
-    pagedown,
+    Matrix,
     png,
     Rcpp,
     RcppParallel,

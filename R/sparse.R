@@ -9,6 +9,7 @@
 #' create_sparse(i, j)
 #'
 #' @return A sparse matrix of class `dgCMatrix` from the Matrix package
+#' @export
 create_sparse <- function(i, j, x = 1) {
   i_idx <- indexthis::to_index(i, items = TRUE)
   j_idx <- indexthis::to_index(j, items = TRUE)
