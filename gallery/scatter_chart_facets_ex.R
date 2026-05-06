@@ -56,7 +56,7 @@ df$classification <- factor(df$classification, levels = settlement_classes)
   ) +
   scale_color_manual(
     values = c(
-      "London" = kyle_color("navy"),
+      "London" = kyle_color("teal"),
       "Other city" = kyle_color("magenta"),
       "Large town" = kyle_color("purple"),
       "Medium town" = kyle_color("blue"),

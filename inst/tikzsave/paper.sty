@@ -4,7 +4,7 @@
 \renewcommand{\baselinestretch}{1.5}
 
 % Remove annoying over-full box warnings when it is small
-\vfuzz=2pt 
+\vfuzz=2pt
 \hfuzz=2pt
 
 % Latex Programming tools ------------------------------------------------------
@@ -21,13 +21,12 @@
 % Source Code Pro for monospace font
 \usepackage[scale=0.88]{plex-mono}
 
-
 % % Sans-serif option:
 % % Lato for sans-serif text font
 % \usepackage[default]{lato}
 % % Source Code Pro for monospace font
 % \usepackage[scale=0.95]{plex-mono}
-%  
+%
 
 % Small adjustments to text kerning
 \usepackage{microtype}
@@ -38,7 +37,7 @@
 \usepackage{dsfont}
 
 % Define Theorems --------------------------------------------------------------
-% Put proper spacing after Theorem #. 
+% Put proper spacing after Theorem #.
 \newtheoremstyle{spacing}
 {\topsep}{\topsep}%   Space above nad below
 {}%                   Body font
@@ -49,7 +48,7 @@
 {}%                   Thm head spec (can be left empty, meaning `normal')
 
 % Create different theorem environments and setup \autoref for them
-% \label{X:label_name} should match \Xautorefname 
+% \label{X:label_name} should match \Xautorefname
 \theoremstyle{spacing}
 \newtheorem{theorem}{Theorem}
 \newcommand{\theoremautorefname}{Theorem}
@@ -68,14 +67,13 @@
 \newtheorem{remark}{Remark}
 \newcommand{\remarkautorefname}{Remark}
 
-
 % Appendix ---------------------------------------------------------------------
 % when calling \appendix in the main document, appends this after
 \apptocmd{\appendix}{
   % Section numbering (A.1)
   \renewcommand{\thesection}{\Alph{section}}
   \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
-  
+
   % Figures and tables
   \numberwithin{figure}{section}
   \numberwithin{table}{section}
@@ -83,14 +81,14 @@
   \setcounter{figure}{0}
   \renewcommand{\thetable}{\thesection\arabic{table}}
   \renewcommand{\thefigure}{\thesection\arabic{figure}}
-  
+
   % Equations
   \numberwithin{equation}{section}
   \setcounter{equation}{0}
 
   % Theorems
   \setcounter{theorem}{0}
-  \setcounter{proposition}{0} 
+  \setcounter{proposition}{0}
   \setcounter{lemma}{0}
   \setcounter{corollary}{0}
   \setcounter{definition}{0}
@@ -105,7 +103,6 @@
   \renewcommand{\theassumption}{\thesection.\arabic{assumption}}
   \renewcommand{\theremark}{\thesection.\arabic{remark}}
 }{}{}
-
 
 % Colors -----------------------------------------------------------------------
 
@@ -154,7 +151,6 @@
 \definecolor{zinc900}{HTML}{18181b}
 \definecolor{zinc950}{HTML}{09090b}
 
-
 % Hyperlinks -------------------------------------------------------------------
 \usepackage{hyperref}
 \hypersetup{
@@ -168,17 +164,16 @@
 \usepackage[explicit]{titlesec}
 
 \titleformat{\section}
-  {\large \bf}
-  {\thesection \,---}
-  {0.25em}
-  {#1}
-  
-\titleformat{\subsection}
-  {\fontsize{12}{10}\it}
-  {\thesubsection.}
-  {0.5em}
-  {#1}
+{\large \bf}
+{\thesection \,---}
+{0.25em}
+{#1}
 
+\titleformat{\subsection}
+{\fontsize{12}{10}\it}
+{\thesubsection.}
+{0.5em}
+{#1}
 
 % Titlepage --------------------------------------------------------------------
 \usepackage{titling}
@@ -187,28 +182,31 @@
 \renewcommand{\today}{\ifcase \month \or January\or February\or March\or April\or May \or June\or July\or August\or September\or October\or November\or December\fi\ \number \year}
 
 % Title
-\pretitle{\begin{center}\huge}
-\posttitle{\par\end{center}}
+\pretitle{
+\begin{center}\huge}
+  \posttitle{\par
+\end{center}}
 
 % Author
 \preauthor{
   \begin{center}\Large\renewcommand{\arraystretch}{0.75}
-  \begin{tabular}[t]{c}
-}
-\postauthor{
-  \end{tabular}
+    \begin{tabular}[t]{c}
+    }
+    \postauthor{
+    \end{tabular}
   \end{center}
 }
 
 % Date
-\predate{\begin{center}\large\scshape\color{zinc700}}
-\postdate{\end{center}}
+\predate{
+\begin{center}\large\scshape\color{zinc700}}
+  \postdate{
+\end{center}}
 
 % Abstract
 \renewenvironment{abstract}
-  {\noindent\rule{\linewidth}{.5pt}\noindent}
-  {\noindent\rule{\linewidth}{.5pt}}
-
+{\noindent\rule{\linewidth}{.5pt}\noindent}
+{\noindent\rule{\linewidth}{.5pt}}
 
 % Footnote ---------------------------------------------------------------------
 % Spacing between footnotes on same page
@@ -229,7 +227,6 @@
 }
 \makeatother
 
-
 % Table and Figure labelling ---------------------------------------------------
 \usepackage{caption}
 \usepackage{graphicx}
@@ -247,7 +244,6 @@
 % \begin{subfigure}\caption{} \end{subfigure}
 \usepackage{subcaption}
 \captionsetup*[subfigure]{format=plain, font={jet, footnotesize, bf}}
-
 
 % Tables -----------------------------------------------------------------------
 % Fix \input with tables
@@ -285,16 +281,16 @@
 % If tables are too narrow, fill columns using:
 % \begin{tabularx}{\linewidth}{cols}
 % col-types: X - center, L - left, R -right
-% If you want relative scale for columns: 
+% If you want relative scale for columns:
 % >{\hsize=.8\hsize}X/L/R
 \usepackage{tabularx}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 
-% Landscape table 
+% Landscape table
 % \begin{landscape}\pagestyle{lscaped}
-%   ... 
+%   ...
 % \end{landscsape}
 % \usepackage{lscape} - does not rotate page in pdf (tilt of head required)
 % \usepackage{pdflscape} - rotates page (no tilt of head required)
@@ -303,13 +299,13 @@
 % For landscape, fix page number location
 \usepackage{fancyhdr}
 \fancypagestyle{lscaped}{%
-    \fancyhf{}
-    \renewcommand{\headrulewidth}{0pt}
-    \textnormal
-    \fancyfoot{%
-        \tikz[remember picture,overlay]
-        \node[outer sep=2.5cm,above,rotate=90] at (current page.east) {\thepage};
-    }
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \textnormal
+  \fancyfoot{%
+    \tikz[remember picture,overlay]
+    \node[outer sep=2.5cm,above,rotate=90] at (current page.east) {\thepage};
+  }
 }
 
 % Bibliography -----------------------------------------------------------------
@@ -323,12 +319,12 @@
 % \bibliographystyle{econ-aea}
 
 % Biblatex
-% 
+%
 % Source: https://social-science-data-editors.github.io/guidance/citations/guidance_data_citations_biblatex.pdf
 % Source: https://github.com/dmsul/biblatex-aer/blob/master/biblatex-aer.tex
 \usepackage[
   style = chicago-authordate,
-  doi = true, 
+  doi = true,
   backend = biber,
   backref = true, % Prints back references e.g (cit. pp. 1)
   backrefstyle = none, % How to sequence page numbers in back references
@@ -337,9 +333,9 @@
   natbib = true
 ]{biblatex}
 \usepackage[
-  authordate, 
+  authordate,
   backend = biber,
-  uniquename = false, 
+  uniquename = false,
   noibid
 ]{biblatex-chicago}
 
@@ -356,10 +352,10 @@
 
 % Make author names bold in References but not in body of paper
 % 1. Check if name belongs to 'labelname' (Whoever the bib entry is sorted on, i.e., the author(s) or, if no author, editor(s), but not an editor if an author is present). This check keeps entries with both authors and editors from having both sets of names bolded.
-\def\ifmknamebold{\ifboolexpr{%  
-  test {\ifcurrentname{labelname}}
-  or test {\ifcurrentname{author}}
-  or ( test {\ifnameundef{author}} and test {\ifcurrentname{editor}} )
+\def\ifmknamebold{\ifboolexpr{%
+    test {\ifcurrentname{labelname}}
+    or test {\ifcurrentname{author}}
+    or ( test {\ifnameundef{author}} and test {\ifcurrentname{editor}} )
 }}
 
 % Re-define naming commands to bold if necessary (but only in bibliography)
@@ -369,13 +365,12 @@
   \renewcommand*{\mkbibnameprefix}[1]{\ifmknamebold{\mkbibbold{#1}}{#1}}
   \renewcommand*{\mkbibnamesuffix}[1]{\ifmknamebold{\mkbibbold{#1}}{#1}}
   \renewcommand*{\finalnamedelim}{\ifmknamebold{%
-    \mkbibbold{\finalandcomma\addspace\bibstring{and}\addspace}%
-  }{%     
-    % Check for 'if editors with no author, only add a comma before 'and' if there are more than three authors. ('labelname' guys don't need these check because first name is reversed and so always has a comma, even with only two people, e.g., Nash, Steve, and Amare Stoudamire.
-    \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}\addspace\bibstring{and}\addspace%
+      \mkbibbold{\finalandcomma\addspace\bibstring{and}\addspace}%
+    }{%
+      % Check for 'if editors with no author, only add a comma before 'and' if there are more than three authors. ('labelname' guys don't need these check because first name is reversed and so always has a comma, even with only two people, e.g., Nash, Steve, and Amare Stoudamire.
+      \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}\addspace\bibstring{and}\addspace%
   }}
 }
-
 
 % Enumerate/Itemize ------------------------------------------------------------
 \usepackage[shortlabels]{enumitem}
@@ -385,12 +380,10 @@
 \setlist[enumerate,1]{leftmargin=\parindent,label=\color{zinc600}{\upshape\arabic*.}}
 \setlist[enumerate,2]{leftmargin=2\parindent,label=\color{zinc600}{\upshape\roman*.}}
 
-
 % tikz support -----------------------------------------------------------------
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-
 
 % Coauthors comments that you can hide -----------------------------------------
 % Define in the main document:
@@ -398,6 +391,5 @@
 % \newcommand{\kyle}[1]{\comment[Kyle]{#1}}
 \newbool{INCLUDECOMMENTS}
 \NewDocumentCommand{\coauthorComment}{O{NAME} +m}{%
-    \ifbool{INCLUDECOMMENTS}{{\color{cranberry}\textbf{#1:} #2}}{}
+  \ifbool{INCLUDECOMMENTS}{{\color{cranberry}\textbf{#1:} #2}}{}
 }
-

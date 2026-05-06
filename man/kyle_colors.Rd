@@ -5,15 +5,18 @@
 \alias{kyle_colors}
 \title{Set of colors for graphics that I like}
 \format{
-An object of class \code{character} of length 7.
+An object of class \code{character} of length 8.
 }
 \usage{
 kyle_colors
 }
 \description{
-They are accessible: https://projects.susielu.com/viz-palette?colors=\link[="#002c55","#b3114b","#5c4cbf","#158ea6","#fb7185","#77c669","#ffc517"]{\%22#002c55\%22,\%22#b3114b\%22,\%22#5c4cbf\%22,\%22#158ea6\%22,\%22#fb7185\%22,\%22#77c669\%22,\%22#ffc517\%22}&backgroundColor=\%22white\%22&fontColor=\%22black\%22&mode=\%22achromatopsia\%22
+They are accessible:
+https://projects.susielu.com/viz-palette?colors=\%5B\%22\%2348000f\%22\%2C\%22\%23003a40\%22\%2C\%22\%2351419f\%22\%2C\%22\%23158ea6\%22\%2C\%22\%23fb7185\%22\%2C\%22\%2377c669\%22\%2C\%22\%23ffc517\%22\%5D&backgroundColor=\%22white\%22&fontColor=\%22black\%22&mode=\%22none\%22
 }
 \details{
-The order of the colors go from dark to light
+The order of the colors are ordered for adding more colors to a chart that are visually distinct
+
+From dark to light: crimson, teal, magenta, purple, blue, rose, green, yellow
 }
 \keyword{datasets}

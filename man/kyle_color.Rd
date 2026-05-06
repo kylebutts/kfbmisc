@@ -16,9 +16,3 @@ Otherwise, the vector is the corresponding colors
 \description{
 Get color from my palette by name
 }
-\examples{
-kyle_color()
-kyle_color("magenta", "blue")
-kyle_color(c("magenta", "blue"))
-
-}

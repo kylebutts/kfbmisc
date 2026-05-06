@@ -46,7 +46,7 @@ df <- read_csv(
   ) +
   scale_color_manual(
     values = c(
-      "Immigration" = kyle_color("navy"),
+      "Immigration" = kyle_color("teal"),
       "Net migration" = kyle_color("blue")
     )
   ) +

@@ -23,18 +23,8 @@ reg <- lm(body_mass_g ~ bill_length_mm, palmerpenguins::penguins)
     formula = y ~ x,
     linewidth = 1.5,
   ) +
-  # geom_textbox(
-  #   label = sprintf(
-  #     "Slope = $%0.2f$ $(%0.2f)$",
-  #     coef(reg)["bill_length_mm"],
-  #     se(reg)["bill_length_mm"]
-  #   ),
-  #   x = 2650,
-  #   y = 58.5,
-  #   color = "black",
-  #   max.width = unit(0.4, "npc")
-  # ) +
-  kfbmisc::kyle_textbox(
+  annotate(
+    "label",
     label = sprintf(
       "Slope = $%0.2f$ $(%0.2f)$",
       coef(reg)["bill_length_mm"],
@@ -42,19 +32,13 @@ reg <- lm(body_mass_g ~ bill_length_mm, palmerpenguins::penguins)
     ),
     x = 2650,
     y = 58.5,
-    box.size = unit(0.5, "pt"),
-    width = unit(0.19, "npc"),
-    fill = "white"
+    hjust = 0,
+    vjust = 1,
+    text.color = tailwind_color("zinc-800"),
+    border.color = tailwind_color("zinc-300"),
+    label.padding = unit(2, "pt"),
+    label.r = unit(0, "pt"),
   ) +
-  # kfbmisc::kyle_label(
-  #   label = sprintf(
-  #     "Slope = $%0.2f$ $(%0.2f)$",
-  #     coef(reg)["bill_length_mm"],
-  #     se(reg)["bill_length_mm"]
-  #   ),
-  #   x = 2650,
-  #   y = 52.5,
-  # ) +
   labs(
     x = "Body Mass (g)",
     y = "Bill Length (mm)",

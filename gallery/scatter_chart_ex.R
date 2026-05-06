@@ -27,12 +27,7 @@ mpg$class <- mpg$class |>
   guides(
     color = guide_legend(nrow = 2)
   ) +
-  theme_kyle(base_size = 12, axes = "") +
-  theme(
-    legend.position = "bottom",
-    legend.justification = c(0.5, 0),
-    legend.location = "plot"
-  ))
+  theme_kyle(base_size = 12, legend = "bottom", axes = ""))
 
 # %%
 tikzsave(

@@ -43,7 +43,7 @@ df <-
   scale_fill_manual(
     values = c(
       "British" = kyle_color("rose"),
-      "EU" = kyle_color("navy"),
+      "EU" = kyle_color("teal"),
       "Non-EU" = kyle_color("blue")
     ),
     guide = guide_legend(
